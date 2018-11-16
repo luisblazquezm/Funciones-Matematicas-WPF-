@@ -8,7 +8,22 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="GraphicTableUI">
 
-    <Grid>
-        <TextBlock Text="GraphicTable"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
-    </Grid>
+    <!--StackPanel para la tabla-->
+    <StackPanel Margin="5" Width="750" Height="130">
+        <!-- Tabla de tipo DataGrid-->
+        <DataGrid Width="750" Height="130"
+                      AutoGenerateColumns="False"
+                      Name="tableGrid" >
+            <DataGrid.Columns>
+                    <DataGridCheckBoxColumn MinWidth="50" 
+                                            Header="Visible"
+                                            Binding="{Binding Path=isVisible}"/>
+                    <DataGridComboBoxColumn MinWidth="250" 
+                                            Header="Color"/>
+                    <DataGridTextColumn MinWidth="400" 
+                                        Header="Function"
+                                        Binding="{Binding Path=name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
 </Page>

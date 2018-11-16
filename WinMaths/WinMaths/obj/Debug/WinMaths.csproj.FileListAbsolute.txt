@@ -27,3 +27,4 @@ C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\GraphicTableUI.baml
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\ImportUI.baml
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\MainWindow.baml
+C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\PlaceHolderTextBoxDictionary.baml
