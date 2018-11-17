@@ -21,46 +21,17 @@ namespace WinMaths
     /// </summary>
     public partial class MainWindow : Window
     {
+        private PreferencesMenuUI PreferencesMenuUIVar;
+
         public MainWindow()
         {
             InitializeComponent();
+            PreferencesMenuUIVar = new PreferencesMenuUI();
+            /*
+             *  Me suscribo a esta ventana y al main al evento de close para que si se cierra una se cierren las dos
+             */
+            PreferencesMenuUIVar.Show();
         }
 
-        private void ButtonPopUpLogout_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonOpenMenu.Visibility = Visibility.Collapsed;
-            ButtonCloseMenu.Visibility = Visibility.Visible;
-        }
-
-        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
-        {
-            ButtonOpenMenu.Visibility = Visibility.Visible;
-            ButtonCloseMenu.Visibility = Visibility.Collapsed;
-        }
-
-        private void GraphicTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Main.Content = new GraphicTableUI();
-        }
-
-        private void Import_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Main.Content = new ImportUI();
-        }
-
-        private void GraphicDephinition_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
-        {
-            Main.Content = new GraphicDephinitionUI();
-        }
-
-        private void Export_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Main.Content = new ExportUI();
-        }
     }
 }
