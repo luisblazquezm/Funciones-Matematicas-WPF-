@@ -4,8 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WinMaths.src.views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="780"
       Title="GraphicDephinitionUI">
 
     <Grid>
@@ -29,52 +31,196 @@
                 
             </ProgressBar>
         </WrapPanel>
-        <GroupBox Header="Definición de Parametros" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0">
-            <!-- Nombre de la nueva grafica -->
-            <WrapPanel Grid.Row="1" Grid.Column="0" >
-                <Label Margin="5" Content="Función:"/>
-                <ComboBox Width="240">
+
+        <!-- Check Verde Completado -->
+        <WrapPanel  Margin="40,20,20,20" Width="50" Height="40" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+            <!-- Está escondido por defecto, habrá que habilitarlo cuando la barra de progreso esté llena-->
+            <materialDesign:PackIcon Kind="CheckboxMarkedCircleOutline" Foreground="Green" Width="25" Height="25" Margin="10" VerticalAlignment="Center" MouseDoubleClick="GraphicDephinition_MouseDoubleClick_1" Visibility="Hidden"/>
+        </WrapPanel>
+
+        <!-- GroupBox de Definición de Función -->
+        <GroupBox Header="Definición de Función" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Margin="10" Style="{x:Null}">
+            <GroupBox.Template>
+                <ControlTemplate TargetType="{x:Type GroupBox}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="6"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="4" Grid.Column="0" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3"/>
+                        <Border BorderBrush="White" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="4" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3">
+                            <Border.OpacityMask>
+                                <MultiBinding ConverterParameter="7">
+                                    <MultiBinding.Converter>
+                                        <BorderGapMaskConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding ElementName="Header" Path="ActualWidth"/>
+                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                                </MultiBinding>
+                            </Border.OpacityMask>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                <Border BorderBrush="White" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"/>
+                            </Border>
+                        </Border>
+                        <Border x:Name="Header" Grid.Column="1" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Background="LightGreen" BorderBrush="Black" CornerRadius="2" BorderThickness="1">
+                            <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ContentPresenter Grid.ColumnSpan="2" Grid.Column="1" Margin="{TemplateBinding Padding}" Grid.Row="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Grid>
+                </ControlTemplate>
+            </GroupBox.Template>
+            <TextBlock HorizontalAlignment="Center" Width="360">
+                <!-- Panel para guardar el nombre y la función -->
+                <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10">
+                    
+                    <!-- Funcion de la nueva grafica -->
+                    <WrapPanel Height="60">
+                        <Label Margin="5" Content="Función:" />
+                        <ComboBox Width="240">
+
+                        </ComboBox>
+                    </WrapPanel>
                 
-                </ComboBox>
-                <!-- Nombre de la nueva grafica -->
-                <WrapPanel Grid.Row="2" Grid.Column="0" >
-                    <Label Margin="5" Content="Nombre:" Height="31"/>
-                    <Border BorderBrush="Black" BorderThickness="0,0,0,1" Width="240" Height="20">
-                        <StackPanel Orientation="Horizontal" Width="260" Height="20">
-                            <TextBox Style="{StaticResource placeHolder}" Tag="Name of customer" Width="260" Margin="0,0,0,-3"/>
-                        </StackPanel>
-                    </Border>
+                    <!-- Nombre de la nueva grafica -->
+                    <WrapPanel Grid.Row="2" Grid.Column="0" >
+                        <Label Margin="5" Content="Nombre:" Height="31"/>
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Width="240" Height="20">
+                            <StackPanel Orientation="Horizontal" Width="260" Height="20">
+                                <TextBox Style="{StaticResource placeHolder}" Tag="Name of customer" Width="260" Margin="0,0,0,-3"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+                    
                 </WrapPanel>
-
-            </WrapPanel>
-
-
+            </TextBlock>
         </GroupBox>
 
-        <GroupBox Header="Definición de Parametros" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1">
-            <!-- Panel para guardar A ,B y C-->
-            <WrapPanel Grid.Row="1" Grid.Column="1" Height="180" HorizontalAlignment="Center" Width="200">
-                <!-- Parametro A -->
-                <WrapPanel Width="180" Height="50">
-                    <Label Margin="5" Content="A:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                    <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
-                </WrapPanel>
+        <!-- GroupBox de Definición de Parametros -->
+        <GroupBox Header="Definición de Parametros" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Margin="10" Style="{x:Null}">
+            <GroupBox.Template>
+                <ControlTemplate TargetType="{x:Type GroupBox}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="6"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="4" Grid.Column="0" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3"/>
+                        <Border BorderBrush="White" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="4" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3">
+                            <Border.OpacityMask>
+                                <MultiBinding ConverterParameter="7">
+                                    <MultiBinding.Converter>
+                                        <BorderGapMaskConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding ElementName="Header" Path="ActualWidth"/>
+                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                                </MultiBinding>
+                            </Border.OpacityMask>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                <Border BorderBrush="White" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"/>
+                            </Border>
+                        </Border>
+                        <Border x:Name="Header" Grid.Column="1" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Background="LightGreen" BorderBrush="Black" CornerRadius="2" BorderThickness="1">
+                            <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ContentPresenter Grid.ColumnSpan="2" Grid.Column="1" Margin="{TemplateBinding Padding}" Grid.Row="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Grid>
+                </ControlTemplate>
+            </GroupBox.Template>
+            <TextBlock HorizontalAlignment="Center">
+                <!-- Panel para guardar A ,B y C-->
+                <WrapPanel Grid.Row="1" Grid.Column="1" Height="180" HorizontalAlignment="Center" Width="200">
+                    
+                    <!-- Parametro A -->
+                    <WrapPanel Width="180" Height="60">
+                        <Label Margin="5" Content="A:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                        <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                    </WrapPanel>
 
-                <!-- Parametro B -->
-                <WrapPanel Width="180" Height="50">
-                    <Label Margin="5" Content="B:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                    <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
-                </WrapPanel>
+                    <!-- Parametro B -->
+                    <WrapPanel Width="180" Height="70">
+                        <Label Margin="5" Content="B:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                        <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                    </WrapPanel>
 
-                <!-- Parametro C -->
-                <WrapPanel Width="180" Height="50">
-                    <Label Margin="5" Content="C:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                    <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                    <!-- Parametro C -->
+                    <WrapPanel Width="180" Height="50">
+                        <Label Margin="5" Content="C:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                        <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                    </WrapPanel>
+                    
                 </WrapPanel>
-
-            </WrapPanel>
+            </TextBlock>
         </GroupBox>
 
+
+        <!-- GroupBox de Apariencia -->
+        <GroupBox Header="Apariencia" Grid.Row="4" Grid.RowSpan="3" Grid.Column="0"  Grid.ColumnSpan="2" Margin="10" Style="{x:Null}">
+            <GroupBox.Template>
+                <ControlTemplate TargetType="{x:Type GroupBox}">
+                    <Grid SnapsToDevicePixels="true">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="6"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="6"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="4" Grid.Column="0" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3"/>
+                        <Border BorderBrush="White" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="4" CornerRadius="4" Grid.Row="1" Grid.RowSpan="3">
+                            <Border.OpacityMask>
+                                <MultiBinding ConverterParameter="7">
+                                    <MultiBinding.Converter>
+                                        <BorderGapMaskConverter />
+                                    </MultiBinding.Converter>
+                                    <Binding ElementName="Header" Path="ActualWidth"/>
+                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                                </MultiBinding>
+                            </Border.OpacityMask>
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
+                                <Border BorderBrush="White" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"/>
+                            </Border>
+                        </Border>
+                        <Border x:Name="Header" Grid.Column="1" Padding="3,1,3,0" Grid.Row="0" Grid.RowSpan="2" Background="LightGreen" BorderBrush="Black" CornerRadius="2" BorderThickness="1">
+                            <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ContentPresenter Grid.ColumnSpan="2" Grid.Column="1" Margin="{TemplateBinding Padding}" Grid.Row="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Grid>
+                </ControlTemplate>
+            </GroupBox.Template>
+            <TextBlock HorizontalAlignment="Center">
+                    
+                    <!-- Parametro A -->
+                    <WrapPanel Width="250" Height="50">
+                        <Label Margin="5" Content="Color:" Height="31" Width="40" HorizontalAlignment="Left"/>
+                        <xctk:ColorPicker Name="ColorSelectionCP" Margin="5" Width="130"/>
+                    </WrapPanel>
+                    
+            </TextBlock>
+        </GroupBox>
         
     </Grid>
 </Page>
