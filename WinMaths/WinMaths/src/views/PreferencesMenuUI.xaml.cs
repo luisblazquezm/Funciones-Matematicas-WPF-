@@ -24,6 +24,11 @@ namespace WinMaths.src.views
             InitializeComponent();
         }
 
+        private void Panel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
         private void ButtonPopUpLogout_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

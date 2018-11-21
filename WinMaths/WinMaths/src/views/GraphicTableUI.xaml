@@ -9,18 +9,18 @@
       Title="GraphicTableUI">
 
     <!--StackPanel para la tabla-->
-    <StackPanel Margin="5" Width="750" Height="130">
+    <StackPanel Margin="25,30,25,90" Width="750">
         <!-- Tabla de tipo DataGrid-->
-        <DataGrid Width="750" Height="130"
+        <DataGrid Width="750" Height="330"
                       AutoGenerateColumns="False"
                       Name="tableGrid" >
             <DataGrid.Columns>
-                    <DataGridCheckBoxColumn MinWidth="50" 
+                <DataGridCheckBoxColumn MinWidth="100" 
                                             Header="Visible"
                                             Binding="{Binding Path=isVisible}"/>
-                    <DataGridComboBoxColumn MinWidth="250" 
+                <DataGridComboBoxColumn MinWidth="250" 
                                             Header="Color"/>
-                    <DataGridTextColumn MinWidth="400" 
+                <DataGridTextColumn MinWidth="400" 
                                         Header="Function"
                                         Binding="{Binding Path=name}"/>
             </DataGrid.Columns>

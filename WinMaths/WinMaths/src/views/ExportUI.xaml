@@ -9,6 +9,60 @@
       Title="ExportUI">
 
     <Grid>
-        <TextBlock Text="Export"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
+        <!-- Grid con 6 filas y 2 columnas-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="47*"/>
+        </Grid.RowDefinitions>
+
+        <!-- GroupBox de Importar Imagen-->
+        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Imagen" Grid.Row="0" Tag="Name of customer" Margin="20,10,36,10">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!-- Panel para guardar A ,B y C-->
+                <WrapPanel Grid.Row="1" Grid.Column="1" Height="89" HorizontalAlignment="Center" VerticalAlignment="Center" Width="458">
+                    
+                        <Label Margin="5" Content="Formato a Importar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <ComboBox Width="303" Height="25" Margin="5" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
+                        <Button Margin="150 0 0 30" Width="140"/>
+                    
+                </WrapPanel>
+            </TextBlock>
+        </GroupBox>
+
+        <!-- GroupBox de Importar Graficas-->
+        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Datos" Tag="Name of customer" Margin="20,0,36,10" Grid.Row="1">
+            <Grid HorizontalAlignment="Center" Margin="10,0,13,0" Width="691">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <DataGrid Height="218"
+                          Width="300"
+                          AutoGenerateColumns="False"
+                          Name="TableGrid" Margin="0,0,-3,-3" Grid.Column="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="400" 
+                                            Header="Function"
+                                            Binding="{Binding Path=name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Margin="30" VerticalAlignment="Top" Grid.Column="1" Width="40"/>
+                <Button Margin="30" VerticalAlignment="Bottom" Grid.Column="1" Width="40"/>
+                <DataGrid Height="218"
+                          Width="300"
+                          AutoGenerateColumns="False"
+                          Name="copyOfTableGrid" Margin="0,0,-3,-3" Grid.Column="2">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="400" 
+                                            Header="Function"
+                                            Binding="{Binding Path=name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Page>

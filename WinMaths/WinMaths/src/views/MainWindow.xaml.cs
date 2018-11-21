@@ -22,6 +22,12 @@ namespace WinMaths
     public partial class MainWindow : Window
     {
         private PreferencesMenuUI PreferencesMenuUIVar;
+        private static Boolean entered = false;
+        private const double ScaleRate = 1.1; // Cambiar el zoom
+        private ScaleTransform scaleTransform = new ScaleTransform();      //---------> object for Scale-Transform //-------------> scaleRate that has to be Zoom for each point of Mouse_Wheel
+        private bool added;
+        private Point _last;
+        private bool isDragged, isDragging;
 
         public MainWindow()
         {
@@ -31,6 +37,74 @@ namespace WinMaths
              *  Me suscribo a esta ventana y al main al evento de close para que si se cierra una se cierren las dos
              */
             PreferencesMenuUIVar.Show();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            lienzo.Children.Clear();
+            //if (entered)
+                //DrawGraphic();
+        }
+
+        private void Canvas_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                scaleTransform.ScaleX *= ScaleRate;
+                scaleTransform.ScaleY *= ScaleRate;
+            }
+            else
+            {
+                scaleTransform.ScaleX /= ScaleRate;
+                scaleTransform.ScaleY /= ScaleRate;
+            }
+
+            if (!added)
+            {
+                TransformGroup tg = lienzo.RenderTransform as TransformGroup;
+                if (tg != null)
+                {
+                    tg.Children.Add(scaleTransform);
+                    lienzo.RenderTransformOrigin = new Point(0.5, 0.5);
+                    added = true;
+                }
+            }
+        }
+
+        void theGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragged == false)
+                return;
+
+            base.OnMouseMove(e);
+            if (e.LeftButton == MouseButtonState.Pressed && theGrid.IsMouseCaptured)
+            {
+
+                var pos = e.GetPosition(theGrid);
+                var matrix = mt.Matrix;
+                matrix.Translate(pos.X - _last.X, pos.Y - _last.Y);
+                mt.Matrix = matrix;
+                _last = pos;
+            }
+
+        }
+
+        void theGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            theGrid.ReleaseMouseCapture();
+            isDragged = false;
+        }
+
+        void theGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            theGrid.CaptureMouse();
+            _last = e.GetPosition(theGrid);
+            isDragged = true;
         }
 
     }

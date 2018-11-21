@@ -9,17 +9,13 @@ namespace WinMaths.src.viewModels
 {
     public class ViewModel
     {
-
-    }
-
-    public bool CreateGraphic(Graphic g)
-    {
-        if (g == null)
+        public bool CreateGraphic(Graphic g)
         {
-            throw new ArgumentNullException(nameof(g));
-        }
 
-        bool result = false;
-        return result;
+            bool result = false;
+            return result;
+        }
     }
+
+
 }

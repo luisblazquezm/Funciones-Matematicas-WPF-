@@ -9,6 +9,43 @@
       Title="ImportUI">
 
     <Grid>
-        <TextBlock Text="Import"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
+        <!-- Grid con 6 filas y 2 columnas-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- GroupBox de Importar Graficas-->
+        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Importar Datos" Grid.RowSpan="2" Tag="Name of customer" Margin="20,0,36,10">
+            <DataGrid Height="400"
+                      AutoGenerateColumns="False"
+                      Name="copyOfTableGrid" Margin="0,0,-3,-3">
+                <DataGrid.Columns>
+                    <DataGridTextColumn MinWidth="400" 
+                                        Header="Function"
+                                        Binding="{Binding Path=name}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <WrapPanel Grid.Column="1" Grid.RowSpan="2" Margin="25,23,52,23">
+            <DataGrid Width="340" Height="200"
+                      AutoGenerateColumns="False"
+                      Name="functionsToExportGrid" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn MinWidth="400" 
+                                        Header="FunctionToImport"
+                                        Binding="{Binding Path=name}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Margin="10 50 0 0" Content="Formato a Exportar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ComboBox Width="256" Height="25" Margin="10 0 0 0" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
+            <Button Content="Importar" Margin="90 15 0 0" Width="150"/>
+        </WrapPanel>
+
     </Grid>
 </Page>

@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Canvas>
-        
-    </Canvas>
+        Title="MainWindow" Height="450" Width="800" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Grid  x:Name="theGrid" 
+           MouseLeftButtonDown="theGrid_MouseLeftButtonDown"
+           MouseLeftButtonUp="theGrid_MouseLeftButtonUp"
+           MouseMove="theGrid_MouseMove" Margin="0,0,2,1">
+        <Border x:Name="clipBorder" BorderThickness="2" BorderBrush="Black" ClipToBounds="True" Margin="10">
+            <Canvas x:Name="lienzo" Background="Transparent" MouseWheel="Canvas_MouseWheel" Margin="8">
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <MatrixTransform x:Name="mt"/>
+                    </TransformGroup>
+                </Canvas.RenderTransform>
+            </Canvas>
+        </Border>
+    </Grid>
 </Window>

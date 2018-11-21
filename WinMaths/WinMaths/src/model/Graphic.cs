@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace WinMaths.src.model
 {
-    class Graphic
+    public class Graphic
     {
         /* Datos de la clase Graphic */
         private string function;

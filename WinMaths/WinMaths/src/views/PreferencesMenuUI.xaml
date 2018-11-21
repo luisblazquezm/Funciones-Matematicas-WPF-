@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WinMaths.src.views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="PreferencesMenuUI" Height="500" Width="780" ResizeMode="NoResize" Foreground="White" WindowStyle="None">
+        Title="PreferencesMenuUI" Height="500" Width="780" ResizeMode="NoResize" Foreground="White" WindowStyle="None" MouseLeftButtonDown="Panel_MouseLeftButtonDown">
     
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
