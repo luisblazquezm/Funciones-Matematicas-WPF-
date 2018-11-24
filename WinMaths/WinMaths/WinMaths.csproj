@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NumericTextBoxClass.cs" />
     <Compile Include="src\model\Model.cs" />
     <Compile Include="src\utils\IOUtils.cs" />
     <Compile Include="src\utils\Utils.cs" />

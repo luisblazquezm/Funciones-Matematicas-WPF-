@@ -46,3 +46,4 @@ C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\bin\
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\GeneratedInternalTypeHelper.g.cs

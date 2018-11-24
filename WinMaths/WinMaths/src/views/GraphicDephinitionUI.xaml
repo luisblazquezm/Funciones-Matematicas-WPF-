@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WinMaths.src.views"
+      xmlns:custom="clr-namespace:WinMaths"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
@@ -75,17 +76,17 @@
                         <!-- Parametro A -->
                         <WrapPanel Width="180" Height="60">
                             <Label Margin="5" Content="A:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                            <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                            <custom:NumericTextBoxClass Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1" />
                     </WrapPanel>
 
                     <!-- Parametro B -->
                     <WrapPanel Width="180" Height="50">
                         <Label Margin="5" Content="B:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                        <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                        <custom:NumericTextBoxClass Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
                     </WrapPanel>
                     <WrapPanel Width="180" Height="50">
                         <Label Margin="5" Content="C:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                        <TextBox Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                        <custom:NumericTextBoxClass Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
                     </WrapPanel>
 
                     <!-- Parametro C -->
