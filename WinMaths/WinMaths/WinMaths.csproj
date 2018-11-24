@@ -81,6 +81,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="src\model\Model.cs" />
+    <Compile Include="src\utils\IOUtils.cs" />
+    <Compile Include="src\utils\Utils.cs" />
     <Compile Include="src\viewModels\ViewModel.cs" />
     <Compile Include="src\views\PreferencesMenuUI.xaml.cs">
       <DependentUpon>PreferencesMenuUI.xaml</DependentUpon>
@@ -162,8 +164,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

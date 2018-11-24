@@ -52,8 +52,8 @@ namespace WinMaths.src.viewModels
         public int AddGraphicVM(Graphic g)
         {
             int creationResult = model.AddGraphic(g);
-            g.PropertyChanged += OnPropertyChanged; // Se lanza el evento que avisa de que se ha modificado una propiedad de la clase Grafica
-            //OnGraphicAdded(g); ??????????
+            g.PropertyChanged += PropertyChangedHandler; // Se lanza el evento que avisa de que se ha modificado una propiedad de la clase Grafica
+            OnGraphicAdded(g);
             return creationResult;
         }
 
@@ -61,8 +61,8 @@ namespace WinMaths.src.viewModels
         {
             bool updateResult = model.UpdateGraphic(g);
             if (updateResult) {
-                g.PropertyChanged += OnPropertyChanged;
-                // OnGraphicUpdated(g);
+                g.PropertyChanged += PropertyChangedHandler;
+                OnGraphicUpdated(g);
             }
             
             return updateResult;
@@ -72,7 +72,7 @@ namespace WinMaths.src.viewModels
         {
             bool deletingResult = model.DeleteGraphic(g);
             if (deletingResult) {
-                // OnGraphicDeleted(g);
+                OnGraphicDeleted(g);
             }
 
             return deletingResult;
@@ -86,7 +86,7 @@ namespace WinMaths.src.viewModels
         public void ClearModelVM()
         {
             model.ClearModel();
-            //OnModelCleared();
+            ForceModelUpdated();
         }
 
         public ObservableCollection<Graphic> GetListOfGraphicsVM()
@@ -96,7 +96,7 @@ namespace WinMaths.src.viewModels
 
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
 
-        protected virtual void OnGraphicCreated(Graphic g)
+        protected virtual void OnGraphicAdded(Graphic g)
         {
             if (GraphicAdded != null)
                 GraphicAdded(this, new ViewModelEventArgs(g));
@@ -114,13 +114,13 @@ namespace WinMaths.src.viewModels
                 GraphicUpdated(this, new ViewModelEventArgs(g));
         }
 
-        protected virtual void OnModelCleared()
+        protected virtual void ForceModelUpdated()
         {
             if (ModelCleared != null)
                 ModelCleared(this, new ViewModelEventArgs());
         }
 
-        protected virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected virtual void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             OnGraphicUpdated((Graphic)sender);
         }

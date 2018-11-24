@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinMaths.src.bean;
 
 namespace WinMaths
 {
@@ -22,6 +23,7 @@ namespace WinMaths
     public partial class MainWindow : Window
     {
         private PreferencesMenuUI PreferencesMenuUIVar;
+        //private Dictionary<Graphic, Polyline> graphicRepresentationList;    // A partir de una determinada grafica obtengo la representación de su polilinea
         /*
         private static Boolean entered = false;
         private const double ScaleRate = 1.1; // Cambiar el zoom
@@ -35,18 +37,21 @@ namespace WinMaths
         {
             InitializeComponent();
             PreferencesMenuUIVar = new PreferencesMenuUI();
-            /*
-             *  Me suscribo a esta ventana y al main al evento de close para que si se cierra una se cierren las dos
-             */
+            this.Closed += MainWindow_Closed;
             PreferencesMenuUIVar.Show();
         }
 
-        /*
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
-
+        /*
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             lienzo.Children.Clear();

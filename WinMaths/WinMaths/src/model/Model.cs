@@ -15,7 +15,6 @@ namespace WinMaths.src.model
         private int ActualGraphicID;
         private int IndexOfModifiedGraphic;
         private ObservableCollection<Graphic> listOfGraphics;
-        private Dictionary<Graphic,Polyline> graphicRepresentationList;    // A partir de una determinada grafica obtengo la representación de su polilinea
 
         /// <summary>
         /// Constructor de la clase Model
@@ -25,7 +24,7 @@ namespace WinMaths.src.model
             this.ActualGraphicID = 0;
             this.IndexOfModifiedGraphic = 0;
             this.listOfGraphics = new ObservableCollection<Graphic>();
-            this.graphicRepresentationList = new Dictionary<Graphic, Polyline>();
+            //this.graphicRepresentationList = new Dictionary<Graphic, Polyline>();
         }
 
         /* ========================= CRUD METHODS ========================= */
@@ -105,7 +104,7 @@ namespace WinMaths.src.model
             this.ActualGraphicID = 0;
             this.IndexOfModifiedGraphic = 0;
             this.listOfGraphics.Clear();
-            this.graphicRepresentationList.Clear();
+            //this.graphicRepresentationList.Clear();
         }
 
         public ObservableCollection<Graphic> GetListOfGraphics()
