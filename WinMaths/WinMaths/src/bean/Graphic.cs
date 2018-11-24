@@ -1,41 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace WinMaths.src.model
+namespace WinMaths.src.bean
 {
-    public class Graphic
+    public class Graphic : INotifyPropertyChanged
     {
         /* Datos de la clase Graphic */
+        private int id;
         private string function;
         private string name;
         private float paramA;
         private float paramB;
         private float paramC;
-        private float paramN;
         private Color graphicColor;
 
         /// <summary>
         /// Constructor de la clase Graphic
         /// </summary>
-        public Graphic(string function, 
+        public Graphic(int id,
+                       string function, 
                        string name, 
                        float paramA, 
                        float paramB, 
                        float paramC, 
-                       float paramN,
                        Color graphicColor)
         {
+            this.id = id;
             this.function = function;
             this.name = name;
             this.paramA = paramA;
             this.paramB = paramB;
             this.paramC = paramC;
-            this.paramN = paramN;
             this.graphicColor = graphicColor;
+        }
+
+        /* ========================= PROPERTY METHODS ========================= */
+
+        public int ID
+        {
+            get { return id; }
+            set
+            {
+                id = value;
+                OnPropertyChanged("ID");
+            }
         }
 
         /// <summary>
@@ -44,7 +57,10 @@ namespace WinMaths.src.model
         public string Function
         {
             get { return function; }
-            set { if (value != null) function = value; }
+            set {
+                function = value;
+                OnPropertyChanged("Function");
+            }
         }
 
         /// <summary>
@@ -53,7 +69,10 @@ namespace WinMaths.src.model
         public string Name
         {
             get { return name; }
-            set { if (name != null) name = value; }
+            set {
+                name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         /// <summary>
@@ -62,7 +81,10 @@ namespace WinMaths.src.model
         public float ParamA
         {
             get { return paramA; }
-            set { paramA = value; }
+            set {
+                paramA = value;
+                OnPropertyChanged("ParamA");
+            }
         }
 
         /// <summary>
@@ -71,7 +93,10 @@ namespace WinMaths.src.model
         public float ParamB
         {
             get { return paramB; }
-            set { paramB = value; }
+            set {
+                paramB = value;
+                OnPropertyChanged("ParamB");
+            }
         }
 
         /// <summary>
@@ -80,16 +105,10 @@ namespace WinMaths.src.model
         public float ParamC
         {
             get { return paramC; }
-            set { paramC = value; }
-        }
-
-        /// <summary>
-        /// Definición de la propiedad 'paramN'
-        /// </summary>
-        public float ParamN
-        {
-            get { return paramN; }
-            set { paramN = value; }
+            set {
+                paramC = value;
+                OnPropertyChanged("ParamC");
+            }
         }
 
         /// <summary>
@@ -98,7 +117,22 @@ namespace WinMaths.src.model
         public Color GraphicColor
         {
             get { return graphicColor; }
-            set { if (value != null) graphicColor = value; }
+            set {
+                graphicColor = value;
+                OnPropertyChanged("GraphicColor");
+            }
+        }
+
+        /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Hay que implementarla porque el origen del enlace (Graphic) no es una clase de WPF
+        // Se avisa de que propiedad de la clase ha cambiado
+        protected void OnPropertyChanged(string PropertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
         }
     }
 }

@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\model\Model.cs" />
     <Compile Include="src\viewModels\ViewModel.cs" />
     <Compile Include="src\views\PreferencesMenuUI.xaml.cs">
       <DependentUpon>PreferencesMenuUI.xaml</DependentUpon>
@@ -112,7 +113,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\model\Graphic.cs" />
+    <Compile Include="src\bean\Graphic.cs" />
     <Compile Include="src\views\ExportUI.xaml.cs">
       <DependentUpon>ExportUI.xaml</DependentUpon>
     </Compile>

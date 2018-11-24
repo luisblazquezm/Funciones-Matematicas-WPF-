@@ -22,12 +22,14 @@ namespace WinMaths
     public partial class MainWindow : Window
     {
         private PreferencesMenuUI PreferencesMenuUIVar;
+        /*
         private static Boolean entered = false;
         private const double ScaleRate = 1.1; // Cambiar el zoom
         private ScaleTransform scaleTransform = new ScaleTransform();      //---------> object for Scale-Transform //-------------> scaleRate that has to be Zoom for each point of Mouse_Wheel
         private bool added;
         private Point _last;
         private bool isDragged, isDragging;
+        */
 
         public MainWindow()
         {
@@ -39,6 +41,7 @@ namespace WinMaths
             PreferencesMenuUIVar.Show();
         }
 
+        /*
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -106,6 +109,7 @@ namespace WinMaths
             _last = e.GetPosition(theGrid);
             isDragged = true;
         }
+        */
 
     }
 }
