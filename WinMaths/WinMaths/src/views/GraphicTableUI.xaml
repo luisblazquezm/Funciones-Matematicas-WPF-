@@ -9,7 +9,7 @@
       Title="GraphicTableUI">
 
     <!--StackPanel para la tabla-->
-    <StackPanel Margin="25,30,25,90" Width="750">
+    <StackPanel Margin="25,30,25,25" Width="750">
         <!-- Tabla de tipo DataGrid-->
         <DataGrid Width="750" Height="330"
                       AutoGenerateColumns="False"
@@ -25,5 +25,8 @@
                                         Binding="{Binding Path=name}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <WrapPanel Width="750" Height="65">
+            <Button Content="Eliminar" Width="130" Height="30"  Margin="10" Background="WhiteSmoke" Foreground="Black"/>
+        </WrapPanel>
     </StackPanel>
 </Page>

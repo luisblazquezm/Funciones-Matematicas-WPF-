@@ -36,85 +36,88 @@ namespace WinMaths
         public MainWindow()
         {
             InitializeComponent();
+            
+            this.Closed += Window_Closed;
+
             PreferencesMenuUIVar = new PreferencesMenuUI();
-            this.Closed += MainWindow_Closed;
+            PreferencesMenuUIVar.Closed += Window_Closed;
             PreferencesMenuUIVar.Show();
         }
 
-        private void MainWindow_Closed(object sender, EventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
             Application.Current.Shutdown();
         }
-
         
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
         /*
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            lienzo.Children.Clear();
-            //if (entered)
-                //DrawGraphic();
-        }
+private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+{
+   lienzo.Children.Clear();
+   //if (entered)
+       //DrawGraphic();
+}
 
-        private void Canvas_MouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (e.Delta > 0)
-            {
-                scaleTransform.ScaleX *= ScaleRate;
-                scaleTransform.ScaleY *= ScaleRate;
-            }
-            else
-            {
-                scaleTransform.ScaleX /= ScaleRate;
-                scaleTransform.ScaleY /= ScaleRate;
-            }
+private void Canvas_MouseWheel(object sender, MouseWheelEventArgs e)
+{
+   if (e.Delta > 0)
+   {
+       scaleTransform.ScaleX *= ScaleRate;
+       scaleTransform.ScaleY *= ScaleRate;
+   }
+   else
+   {
+       scaleTransform.ScaleX /= ScaleRate;
+       scaleTransform.ScaleY /= ScaleRate;
+   }
 
-            if (!added)
-            {
-                TransformGroup tg = lienzo.RenderTransform as TransformGroup;
-                if (tg != null)
-                {
-                    tg.Children.Add(scaleTransform);
-                    lienzo.RenderTransformOrigin = new Point(0.5, 0.5);
-                    added = true;
-                }
-            }
-        }
+   if (!added)
+   {
+       TransformGroup tg = lienzo.RenderTransform as TransformGroup;
+       if (tg != null)
+       {
+           tg.Children.Add(scaleTransform);
+           lienzo.RenderTransformOrigin = new Point(0.5, 0.5);
+           added = true;
+       }
+   }
+}
 
-        void theGrid_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDragged == false)
-                return;
+void theGrid_MouseMove(object sender, MouseEventArgs e)
+{
+   if (isDragged == false)
+       return;
 
-            base.OnMouseMove(e);
-            if (e.LeftButton == MouseButtonState.Pressed && theGrid.IsMouseCaptured)
-            {
+   base.OnMouseMove(e);
+   if (e.LeftButton == MouseButtonState.Pressed && theGrid.IsMouseCaptured)
+   {
 
-                var pos = e.GetPosition(theGrid);
-                var matrix = mt.Matrix;
-                matrix.Translate(pos.X - _last.X, pos.Y - _last.Y);
-                mt.Matrix = matrix;
-                _last = pos;
-            }
+       var pos = e.GetPosition(theGrid);
+       var matrix = mt.Matrix;
+       matrix.Translate(pos.X - _last.X, pos.Y - _last.Y);
+       mt.Matrix = matrix;
+       _last = pos;
+   }
 
-        }
+}
 
-        void theGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            theGrid.ReleaseMouseCapture();
-            isDragged = false;
-        }
+void theGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+{
+   theGrid.ReleaseMouseCapture();
+   isDragged = false;
+}
 
-        void theGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            theGrid.CaptureMouse();
-            _last = e.GetPosition(theGrid);
-            isDragged = true;
-        }
-        */
+void theGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+{
+   theGrid.CaptureMouse();
+   _last = e.GetPosition(theGrid);
+   isDragged = true;
+}
+*/
 
     }
 }

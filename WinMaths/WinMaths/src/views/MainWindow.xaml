@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="MainWindow" Height="550" Width="900" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid  x:Name="theGrid" 
            Margin="0,0,2,1">
-        <Border x:Name="clipBorder" BorderThickness="2" BorderBrush="Black" ClipToBounds="True" Margin="10">
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
+            <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                <StackPanel Width="150">
+                    <Button Content="Ajustes"/>
+                    <Button Content="Ayuda"/>
+                    <Separator/>
+                    <Button x:Name="ButtonPopUpLogout" Content="Salir" Click="Window_Closed"/>
+                </StackPanel>
+            </materialDesign:PopupBox>
+        </StackPanel>
+        
+        <Border x:Name="clipBorder" BorderThickness="2" BorderBrush="Black" ClipToBounds="True" Margin="10 50 10 10">
             <Canvas x:Name="lienzo" Background="Transparent" Margin="8">
                 <Canvas.RenderTransform>
                     <TransformGroup>

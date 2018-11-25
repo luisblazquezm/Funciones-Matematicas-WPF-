@@ -36,14 +36,12 @@
 
         <!-- Top Barr Grid-->
         <Grid Height="60" VerticalAlignment="Top" Background="#FF2045A8">
-            <TextBlock Text="MenuPreferencias" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" />
+            <TextBlock Text="Preferencias" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" />
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel Width="150">
                         <Button Content="Ajustes"/>
                         <Button Content="Ayuda"/>
-                        <Separator/>
-                        <Button x:Name="ButtonPopUpLogout" Content="Salir Menu" Click="ButtonPopUpLogout_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>

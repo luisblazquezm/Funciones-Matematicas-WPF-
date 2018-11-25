@@ -24,7 +24,6 @@ namespace WinMaths.src.model
             this.ActualGraphicID = 0;
             this.IndexOfModifiedGraphic = 0;
             this.listOfGraphics = new ObservableCollection<Graphic>();
-            //this.graphicRepresentationList = new Dictionary<Graphic, Polyline>();
         }
 
         /* ========================= CRUD METHODS ========================= */
@@ -35,7 +34,6 @@ namespace WinMaths.src.model
             int id = GetActualGraphicId();
             newGraphic.ID = id;
             this.listOfGraphics.Add(newGraphic);
-            /* Añado la poliniea de la grafica directamente aqui llamando a otro método???? */
             return id;
         }
 
@@ -82,9 +80,8 @@ namespace WinMaths.src.model
         /* Esto podria estar mál -> Comprobar que hace bien los IDS*/
         private int GetActualGraphicId()
         {
-            if (this.ActualGraphicID != 0)
-                (this.ActualGraphicID)++;
-
+            int actualID = this.ActualGraphicID;
+            (this.ActualGraphicID)++;
             return this.ActualGraphicID;
         }
 
@@ -104,7 +101,6 @@ namespace WinMaths.src.model
             this.ActualGraphicID = 0;
             this.IndexOfModifiedGraphic = 0;
             this.listOfGraphics.Clear();
-            //this.graphicRepresentationList.Clear();
         }
 
         public ObservableCollection<Graphic> GetListOfGraphics()

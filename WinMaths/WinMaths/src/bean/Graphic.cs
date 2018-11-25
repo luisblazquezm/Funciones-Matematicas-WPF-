@@ -11,26 +11,24 @@ namespace WinMaths.src.bean
     public class Graphic : INotifyPropertyChanged
     {
         /* Datos de la clase Graphic */
-        private int id;
+        private static int id;
         private string function;
         private string name;
-        private float paramA;
-        private float paramB;
-        private float paramC;
+        private double paramA;
+        private double paramB;
+        private double paramC;
         private Color graphicColor;
 
         /// <summary>
         /// Constructor de la clase Graphic
         /// </summary>
-        public Graphic(int id,
-                       string function, 
+        public Graphic(string function, 
                        string name, 
-                       float paramA, 
-                       float paramB, 
-                       float paramC, 
+                       double paramA, 
+                       double paramB, 
+                       double paramC, 
                        Color graphicColor)
         {
-            this.id = id;
             this.function = function;
             this.name = name;
             this.paramA = paramA;
@@ -78,7 +76,7 @@ namespace WinMaths.src.bean
         /// <summary>
         /// Definición de la propiedad 'paramA'
         /// </summary>
-        public float ParamA
+        public double ParamA
         {
             get { return paramA; }
             set {
@@ -90,7 +88,7 @@ namespace WinMaths.src.bean
         /// <summary>
         /// Definición de la propiedad 'paramB'
         /// </summary>
-        public float ParamB
+        public double ParamB
         {
             get { return paramB; }
             set {
@@ -102,7 +100,7 @@ namespace WinMaths.src.bean
         /// <summary>
         /// Definición de la propiedad 'paramC'
         /// </summary>
-        public float ParamC
+        public double ParamC
         {
             get { return paramC; }
             set {

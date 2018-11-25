@@ -22,23 +22,11 @@ namespace WinMaths.src.views
         public PreferencesMenuUI()
         {
             InitializeComponent();
-            this.Closed += PreferencesMenuUI_Closed;
-        }
-
-        private void PreferencesMenuUI_Closed(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
         }
 
         private void Panel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
-        }
-
-        // Preguntar a ana si se puede hacer esto
-        private void ButtonPopUpLogout_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
 
         private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)

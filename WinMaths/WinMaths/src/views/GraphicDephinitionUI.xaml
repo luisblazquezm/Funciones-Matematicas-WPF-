@@ -26,9 +26,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!-- Botón añadir gráfica -->
+        <WrapPanel Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Margin="50 0 0 0" VerticalAlignment="Center">
+            <!-- Por defecto está deshabilitado -->
+            <Button Name="AddGraphicButton" Background="LightGray" Width="100" Height="40" Content="Añadir" FontSize="20" IsEnabled="False"/>
+        </WrapPanel>
+        
+        
         <!-- Barra de progreso -->
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <ProgressBar Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="65">
+            <ProgressBar Name="progressBar" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="65" Minimum="0" Maximum="100" Value="0" Background="LightGreen" Foreground="Green">
 
             </ProgressBar>
         </WrapPanel>
@@ -36,7 +43,7 @@
         <!-- Check Verde Completado -->
         <WrapPanel  Margin="40,20,20,20" Width="50" Height="40" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
             <!-- Está escondido por defecto, habrá que habilitarlo cuando la barra de progreso esté llena-->
-            <materialDesign:PackIcon Kind="CheckboxMarkedCircleOutline" Foreground="Green" Width="25" Height="25" Margin="10" VerticalAlignment="Center" Visibility="Hidden"/>
+            <materialDesign:PackIcon Name="GreenCheckIcon" Kind="CheckboxMarkedCircleOutline" Foreground="Green" Width="25" Height="25" Margin="10" VerticalAlignment="Center" Visibility="Hidden"/>
         </WrapPanel>
 
         <!-- GroupBox de Definición de Función -->
@@ -48,7 +55,7 @@
                     <!-- Funcion de la nueva grafica -->
                     <WrapPanel Height="60">
                         <Label Margin="5" Content="Función:" />
-                        <ComboBox Width="240">
+                        <ComboBox Name="FunctionComboBox" Width="240">
 
                         </ComboBox>
                     </WrapPanel>
@@ -58,7 +65,7 @@
                         <Label Margin="5" Content="Nombre:" Height="31"/>
                         <Border BorderBrush="Black" BorderThickness="0,0,0,1" Width="240" Height="20">
                             <StackPanel Orientation="Horizontal" Width="260" Height="20">
-                                <TextBox Style="{StaticResource placeHolder}" Tag="Name of customer" Width="260" Margin="0,0,0,-3"/>
+                                <TextBox Name="NameTextBox" Style="{StaticResource placeHolder}" Tag="Name of customer" Width="260" Margin="0,0,0,-3"/>
                             </StackPanel>
                         </Border>
                     </WrapPanel>
@@ -75,26 +82,27 @@
                     
                         <!-- Parametro A -->
                         <WrapPanel Width="180" Height="60">
-                            <Label Margin="5" Content="A:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                            <custom:NumericTextBoxClass Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1" />
-                    </WrapPanel>
+                                <Label Margin="5" Content="A:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                                <custom:NumericTextBoxClass x:Name="ParamATextBox" Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1" />
+                        </WrapPanel>
 
-                    <!-- Parametro B -->
-                    <WrapPanel Width="180" Height="50">
-                        <Label Margin="5" Content="B:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                        <custom:NumericTextBoxClass Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
-                    </WrapPanel>
-                    <WrapPanel Width="180" Height="50">
-                        <Label Margin="5" Content="C:" Height="31" Width="25" HorizontalAlignment="Left"/>
-                        <custom:NumericTextBoxClass Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
-                    </WrapPanel>
+                        <!-- Parametro B -->
+                        <WrapPanel Width="180" Height="50">
+                            <Label Margin="5" Content="B:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                            <custom:NumericTextBoxClass x:Name="ParamBTextBox" Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                        </WrapPanel>
+                        
+                        <!-- Parametro C -->
+                        <WrapPanel Name="ParamCWrapPanel" Width="180" Height="50" Visibility="Hidden">
+                            <Label Margin="5" Content="C:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                            <custom:NumericTextBoxClass x:Name="ParamCTextBox" Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                        </WrapPanel>
 
-                    <!-- Parametro C -->
-
+                    
                     </WrapPanel>
+                
             </TextBlock>
         </GroupBox>
-
 
         <!-- GroupBox de Apariencia -->
         <GroupBox Header="Apariencia" Grid.Row="4" Grid.RowSpan="3" Grid.Column="0"  Grid.ColumnSpan="2" Margin="10" Style="{StaticResource groupBoxHeader}">
@@ -103,7 +111,7 @@
                         <!-- Parametro A -->
                         <WrapPanel Width="250" Height="50">
                             <Label Margin="5" Content="Color:" Height="31" Width="40" HorizontalAlignment="Left"/>
-                            <xctk:ColorPicker Name="ColorSelectionCP" Margin="5" Width="130"/>
+                            <xctk:ColorPicker Name="ColorSelectionColorPicker" Margin="5" Width="130"/>
                         </WrapPanel>
 
             </TextBlock>
