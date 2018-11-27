@@ -38,20 +38,22 @@ namespace WinMaths.src.model
         }
 
         /* Podria crear un Dictionary<int,Graphic> para eliminar sin tener que recorrer la coleccion??? Preguntar a ana*/
-        public bool DeleteGraphic(Graphic gToDelete)
+        public bool DeleteGraphic(List<Graphic> gToDelete)
         {
-            int id = gToDelete.ID;
+            foreach (Graphic g in gToDelete) {
+                int id = g.ID;
 
-            Graphic g = GetGraphicWithID(id);
+                Graphic gph = GetGraphicWithID(id);
 
-            if (g != null) {
-                listOfGraphics.Remove(g);
-                return true;
-
-            } else {
-                return false;
+                if (gph != null) {
+                    listOfGraphics.Remove(gph);
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
+            return false;
         }
 
         public bool UpdateGraphic(Graphic gToModify)
@@ -103,10 +105,14 @@ namespace WinMaths.src.model
             this.listOfGraphics.Clear();
         }
 
-        public ObservableCollection<Graphic> GetListOfGraphics()
+        public ObservableCollection<Graphic> GetCollectionOfGraphics()
         {
             return this.listOfGraphics;
         }
 
+        public List<Graphic> GetListOfGraphics()
+        {
+            return this.listOfGraphics.ToList<Graphic>();
+        }
     }
 }

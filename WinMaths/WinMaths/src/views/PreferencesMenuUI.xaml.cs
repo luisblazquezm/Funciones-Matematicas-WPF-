@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WinMaths.src.viewModels;
 
 namespace WinMaths.src.views
 {
@@ -19,9 +20,12 @@ namespace WinMaths.src.views
     /// </summary>
     public partial class PreferencesMenuUI : Window
     {
-        public PreferencesMenuUI()
+        private ViewModel viewModel; /* ESTO ESTA MALLLLLL hay que pasarla directamente al GraphicDephinitonUI*/
+
+        public PreferencesMenuUI(ViewModel viewModel) /* Ojooooooo no se si pasar el viewModel por aqui o de otra manera*/
         {
             InitializeComponent();
+            this.viewModel = viewModel;
         }
 
         private void Panel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -43,7 +47,7 @@ namespace WinMaths.src.views
 
         private void GraphicTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            PreferencesMenu.Content = new GraphicTableUI();
+            PreferencesMenu.Content = new GraphicTableUI(this.viewModel);
         }
 
         private void Import_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -53,7 +57,7 @@ namespace WinMaths.src.views
 
         private void GraphicDephinition_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
         {
-            PreferencesMenu.Content = new GraphicDephinitionUI();
+            PreferencesMenu.Content = new GraphicDephinitionUI(viewModel);
         }
 
         private void Export_MouseDoubleClick(object sender, MouseButtonEventArgs e)

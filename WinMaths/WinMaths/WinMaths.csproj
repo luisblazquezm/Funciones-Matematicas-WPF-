@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FC090BC5-A76B-4F6A-9C03-7E5921038051}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>WinMaths</RootNamespace>
     <AssemblyName>WinMaths</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.0.0.14576, Culture=neutral, processorArchitecture=MSIL">
@@ -81,7 +84,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="NumericTextBoxClass.cs" />
+    <Compile Include="src\bean\function\Function.cs" />
     <Compile Include="src\model\Model.cs" />
+    <Compile Include="src\utils\FunctionRepresentationUtils.cs" />
     <Compile Include="src\utils\IOUtils.cs" />
     <Compile Include="src\utils\Utils.cs" />
     <Compile Include="src\viewModels\ViewModel.cs" />

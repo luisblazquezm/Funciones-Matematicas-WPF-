@@ -13,17 +13,22 @@ namespace WinMaths.src.viewModels
     public class ViewModelEventArgs : EventArgs
     {
         /* Elementos que contendran los EventArgs */
-        public Graphic graphic { get; set; }
+        public List<Graphic> listOfGraphics { get; set; }
 
         // Constructor vacío
         public ViewModelEventArgs()
         {
-            this.graphic = null;
+            this.listOfGraphics = null;
+        }
+
+        public ViewModelEventArgs(List<Graphic> graphic)
+        {
+            this.listOfGraphics = graphic;
         }
 
         public ViewModelEventArgs(Graphic graphic)
         {
-            this.graphic = graphic;
+            this.listOfGraphics.Add(graphic);
         }
     }
 
@@ -35,10 +40,11 @@ namespace WinMaths.src.viewModels
         private Model model;
 
         /* Eventos de Cambio en la Propiedad */
-        public event EventHandler GraphicAdded;
-        public event EventHandler GraphicDeleted;
-        public event EventHandler GraphicUpdated;
-        public event EventHandler ModelCleared;
+        //public event EventHandler GraphicAdded;
+        public event ViewModelEventHandler GraphicSetToDraw;
+        public event ViewModelEventHandler GraphicDeleted;
+        public event ViewModelEventHandler GraphicUpdated;
+        public event ViewModelEventHandler ModelCleared;
 
         /// <summary>
         /// Constructor de la clase ViewModel
@@ -53,7 +59,7 @@ namespace WinMaths.src.viewModels
         {
             int creationResult = model.AddGraphic(g);
             g.PropertyChanged += PropertyChangedHandler; // Se lanza el evento que avisa de que se ha modificado una propiedad de la clase Grafica
-            OnGraphicAdded(g);
+            //OnGraphicAdded(g);
             return creationResult;
         }
 
@@ -68,7 +74,7 @@ namespace WinMaths.src.viewModels
             return updateResult;
         }
 
-        public bool DeleteGraphicVM(Graphic g)
+        public bool DeleteGraphicVM(List<Graphic> g)
         {
             bool deletingResult = model.DeleteGraphic(g);
             if (deletingResult) {
@@ -89,20 +95,37 @@ namespace WinMaths.src.viewModels
             ForceModelUpdated();
         }
 
-        public ObservableCollection<Graphic> GetListOfGraphicsVM()
+        public ObservableCollection<Graphic> GetCollectionOfGraphicsVM()
+        {
+            return model.GetCollectionOfGraphics();
+        }
+
+        public List<Graphic> GetListOfGraphicsVM()
         {
             return model.GetListOfGraphics();
         }
 
+        public void DrawGraphic(List<Graphic> g)
+        {
+            OnDrawGraphic(g);
+        }
+
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
 
+        /*
         protected virtual void OnGraphicAdded(Graphic g)
         {
             if (GraphicAdded != null)
                 GraphicAdded(this, new ViewModelEventArgs(g));
         }
+        */
+        protected virtual void OnDrawGraphic(List<Graphic> g)
+        {
+            if (GraphicSetToDraw != null)
+                GraphicSetToDraw(this, new ViewModelEventArgs(g));
+        }
 
-        protected virtual void OnGraphicDeleted(Graphic g)
+        protected virtual void OnGraphicDeleted(List<Graphic> g)
         {
             if (GraphicDeleted != null)
                 GraphicDeleted(this, new ViewModelEventArgs(g));

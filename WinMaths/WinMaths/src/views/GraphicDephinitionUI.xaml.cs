@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WinMaths.src.bean;
+using WinMaths.src.bean.function;
 using WinMaths.src.viewModels;
 
 namespace WinMaths.src.views
@@ -24,33 +25,40 @@ namespace WinMaths.src.views
     public partial class GraphicDephinitionUI : Page
     {
         //enum EnumFunctions { SinFunction , CosFunction , ExpFunction , FirstDegreeFunction , SecondDegreeFunction , FractionalFunction };
-        static int lastSelectedIndex = -1;
+        private static int lastSelectedIndex = -1;
         private ViewModel viewModel;
-        Boolean nameTextBoxFlag , paramATextBoxFlag, paramBTextBoxFlag, paramCTextBoxFlag;
+        private Boolean nameTextBoxFlag , paramATextBoxFlag, paramBTextBoxFlag, paramCTextBoxFlag;
 
-        public GraphicDephinitionUI()
+        public GraphicDephinitionUI(ViewModel viewModel)
         {
             InitializeComponent();
 
             /* Inicialización Variables Globales*/
-            this.viewModel = new ViewModel(); /* OJOooooooooooooo esto puede estar mal */
-            nameTextBoxFlag = true;
-            paramATextBoxFlag = true;
-            paramBTextBoxFlag = true;
-            paramCTextBoxFlag = true;
+            this.viewModel = viewModel; /* OJOooooooooooooo esto puede estar mal */
+            nameTextBoxFlag = false;
+            paramATextBoxFlag = false;
+            paramBTextBoxFlag = false;
+            paramCTextBoxFlag = false;
 
             // Gestión ComboBox de Funciones
             FunctionComboBox.ItemsSource = InitializeFunctionComboBox();
             FunctionComboBox.SelectionChanged += FunctionComboBox_SelectionChanged;
 
             // Gestión TextBox del nombre de la gráfica y los parámetros
-            NameTextBox.TextChanged += TextBox_TextChanged;
-            ParamATextBox.TextChanged += TextBox_TextChanged;
-            ParamBTextBox.TextChanged += TextBox_TextChanged;
-            ParamCTextBox.TextChanged += TextBox_TextChanged;
+            NameTextBox.TextChanged += CheckTextBoxValues_ToEnableAddGraphic;
+            ParamATextBox.TextChanged += CheckTextBoxValues_ToEnableAddGraphic;
+            ParamBTextBox.TextChanged += CheckTextBoxValues_ToEnableAddGraphic;
+            ParamCTextBox.TextChanged += CheckTextBoxValues_ToEnableAddGraphic;
 
             // Gestión Botón de añadir gráfica
+            AddGraphicButton.IsEnabled = false;
             AddGraphicButton.Click += AddGraphicToTableGrid;
+
+            // Gestión Botón Verde de Progreso Completado
+            GreenCheckIcon.Visibility = Visibility.Hidden;
+
+            // Gestión WrapPanel que contiene la etiqueta y el TextBox del parametro C
+            ParamCWrapPanel.Visibility = Visibility.Hidden;
 
         }
 
@@ -72,7 +80,7 @@ namespace WinMaths.src.views
             } 
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void CheckTextBoxValues_ToEnableAddGraphic(object sender, TextChangedEventArgs e)
         {
             /* EL color se puede coger el de for defecto*/
             CheckTextBoxProgress(sender);
@@ -95,8 +103,16 @@ namespace WinMaths.src.views
 
         private String[] InitializeFunctionComboBox()
         {
-            /* Meter un array con los nombres de la clase de diseño */
-            return null;
+            String[] functionList = {
+                CosXFunction.Formula,
+                SenXFunction.Formula,
+                ExponentialFunction.Formula,
+                FirstGradeFunction.Formula,
+                SecondGradFunction.Formula,
+                FractionalFunction.Formula
+            };
+
+            return functionList;
         }
 
         private Graphic CreateNewGraphic()
@@ -115,7 +131,7 @@ namespace WinMaths.src.views
         {
             if (sender == NameTextBox)
             {
-                if (NameTextBox.Text.Length == 0) {
+                if (NameTextBox.Text.Length == 0 && !nameTextBoxFlag) {
                     nameTextBoxFlag = true;
                     CalculateProgressBarValue(-20);
                 } else if (NameTextBox.Text.Length != 0 && nameTextBoxFlag) {
@@ -127,7 +143,7 @@ namespace WinMaths.src.views
             }
             else if (sender == ParamATextBox)
             {
-                if (ParamATextBox.Text.Length == 0) {
+                if (ParamATextBox.Text.Length == 0 && !paramATextBoxFlag) {
                     paramATextBoxFlag = true;
                     CalculateProgressBarValue(-20);
                 } else if (ParamATextBox.Text.Length != 0 && paramATextBoxFlag) {
@@ -140,7 +156,7 @@ namespace WinMaths.src.views
             }
             else if (sender == ParamBTextBox)
             {
-                if (ParamBTextBox.Text.Length == 0) {
+                if (ParamBTextBox.Text.Length == 0 && !paramBTextBoxFlag) {
                     paramBTextBoxFlag = true;
                     CalculateProgressBarValue(-20);
                 } else if (ParamBTextBox.Text.Length != 0 && paramBTextBoxFlag) {
@@ -152,7 +168,7 @@ namespace WinMaths.src.views
             }
             else if (sender == ParamCTextBox)
             {
-                if (ParamCTextBox.Text.Length == 0) {
+                if (ParamCTextBox.Text.Length == 0 && !paramCTextBoxFlag) {
                     paramCTextBoxFlag = true;
                     CalculateProgressBarValue(-20);
                 } else if (ParamCTextBox.Text.Length != 0 && paramCTextBoxFlag) {
@@ -166,6 +182,7 @@ namespace WinMaths.src.views
 
         private void CalculateProgressBarValue(double value)
         {
+            Console.WriteLine("Valor actual {0} - {1}", progressBar.Value, value);
             if ((value > 0 && progressBar.Value >= 0) || (value < 0 && (progressBar.Value - value) >= 0))
                 progressBar.Value += value;
 
@@ -176,8 +193,11 @@ namespace WinMaths.src.views
         private void AddGraphicToTableGrid(object sender, RoutedEventArgs e)
         {
             Graphic g = CreateNewGraphic();
-            if (g != null)
-                viewModel.AddGraphicVM(g);
+            if (g != null) {
+                DeactivateGraphicDephinitionFields();
+                int result = viewModel.AddGraphicVM(g);
+            }
+                
         }
 
         private void DeactivateGraphicDephinitionFields()
@@ -187,7 +207,17 @@ namespace WinMaths.src.views
             ParamATextBox.Clear();
             ParamBTextBox.Clear();
             ParamCTextBox.Clear();
+
             progressBar.Value = 0;
+
+            nameTextBoxFlag = false;
+            paramATextBoxFlag = false;
+            paramBTextBoxFlag = false;
+            paramCTextBoxFlag = false;
+
+            AddGraphicButton.IsEnabled = false;
+            GreenCheckIcon.Visibility = Visibility.Hidden;
+            ParamCWrapPanel.Visibility = Visibility.Hidden;
         }
     }
 }

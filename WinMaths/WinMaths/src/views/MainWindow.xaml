@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="900" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
-    <Grid  x:Name="theGrid" 
-           Margin="0,0,2,1">
+        Title="MainWindow" Height="768" Width="825" WindowStyle="None" >
+    
+    <Grid  x:Name="GridOfCanvas" 
+           Margin="0,0,2,2">
+        
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
             <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                 <StackPanel Width="150">
@@ -20,7 +22,7 @@
         </StackPanel>
         
         <Border x:Name="clipBorder" BorderThickness="2" BorderBrush="Black" ClipToBounds="True" Margin="10 50 10 10">
-            <Canvas x:Name="lienzo" Background="Transparent" Margin="8">
+            <Canvas x:Name="RepresentationCanvas" Background="Transparent" Margin="8" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mt"/>
@@ -28,5 +30,6 @@
                 </Canvas.RenderTransform>
             </Canvas>
         </Border>
+        
     </Grid>
 </Window>

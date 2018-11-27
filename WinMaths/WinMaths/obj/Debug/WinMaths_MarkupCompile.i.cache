@@ -1,7 +1,7 @@
 ﻿WinMaths
 
 
-winexe
+exe
 C#
 .cs
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\
@@ -12,7 +12,7 @@ DEBUG;TRACE
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\App.xaml
 7842230762
 
-20518991844
+22-521803132
 23122335006
 PlaceHolderTextBoxDictionary.xaml;src\views\ExportUI.xaml;src\views\GraphicDephinitionUI.xaml;src\views\GraphicTableUI.xaml;src\views\ImportUI.xaml;src\views\MainWindow.xaml;src\views\PreferencesMenuUI.xaml;
 

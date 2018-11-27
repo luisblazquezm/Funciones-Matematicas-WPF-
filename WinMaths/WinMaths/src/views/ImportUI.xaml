@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:WinMaths"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -21,30 +22,30 @@
 
         <!-- GroupBox de Importar Graficas-->
         <GroupBox Style="{StaticResource groupBoxHeader}" Header="Importar Datos" Grid.RowSpan="2" Tag="Name of customer" Margin="20,0,36,10">
-            <DataGrid Height="400"
-                      AutoGenerateColumns="False"
-                      Name="copyOfTableGrid" Margin="0,0,-3,-3">
+            <!-- Tabla de Graficas disponibles del programa -->
+            <DataGrid Height="400" AutoGenerateColumns="False" Name="copyOfTableGrid" Margin="0,0,-3,-3" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Extended">
                 <DataGrid.Columns>
                     <DataGridTextColumn MinWidth="400" 
-                                        Header="Function"
+                                        Header="Graficas Creadas"
                                         Binding="{Binding Path=name}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
 
-        <WrapPanel Grid.Column="1" Grid.RowSpan="2" Margin="25,23,52,23">
+        <WrapPanel Grid.Column="1" Grid.RowSpan="2" Margin="25,23,24,23">
             <DataGrid Width="340" Height="200"
                       AutoGenerateColumns="False"
                       Name="functionsToExportGrid" >
                 <DataGrid.Columns>
                     <DataGridTextColumn MinWidth="400" 
-                                        Header="FunctionToImport"
+                                        Header="Graficas a Importar"
                                         Binding="{Binding Path=name}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Label Margin="10 50 0 0" Content="Formato a Exportar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ComboBox Width="256" Height="25" Margin="10 0 0 0" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
-            <Button Content="Importar" Margin="90 15 0 0" Width="150"/>
+            <ComboBox Width="285" Height="25" Margin="10 0 0 0" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
+            <materialDesign:PackIcon  Kind="FormatVerticalAlignTop" Width="45" Height="35" Margin="15 20 0 10" VerticalAlignment="Center" Background="WhiteSmoke" Foreground="Black"/>
+            <Button Content="Importar" Margin="50 15 0 0" Width="184" Height="40" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
         </WrapPanel>
 
     </Grid>

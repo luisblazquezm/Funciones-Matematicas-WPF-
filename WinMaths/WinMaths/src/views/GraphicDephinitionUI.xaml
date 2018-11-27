@@ -27,23 +27,20 @@
         </Grid.RowDefinitions>
 
         <!-- Botón añadir gráfica -->
-        <WrapPanel Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Margin="50 0 0 0" VerticalAlignment="Center">
+        <WrapPanel Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Margin="20 0 0 0" VerticalAlignment="Center">
             <!-- Por defecto está deshabilitado -->
-            <Button Name="AddGraphicButton" Background="LightGray" Width="100" Height="40" Content="Añadir" FontSize="20" IsEnabled="False"/>
+            <Button Name="AddGraphicButton" Width="140" Height="30" Content="Añadir" Foreground="Black" Background="WhiteSmoke" BorderBrush="WhiteSmoke"/>
         </WrapPanel>
-        
-        
+
         <!-- Barra de progreso -->
         <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-            <ProgressBar Name="progressBar" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="65" Minimum="0" Maximum="100" Value="0" Background="LightGreen" Foreground="Green">
-
-            </ProgressBar>
+            <ProgressBar Name="progressBar" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="65" Minimum="0" Maximum="100" Value="0" Background="LightGreen" Foreground="Green"/>
         </WrapPanel>
 
         <!-- Check Verde Completado -->
         <WrapPanel  Margin="40,20,20,20" Width="50" Height="40" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
             <!-- Está escondido por defecto, habrá que habilitarlo cuando la barra de progreso esté llena-->
-            <materialDesign:PackIcon Name="GreenCheckIcon" Kind="CheckboxMarkedCircleOutline" Foreground="Green" Width="25" Height="25" Margin="10" VerticalAlignment="Center" Visibility="Hidden"/>
+            <materialDesign:PackIcon Name="GreenCheckIcon" Kind="CheckboxMarkedCircleOutline" Foreground="Green" Width="25" Height="25" Margin="10" VerticalAlignment="Center"/>
         </WrapPanel>
 
         <!-- GroupBox de Definición de Función -->
@@ -55,9 +52,7 @@
                     <!-- Funcion de la nueva grafica -->
                     <WrapPanel Height="60">
                         <Label Margin="5" Content="Función:" />
-                        <ComboBox Name="FunctionComboBox" Width="240">
-
-                        </ComboBox>
+                        <ComboBox Name="FunctionComboBox" Width="240"/>
                     </WrapPanel>
                 
                     <!-- Nombre de la nueva grafica -->
@@ -93,14 +88,12 @@
                         </WrapPanel>
                         
                         <!-- Parametro C -->
-                        <WrapPanel Name="ParamCWrapPanel" Width="180" Height="50" Visibility="Hidden">
+                        <WrapPanel Name="ParamCWrapPanel" Width="180" Height="50">
                             <Label Margin="5" Content="C:" Height="31" Width="25" HorizontalAlignment="Left"/>
                             <custom:NumericTextBoxClass x:Name="ParamCTextBox" Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
                         </WrapPanel>
-
                     
                     </WrapPanel>
-                
             </TextBlock>
         </GroupBox>
 
@@ -116,5 +109,6 @@
 
             </TextBlock>
         </GroupBox>
+
     </Grid>
 </Page>
