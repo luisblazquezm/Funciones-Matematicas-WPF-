@@ -12,6 +12,8 @@ namespace WinMaths.src.bean.function
         public double ParamB { get; set; }
         public double ParamC { get; set; }
         public string Formula { get; set; }
+
+        public abstract double CalculateF(double x);
     }
 
     // Si no se pone static despues del new no lo coge en otras clases 
@@ -22,11 +24,22 @@ namespace WinMaths.src.bean.function
         {
             this.ParamA = a;
             this.ParamB = b;
+            this.ParamC = -1;
         }
 
         public new static string Formula
         {
             get { return "a*sen(b*x)"; }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0}*sen({1}*x)", this.ParamA, this.ParamB);
+        }
+
+        public override double CalculateF(double x)
+        {
+            return this.ParamA * Math.Sin(this.ParamB*x);
         }
     }
 
@@ -36,11 +49,22 @@ namespace WinMaths.src.bean.function
         {
             this.ParamA = a;
             this.ParamB = b;
+            this.ParamC = -1;
         }
 
         public new static string Formula
         {
             get { return "a*cos(b*x)"; }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0}*cos({1}*x)", this.ParamA, this.ParamB);
+        }
+
+        public override double CalculateF(double x)
+        {
+            return this.ParamA * Math.Cos(this.ParamB * x);
         }
     }
 
@@ -51,11 +75,22 @@ namespace WinMaths.src.bean.function
         {
             this.ParamA = a;
             this.ParamB = b;
+            this.ParamC = -1;
         }
 
         public new static string Formula
         {
             get { return "a*x^b"; }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0}*x^{1}", this.ParamA, this.ParamB);
+        }
+
+        public override double CalculateF(double x)
+        {
+            return this.ParamA * Math.Pow(x, this.ParamB);
         }
     }
 
@@ -65,17 +100,28 @@ namespace WinMaths.src.bean.function
         {
             this.ParamA = a;
             this.ParamB = b;
+            this.ParamC = -1;
         }
 
         public new static string Formula
         {
             get { return "a*x+b"; }
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0}*x+{1}", this.ParamA, this.ParamB);
+        }
+
+        public override double CalculateF(double x)
+        {
+            return this.ParamA * x + this.ParamB;
+        }
     }
 
-    public class SecondGradFunction : Function
+    public class SecondGradeFunction : Function
     {
-        public SecondGradFunction(double a, double b, double c)
+        public SecondGradeFunction(double a, double b, double c)
         {
             this.ParamA = a;
             this.ParamB = b;
@@ -86,6 +132,16 @@ namespace WinMaths.src.bean.function
         {
             get { return "a*x^2+b*x+c"; }
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0}*x^2+{1}*x+{2}", this.ParamA, this.ParamB, this.ParamC);
+        }
+
+        public override double CalculateF(double x)
+        {
+            return this.ParamA * Math.Pow(x,2) + this.ParamB * x + this.ParamC;
+        }
     }
 
     public class FractionalFunction : Function
@@ -94,11 +150,22 @@ namespace WinMaths.src.bean.function
         {
             this.ParamA = a;
             this.ParamB = b;
+            this.ParamC = -1;
         }
 
         public new static string Formula
         {
             get { return "a/(b*x)"; }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0}/({1}*x)", this.ParamA, this.ParamB);
+        }
+
+        public override double CalculateF(double x)
+        {
+            return this.ParamA / (this.ParamB * x);
         }
     }
 

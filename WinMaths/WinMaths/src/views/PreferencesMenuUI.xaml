@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WinMaths.src.views"
+        xmlns:custom="clr-namespace:WinMaths"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="PreferencesMenuUI" Height="500" Width="780" ResizeMode="NoResize" Foreground="White" WindowStyle="None" MouseLeftButtonDown="Panel_MouseLeftButtonDown">
     
@@ -47,7 +49,254 @@
             </StackPanel>
         </Grid>
 
-        <Frame x:Name="PreferencesMenu" Margin="65,60,0,0" />
+        <TabControl x:Name="PreferencesMenuTabControl" Margin="65,60,0,0" Background="LightGray" >
+            <!-- Definición de la Gráfica -->
+            <TabItem Name="GraphicDephinitionUI" Visibility="Hidden">
+                <Grid>
+                    <!-- Grid con 6 filas y 2 columnas-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Botón añadir gráfica -->
+                    <WrapPanel Grid.Row="0" Grid.Column="0"  HorizontalAlignment="Left" Margin="20 0 0 0" VerticalAlignment="Center">
+                        <!-- Por defecto está deshabilitado -->
+                        <Button Name="AddGraphicButton" Width="140" Height="30" Content="Añadir" Foreground="Black" Background="WhiteSmoke" BorderBrush="WhiteSmoke"/>
+                    </WrapPanel>
+
+                    <!-- Barra de progreso -->
+                    <WrapPanel Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                        <ProgressBar Name="progressBar" Margin="30" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="65" Minimum="0" Maximum="100" Value="0" Background="LightGreen" Foreground="Green"/>
+                    </WrapPanel>
+
+                    <!-- Check Verde Completado -->
+                    <WrapPanel  Margin="40,20,20,20" Width="50" Height="40" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                        <!-- Está escondido por defecto, habrá que habilitarlo cuando la barra de progreso esté llena-->
+                        <materialDesign:PackIcon Name="GreenCheckIcon" Kind="CheckboxMarkedCircleOutline" Foreground="Green" Width="25" Height="25" Margin="10" VerticalAlignment="Center"/>
+                    </WrapPanel>
+
+                    <!-- GroupBox de Definición de Función -->
+                    <GroupBox Header="Definición de Función" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Margin="10" Style="{StaticResource groupBoxHeader}">
+                        <TextBlock HorizontalAlignment="Center" Width="350" Margin="0,0,-10,0"> 
+                <!-- Panel para guardar el nombre y la función -->
+                <WrapPanel Grid.Row="1" Grid.Column="0" Margin="10">
+                    
+                    <!-- Funcion de la nueva grafica -->
+                    <WrapPanel Height="60">
+                        <Label Margin="5" Content="Función:" />
+                        <ComboBox Name="FunctionComboBox" Width="240"/>
+                    </WrapPanel>
+                
+                    <!-- Nombre de la nueva grafica -->
+                    <WrapPanel Grid.Row="2" Grid.Column="0" >
+                        <Label Margin="5" Content="Nombre:" Height="31"/>
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,1" Width="240" Height="20">
+                            <StackPanel Orientation="Horizontal" Width="260" Height="20">
+                                <TextBox Name="NameTextBox" Style="{StaticResource placeHolder}" Tag="Name of customer" Width="260" Margin="0,0,0,-3"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+
+                </WrapPanel>
+                        </TextBlock>
+                    </GroupBox>
+
+                    <!-- GroupBox de Definición de Parametros -->
+                    <GroupBox Style="{StaticResource groupBoxHeader}" Header="Definición de Parametros" Grid.Row="1" Grid.RowSpan="3" Grid.Column="1" Margin="10">
+                        <TextBlock HorizontalAlignment="Center" Margin="61,0,70,-12" Width="209">
+                    <!-- Panel para guardar A ,B y C-->
+                    <WrapPanel Grid.Row="1" Grid.Column="1" Height="180" HorizontalAlignment="Center" Width="200" Margin="10 0 0 0">
+                    
+                        <!-- Parametro A -->
+                        <WrapPanel Width="180" Height="60">
+                                <Label Margin="5" Content="A:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                                <custom:NumericTextBoxClass x:Name="ParamATextBox" Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1" />
+                        </WrapPanel>
+
+                        <!-- Parametro B -->
+                        <WrapPanel Width="180" Height="50">
+                            <Label Margin="5" Content="B:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                            <custom:NumericTextBoxClass x:Name="ParamBTextBox" Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                        </WrapPanel>
+                        
+                        <!-- Parametro C -->
+                        <WrapPanel Name="ParamCWrapPanel" Width="180" Height="50">
+                            <Label Margin="5" Content="C:" Height="31" Width="25" HorizontalAlignment="Left"/>
+                            <custom:NumericTextBoxClass x:Name="ParamCTextBox" Background="Transparent" Width="130" Height="25" Margin="5" VerticalAlignment="Top" BorderThickness="1,1,1,1"/>
+                        </WrapPanel>
+                    
+                    </WrapPanel>
+                        </TextBlock>
+                    </GroupBox>
+
+                    <!-- GroupBox de Apariencia -->
+                    <GroupBox Header="Apariencia" Grid.Row="4" Grid.RowSpan="3" Grid.Column="0"  Grid.ColumnSpan="2" Margin="10" Style="{StaticResource groupBoxHeader}">
+                        <TextBlock HorizontalAlignment="Center">
+                    
+                        <!-- Parametro A -->
+                        <WrapPanel Width="250" Height="50">
+                            <Label Margin="5" Content="Color:" Height="31" Width="40" HorizontalAlignment="Left"/>
+                            <xctk:ColorPicker Name="ColorSelectionColorPicker" Margin="5" Width="130"/>
+                        </WrapPanel>
+
+                        </TextBlock>
+                    </GroupBox>
+                </Grid>
+                
+            </TabItem>
+
+            <TabItem Name="GraphicTableUI" Visibility="Hidden">
+                <StackPanel Width="800">
+                    <!-- Tabla de tipo DataGrid-->
+                    <DataGrid Name="TableGrid" Height="330" Width="680" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" SelectionMode="Extended" SelectionUnit="FullRow" Margin="10,20,106,10">
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Width="200" 
+                                    Header="Nombre"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Mode=TwoWay, Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <DataGridTextColumn Width="200" 
+                                    Header="Función"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Mode=TwoWay, Path=FunctionToString, UpdateSourceTrigger=LostFocus}"/>
+
+                            <DataGridTemplateColumn Width="170" Header="Color">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate DataType="Graphic">
+                                        <xctk:ColorPicker SelectedColor="{Binding Mode=TwoWay, Path=GraphicColor, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Height="65" Orientation="Horizontal" Margin="10,0,106,0">
+                        <Button Name="DrawGraphicButton" Content="Dibujar" Width="180" Height="Auto"  HorizontalAlignment="Left" Margin="0,10,0,28" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                        <Button Name="ModifyGraphicButton" Content="Modificar" Width="161" Height="Auto"  HorizontalAlignment="Center" Margin="80,10,0,28" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                        <Button Name="DeleteGraphicButton" Content="Eliminar" Width="157" Height="Auto" HorizontalAlignment="Right" Margin="90,10,40,28" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Name="ImportUI" Visibility="Hidden">
+                <Grid>
+                    <!-- Grid con 6 filas y 2 columnas-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <!-- GroupBox de Importar Graficas-->
+                    <GroupBox Style="{StaticResource groupBoxHeader}" Header="Importar Datos" Grid.RowSpan="2" Tag="Name of customer" Margin="20,0,36,10">
+                        <!-- Tabla de Graficas disponibles del programa -->
+                        <DataGrid Height="400" AutoGenerateColumns="False" Name="copyOfTableGrid" Margin="0,0,-3,-3" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Extended">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn MinWidth="400" 
+                                        Header="Graficas Creadas"
+                                        Binding="{Binding Path=name}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+
+                    <WrapPanel Grid.Column="1" Grid.RowSpan="2" Margin="25,23,24,23">
+                        <DataGrid Width="340" Height="200"
+                      AutoGenerateColumns="False"
+                      Name="functionsToExportGrid" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn MinWidth="400" 
+                                        Header="Graficas a Importar"
+                                        Binding="{Binding Path=name}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Label Margin="10 50 0 0" Content="Formato a Exportar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <ComboBox Width="285" Height="25" Margin="10 0 0 0" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
+                        <materialDesign:PackIcon  Kind="FormatVerticalAlignTop" Width="45" Height="35" Margin="15 20 0 10" VerticalAlignment="Center" Background="WhiteSmoke" Foreground="Black"/>
+                        <Button Content="Importar" Margin="50 15 0 0" Width="184" Height="40" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                    </WrapPanel>
+
+                </Grid>
+                
+            </TabItem>
+
+            <TabItem Name="ExportUI" Visibility="Hidden">
+                <Grid>
+                    <!-- Grid con 6 filas y 2 columnas-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="47*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- GroupBox de Importar Imagen-->
+                    <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Imagen" Grid.Row="0" Tag="Name of customer" Margin="20,10,36,10">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!-- Panel para guardar A ,B y C-->
+                <WrapPanel Grid.Row="1" Grid.Column="1" Height="89" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="458">
+                    
+                        <Label Margin="5" Content="Formato a Importar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <ComboBox Name="ImageExtensionsComboBox" Width="303" Height="25" Margin="5" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
+                        <Button Name="ExportImageButton" Content="Exportar Representación" Margin="260 0 0 30" Width="187" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                    
+                </WrapPanel>
+                        </TextBlock>
+                    </GroupBox>
+
+                    <!-- GroupBox de Importar Graficas-->
+                    <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Datos" Tag="Name of customer" Margin="20,0,36,10" Grid.Row="1">
+                        <Grid HorizontalAlignment="Center" Margin="10,0,13,0" Width="691">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <DataGrid
+                          AutoGenerateColumns="False"
+                          Name="CreatedGraphicsTableGrid" Margin="34,0,0,4" Grid.Column="0">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn MinWidth="400" 
+                                            Header="Graficas Creadas"
+                                            Binding="{Binding Path=name}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <materialDesign:PackIcon Name="LeftButton" Kind="ChevronLeftBox" VerticalAlignment="Top" Grid.Column="1" Width="40" Height="25" Margin="55 30 0 0" Background="WhiteSmoke" Foreground="Black"/>
+                            <Button Name="ExportGraphicButton" Content="Exportar" VerticalAlignment="Center" Grid.Column="1" Height="40" Margin="30,92,29,96" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                            <materialDesign:PackIcon Name="RightButton" Kind="ChevronRightBox" VerticalAlignment="Bottom" Grid.Column="1" Width="40" Height="25" Margin="55 0 0 30" Background="WhiteSmoke" Foreground="Black"/>
+
+                            <DataGrid
+                          AutoGenerateColumns="False"
+                          Name="GraphicsToExportTableGrid" Margin="0,0,0,4" Grid.Column="2">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn MinWidth="400" 
+                                            Header="Graficas a Exportar"
+                                            Binding="{Binding Path=name}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            
+        </TabControl>
 
         <!-- Left Barr Grid -->
         <Grid x:Name="GridMenu"  Width="60" HorizontalAlignment="Left" Background="#FF1D2A64">
@@ -61,9 +310,9 @@
                     </Button>
                 </Grid>
                 <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF2045A8" >
-                    <ListViewItem Height="60" MouseDoubleClick="GraphicDephinition_MouseDoubleClick_1">
+                    <ListViewItem Height="60" MouseDoubleClick="GraphicDephinition_MouseDoubleClick">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Create" Width="25" Height="25" Margin="10" VerticalAlignment="Center" MouseDoubleClick="GraphicDephinition_MouseDoubleClick_1"/>
+                            <materialDesign:PackIcon Kind="Create" Width="25" Height="25" Margin="10" VerticalAlignment="Center" MouseDoubleClick="GraphicDephinition_MouseDoubleClick"/>
                             <TextBlock Text="Definicion de Gráfica" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>

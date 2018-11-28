@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using WinMaths.src.bean.function;
 
 namespace WinMaths.src.bean
 {
@@ -12,7 +13,7 @@ namespace WinMaths.src.bean
     {
         /* Datos de la clase Graphic */
         private static int id;
-        private string function;
+        private Function function;
         private string name;
         private double paramA;
         private double paramB;
@@ -22,7 +23,7 @@ namespace WinMaths.src.bean
         /// <summary>
         /// Constructor de la clase Graphic
         /// </summary>
-        public Graphic(string function, 
+        public Graphic(Function function, 
                        string name, 
                        double paramA, 
                        double paramB, 
@@ -52,12 +53,21 @@ namespace WinMaths.src.bean
         /// <summary>
         /// Definición de la propiedad del dato 'function'
         /// </summary>
-        public string Function
+        public Function Function
         {
             get { return function; }
             set {
                 function = value;
                 OnPropertyChanged("Function");
+            }
+        }
+
+        public string FunctionToString
+        {
+            get { return function.ToString(); }
+            set
+            {
+                
             }
         }
 

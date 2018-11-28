@@ -73,7 +73,8 @@ namespace WinMaths
             clipBorder.MouseLeave += ClipBorder_MouseLeave;
 
             // Gestión de la instancia de la ventana del menú de preferencias
-            PreferencesMenuUIVar = new PreferencesMenuUI(viewModel);
+            PreferencesMenuUIVar = new PreferencesMenuUI();
+            PreferencesMenuUIVar.SetViewModel(viewModel);
             PreferencesMenuUIVar.Closed += Window_Closed;
             PreferencesMenuUIVar.Show();
         }

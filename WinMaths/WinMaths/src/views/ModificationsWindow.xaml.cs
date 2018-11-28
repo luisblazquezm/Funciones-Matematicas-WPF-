@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WinMaths.src.views
 {
     /// <summary>
-    /// Lógica de interacción para ImportUI.xaml
+    /// Lógica de interacción para ModificationsWindow.xaml
     /// </summary>
-    public partial class ImportUI : Page
+    public partial class ModificationsWindow : Window
     {
-        public ImportUI()
+        public ModificationsWindow()
         {
             InitializeComponent();
         }

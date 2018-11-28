@@ -34,6 +34,7 @@ namespace WinMaths.src.model
             int id = GetActualGraphicId();
             newGraphic.ID = id;
             this.listOfGraphics.Add(newGraphic);
+            Console.WriteLine("Grafica añadida {0}", newGraphic.Name);
             return id;
         }
 
@@ -46,6 +47,7 @@ namespace WinMaths.src.model
                 Graphic gph = GetGraphicWithID(id);
 
                 if (gph != null) {
+                    Console.WriteLine("Grafica eliminada {0}", gph.Name);
                     listOfGraphics.Remove(gph);
                     return true;
                 } else {
@@ -84,7 +86,7 @@ namespace WinMaths.src.model
         {
             int actualID = this.ActualGraphicID;
             (this.ActualGraphicID)++;
-            return this.ActualGraphicID;
+            return actualID;
         }
 
         public Graphic GetGraphicWithID(int id)

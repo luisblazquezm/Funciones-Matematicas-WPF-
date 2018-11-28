@@ -17,16 +17,6 @@ namespace WinMaths.src.utils
             public double XMin, YMin, XMax, YMax;
         }
 
-        //TODO ESTO SERAN ENUMS EN LA CLASE UTILS DE MI TRABAJO
-        /*
-        public const int SEN = 0;
-        public const int COS = 1;
-        public const int EXPONENCIAL = 2;
-        public const int PRODUCTO = 3;
-        public const int CUADRATICA = 4;
-        public const int FRACCIONARIA = 5;
-        */
-
         public Line[] DrawAxis(FuncRect real, FuncRect screen)
         {
             Line[] arrayOfAxis = new Line[2];
@@ -119,7 +109,7 @@ namespace WinMaths.src.utils
             for (int i = 0; i <= numberOfPoints; i++) // OJOOOOOOOOOOOOOO Aqui he cambiado el < por <= para que llegue de -10 a 10 y no de -10 a 9.66 por ejemplo
             {
                 xReal = real.XMin + i * (real.XMax - real.XMin) / numberOfPoints;
-                yReal = SwitchFunctionFromButton(xReal);
+                yReal = g.Function.CalculateF(xReal);
 
                 xScreen = ConvertXFromRealToPant(xReal, screen.XMin, screen, real);
                 yScreen = ConvertYFromRealToPant(yReal, screen.YMin, screen, real);
@@ -128,20 +118,8 @@ namespace WinMaths.src.utils
             }
 
             graphicPolyline.Points = new PointCollection(points);
-            // Método para cortar las funciones exponencial y fraccionaria
             return graphicPolyline;
 
-            //DrawAxis();
-        }
-
-        //OJOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO CAMBIAR<-----------------------------------------------------------------------------
-        private double SwitchFunctionFromButton(double xreal)
-        {
-            double a = 12;
-            double b = 3;
-            double c = 4;
-
-            return a * Math.Pow(xreal, 2) + b * xreal + c;
         }
 
         public double ConvertXFromRealToPant(double xreal, double width, FuncRect screen, FuncRect real)
