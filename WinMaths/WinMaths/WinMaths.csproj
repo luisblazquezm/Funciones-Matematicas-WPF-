@@ -100,6 +100,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="src\views\ExportUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\views\GraphicDephinitionUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\views\GraphicTableUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\views\ImportUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +125,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\bean\Graphic.cs" />
+    <Compile Include="src\views\ExportUI.xaml.cs">
+      <DependentUpon>ExportUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\views\GraphicDephinitionUI.xaml.cs">
+      <DependentUpon>GraphicDephinitionUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\views\GraphicTableUI.xaml.cs">
+      <DependentUpon>GraphicTableUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\views\ImportUI.xaml.cs">
+      <DependentUpon>ImportUI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -140,7 +168,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

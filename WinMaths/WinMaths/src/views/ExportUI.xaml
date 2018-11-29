@@ -1,0 +1,71 @@
+﻿<Page x:Class="WinMaths.src.views.ExportUI"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:WinMaths"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ExportUI">
+
+    <Grid>
+        <!-- Grid con 6 filas y 2 columnas-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="47*"/>
+        </Grid.RowDefinitions>
+
+        <!-- GroupBox de Importar Imagen-->
+        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Imagen" Grid.Row="0" Tag="Name of customer" Margin="20,10,36,10">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!-- Panel para guardar A ,B y C-->
+                <WrapPanel Grid.Row="1" Grid.Column="1" Height="89" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="458">
+                    
+                        <Label Margin="5" Content="Formato a Importar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <ComboBox Name="ImageExtensionsComboBox" Width="303" Height="25" Margin="5" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
+                        <Button Name="ExportImageButton" Content="Exportar Representación" Margin="260 0 0 30" Width="187" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                    
+                </WrapPanel>
+            </TextBlock>
+        </GroupBox>
+
+        <!-- GroupBox de Importar Graficas-->
+        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Datos" Tag="Name of customer" Margin="20,0,36,10" Grid.Row="1">
+            <Grid HorizontalAlignment="Center" Margin="10,0,13,0" Width="691">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <DataGrid
+                          AutoGenerateColumns="False"
+                          Name="CreatedGraphicsTableGrid" Margin="34,0,0,4" Grid.Column="0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="400" 
+                                            Header="Graficas Creadas"
+                                            Binding="{Binding Path=name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <materialDesign:PackIcon Name="LeftButton" Kind="ChevronLeftBox" VerticalAlignment="Top" Grid.Column="1" Width="40" Height="25" Margin="55 30 0 0" Background="WhiteSmoke" Foreground="Black"/>
+                <Button Name="ExportGraphicButton" Content="Exportar" VerticalAlignment="Center" Grid.Column="1" Height="40" Margin="30,92,29,96" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                <materialDesign:PackIcon Name="RightButton" Kind="ChevronRightBox" VerticalAlignment="Bottom" Grid.Column="1" Width="40" Height="25" Margin="55 0 0 30" Background="WhiteSmoke" Foreground="Black"/>
+
+                <DataGrid
+                          AutoGenerateColumns="False"
+                          Name="GraphicsToExportTableGrid" Margin="0,0,0,4" Grid.Column="2">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn MinWidth="400" 
+                                            Header="Graficas a Exportar"
+                                            Binding="{Binding Path=name}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>

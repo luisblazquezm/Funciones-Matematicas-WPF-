@@ -40,7 +40,7 @@ namespace WinMaths.src.viewModels
         private Model model;
 
         /* Eventos de Cambio en la Propiedad */
-        public event EventHandler GraphicAdded;
+        //public event EventHandler GraphicAdded;
         public event ViewModelEventHandler GraphicSetToDraw;
         public event ViewModelEventHandler GraphicDeleted;
         public event ViewModelEventHandler GraphicUpdated;
@@ -59,7 +59,7 @@ namespace WinMaths.src.viewModels
         {
             int creationResult = model.AddGraphic(g);
             g.PropertyChanged += PropertyChangedHandler; // Se lanza el evento que avisa de que se ha modificado una propiedad de la clase Grafica
-            OnGraphicAdded(g);
+            //OnGraphicAdded(g);
             return creationResult;
         }
 
@@ -112,13 +112,13 @@ namespace WinMaths.src.viewModels
 
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
 
-        
+        /*
         protected virtual void OnGraphicAdded(Graphic g)
         {
             if (GraphicAdded != null)
                 GraphicAdded(this, new ViewModelEventArgs(g));
         }
-        
+        */
         protected virtual void OnDrawGraphic(List<Graphic> g)
         {
             if (GraphicSetToDraw != null)
