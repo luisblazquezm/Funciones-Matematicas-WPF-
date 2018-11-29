@@ -45,7 +45,7 @@
             <Label Margin="10 50 0 0" Content="Formato a Exportar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <ComboBox Width="285" Height="25" Margin="10 0 0 0" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
             <materialDesign:PackIcon  Kind="FormatVerticalAlignTop" Width="45" Height="35" Margin="15 20 0 10" VerticalAlignment="Center" Background="WhiteSmoke" Foreground="Black"/>
-            <Button Content="Importar" Margin="50 15 0 0" Width="184" Height="40" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+            <Button Content="Importar" Margin="50 15 0 0" Width="184" Height="40" FontSize="13" Background="LightGray" Foreground="Black" BorderBrush="Black"/>
         </WrapPanel>
 
     </Grid>

@@ -24,25 +24,26 @@ namespace WinMaths.src.views
     {
         private ViewModel viewModel;
 
-        public GraphicTableUI()
+        public GraphicTableUI(ViewModel vM)
         {
             InitializeComponent();
-            Console.WriteLine("Inicializo");
-            //this.viewModel = viewModel;
-            //TableGrid.ItemsSource = viewModel.GetListOfGraphicsVM();
-            //TableGrid.SelectedCellsChanged += TableGrid_SelectedCellsChanged;
+
+            this.viewModel = vM;
+
+            TableGrid.ItemsSource = viewModel.GetCollectionOfGraphicsVM(); // Puede que se esté recargando cada vez que se instancia el pages todo el rato y esté mal
+            TableGrid.SelectedCellsChanged += TableGrid_SelectedCellsChanged;
 
             // Gestión del Botón Dibujar
             DrawGraphicButton.Click += DrawGraphicButton_Click;
-            //DrawGraphicButton.IsEnabled = false;
+            DrawGraphicButton.IsEnabled = false;
 
             // Gestión del Botón Modificar
             ModifyGraphicButton.Click += ModifyGraphicButton_Click;
-            //ModifyGraphicButton.IsEnabled = false;
+            ModifyGraphicButton.IsEnabled = false;
 
             // Gestión del Botón Eliminar
             DeleteGraphicButton.Click += DeleteGraphicButton_Click;
-            //DeleteGraphicButton.IsEnabled = false;
+            DeleteGraphicButton.IsEnabled = false;
         }
 
         private void TableGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
@@ -58,12 +59,14 @@ namespace WinMaths.src.views
             }
         }
 
+        /*
         public void SetViewModel(ViewModel vM)
         {
-            Console.WriteLine("Entro SetVM");
             this.viewModel = vM;
             TableGrid.ItemsSource = viewModel.GetCollectionOfGraphicsVM(); // Puede que se esté recargando cada vez que se instancia el pages todo el rato y esté mal
+            viewModel.GraphicUpdated += ViewModel_GraphicUpdated;
         }
+        */
 
         private void DrawGraphicButton_Click(object sender, RoutedEventArgs e)
         {
@@ -74,7 +77,9 @@ namespace WinMaths.src.views
 
         private void ModifyGraphicButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            ModificationsWindow modificationsWindow = new ModificationsWindow(this.viewModel);
+            modificationsWindow.ShowDialog(); // Modal
+            modificationsWindow.SetGraphicParameters((Graphic)TableGrid.SelectedItem);//<------------------------------------- Si selecciona varias filas que le de una ventana con un mensaje de error
         }
 
         private void DeleteGraphicButton_Click(object sender, RoutedEventArgs e)

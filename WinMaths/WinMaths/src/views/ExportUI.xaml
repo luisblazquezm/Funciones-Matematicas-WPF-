@@ -19,22 +19,8 @@
             <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
 
-        <!-- GroupBox de Importar Imagen-->
-        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Imagen" Grid.Row="0" Tag="Name of customer" Margin="20,10,36,10">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
-                <!-- Panel para guardar A ,B y C-->
-                <WrapPanel Grid.Row="1" Grid.Column="1" Height="89" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="458">
-                    
-                        <Label Margin="5" Content="Formato a Importar:" Height="31" Width="130" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <ComboBox Name="ImageExtensionsComboBox" Width="303" Height="25" Margin="5" BorderThickness="1,1,1,1" VerticalAlignment="Center"/>
-                        <Button Name="ExportImageButton" Content="Exportar Representación" Margin="260 0 0 30" Width="187" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
-                    
-                </WrapPanel>
-            </TextBlock>
-        </GroupBox>
-
         <!-- GroupBox de Importar Graficas-->
-        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Datos" Tag="Name of customer" Margin="20,0,36,10" Grid.Row="1">
+        <GroupBox Style="{StaticResource groupBoxHeader}" Header="Exportar Datos" Tag="Name of customer" Margin="20,0,36,10" Grid.RowSpan="2">
             <Grid HorizontalAlignment="Center" Margin="10,0,13,0" Width="691">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -42,27 +28,36 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <DataGrid
-                          AutoGenerateColumns="False"
-                          Name="CreatedGraphicsTableGrid" Margin="34,0,0,4" Grid.Column="0">
+                <DataGrid AutoGenerateColumns="False" Name="CreatedGraphicsTableGrid" CanUserAddRows="False" CanUserDeleteRows="True" SelectionMode="Extended" SelectionUnit="FullRow" Margin="10,0,0,4" Grid.Column="0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn MinWidth="400" 
+
+                        <DataGridTextColumn MinWidth="100" 
                                             Header="Graficas Creadas"
-                                            Binding="{Binding Path=name}"/>
+                                            IsReadOnly="True"
+                                            Binding="{Binding Mode=TwoWay, Path=Name}"/>
+
+                        <DataGridTextColumn MinWidth="100" 
+                                            Header="Funcion"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Mode=TwoWay, Path=FunctionToString}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <materialDesign:PackIcon Name="LeftButton" Kind="ChevronLeftBox" VerticalAlignment="Top" Grid.Column="1" Width="40" Height="25" Margin="55 30 0 0" Background="WhiteSmoke" Foreground="Black"/>
-                <Button Name="ExportGraphicButton" Content="Exportar" VerticalAlignment="Center" Grid.Column="1" Height="40" Margin="30,92,29,96" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
-                <materialDesign:PackIcon Name="RightButton" Kind="ChevronRightBox" VerticalAlignment="Bottom" Grid.Column="1" Width="40" Height="25" Margin="55 0 0 30" Background="WhiteSmoke" Foreground="Black"/>
+                <materialDesign:PackIcon Name="LeftButton" Kind="ChevronLeftBox" VerticalAlignment="Top" Grid.Column="1" Width="86" Height="38" Margin="30,110,0,0" Background="WhiteSmoke" Foreground="Black"/>
+                <Button Name="ExportGraphicButton" Content="Exportar" VerticalAlignment="Center" Grid.Column="1" Height="40" Margin="30,92,29,96" Background="LightGray" Foreground="Black" BorderBrush="WhiteSmoke"/>
+                <materialDesign:PackIcon Name="RightButton" Kind="ChevronRightBox" VerticalAlignment="Bottom" Grid.Column="1" Width="86" Height="42" Margin="30,0,0,110" Background="WhiteSmoke" Foreground="Black"/>
 
-                <DataGrid
-                          AutoGenerateColumns="False"
-                          Name="GraphicsToExportTableGrid" Margin="0,0,0,4" Grid.Column="2">
+                <DataGrid AutoGenerateColumns="False" Name="GraphicsToExportTableGrid" Margin="0,0,0,4" Grid.Column="2">
                     <DataGrid.Columns>
-                        <DataGridTextColumn MinWidth="400" 
+
+                        <DataGridTextColumn MinWidth="100" 
                                             Header="Graficas a Exportar"
-                                            Binding="{Binding Path=name}"/>
+                                            Binding="{Binding Path=Name}"/>
+
+                        <DataGridTextColumn MinWidth="100" 
+                                            Header="Funcion"
+                                            IsReadOnly="True"
+                                            Binding="{Binding Mode=TwoWay, Path=FunctionToString}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

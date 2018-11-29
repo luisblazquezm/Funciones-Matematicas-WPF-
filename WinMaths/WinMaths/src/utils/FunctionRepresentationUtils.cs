@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using WinMaths.src.bean;
+using WinMaths.src.bean.function;
 
 namespace WinMaths.src.utils
 {
@@ -93,10 +94,9 @@ namespace WinMaths.src.utils
             return listOflines;
         }
 
-        public Polyline DrawGraphic(Graphic g, double canvasWidth, double canvasHeight)
+        public PointCollection[] DrawGraphic(Graphic g, double canvasWidth, double canvasHeight)
         {
             PointCollection points = new PointCollection();
-            PointCollection[] listOfPoints = new PointCollection[2];
             Polyline graphicPolyline = new Polyline();
             double xReal, yReal, xScreen, yScreen;
 
@@ -104,24 +104,123 @@ namespace WinMaths.src.utils
             FuncRect screen = DeclareFuncRect(0, canvasWidth, 0, canvasHeight);
             int numberOfPoints = (int)screen.XMax;
 
-            graphicPolyline.Stroke = new SolidColorBrush(g.GraphicColor);
+            int i = 0;
+            int j = 0;
+            int limit = 0;
 
-            for (int i = 0; i <= numberOfPoints; i++) // OJOOOOOOOOOOOOOO Aqui he cambiado el < por <= para que llegue de -10 a 10 y no de -10 a 9.66 por ejemplo
+            if (g.Function.Formula.Equals(ExponentialFunction.GetFormula()) && g.ParamB < 0 ||
+                            g.Function.Formula.Equals(FractionalFunction.GetFormula()))
             {
-                xReal = real.XMin + i * (real.XMax - real.XMin) / numberOfPoints;
-                yReal = g.Function.CalculateF(xReal);
+                PointCollection[] listOfPoints = new PointCollection[2];
+                while (j < 2)
+                {
 
-                xScreen = ConvertXFromRealToPant(xReal, screen.XMin, screen, real);
-                yScreen = ConvertYFromRealToPant(yReal, screen.YMin, screen, real);
+                    do
+                    {
+                        i++;
+                        xReal = real.XMin + i * (real.XMax - real.XMin) / numberOfPoints;
+                        yReal = g.Function.CalculateF(xReal);
 
-                points.Add(new Point(xScreen, yScreen));
+                        xScreen = ConvertXFromRealToPant(xReal, screen.XMin, screen, real);
+                        yScreen = ConvertYFromRealToPant(yReal, screen.YMin, screen, real);
+
+                        points.Add(new Point(xScreen, yScreen));
+
+                    } while (Convert.ToInt32(xReal) < limit);
+
+                    listOfPoints[j] = points;
+                    points = new PointCollection();
+                    j++;
+
+                    xReal += 1;
+                    limit = (int)real.XMax;
+                    i = (int)(-(real.XMin) * numberOfPoints / (real.XMax - real.XMin));
+                }
+
+                return listOfPoints;
+
+            } else {
+
+                PointCollection[] listOfPoints = new PointCollection[1];
+
+                for (i = 0; i <= numberOfPoints; i++) // OJOOOOOOOOOOOOOO Aqui he cambiado el < por <= para que llegue de -10 a 10 y no de -10 a 9.66 por ejemplo
+                {
+                    xReal = real.XMin + i * (real.XMax - real.XMin) / numberOfPoints;
+                    yReal = g.Function.CalculateF(xReal);
+
+                    xScreen = ConvertXFromRealToPant(xReal, screen.XMin, screen, real);
+                    yScreen = ConvertYFromRealToPant(yReal, screen.YMin, screen, real);
+
+                    points.Add(new Point(xScreen, yScreen));
+                }
+
+                listOfPoints[0] = points;
+
+                return listOfPoints;
             }
-
-            graphicPolyline.Points = new PointCollection(points);
-            return graphicPolyline;
 
         }
 
+        /*
+        private PointCollection[] DrawSplitedGraphic(Graphic g, double canvasWidth, double canvasHeight)
+        {
+            List<PointCollection> PointCollectionList = new List<PointCollection>();
+            PointCollection puntos = new PointCollection();
+            Polyline polilinea = new Polyline();
+            double xreal, yreal, xpant, ypant, oldXReal;
+            int numpuntos;
+
+            numpuntos = (int)screen.XMax;
+
+            polilinea.Stroke = Brushes.Red;
+            // Xreal  = de -10  a 0 y de 0 a 10
+
+            int i = 0;
+            int j = 0;
+            int limit = 0;
+            while (j < 2)
+            {
+
+                do
+                {
+                    i++;
+                    xreal = real.XMin + i * (real.XMax - real.XMin) / numpuntos;
+                    Console.WriteLine("Xreal {0}", xreal);
+                    yreal = SwitchFunctionFromButton(xreal);
+
+                    xpant = ConvertXFromRealToPant(xreal, pant.XMin);
+                    ypant = ConvertYFromRealToPant(yreal, pant.YMin);
+
+                    Point punto = new Point(xpant, ypant);
+                    puntos.Add(punto);
+                } while (Convert.ToInt32(xreal) < limit);
+
+                PointCollectionList.Add(puntos);
+                puntos = new PointCollection();
+
+                j++;
+
+                Console.WriteLine("Antes {0}", xreal);
+                oldXReal = xreal;
+                xreal += 1;
+                limit = (int)real.XMax;
+                Console.WriteLine("Despues {0}", xreal);
+                i = (int)(-(real.XMin) * numpuntos / (real.XMax - real.XMin));
+                Console.WriteLine("i {0}", i);
+
+            }
+            
+
+            foreach (PointCollection p in PointCollectionList)
+            {
+                lienzo.Children.Add(new Polyline()
+                {
+                    Points = p,
+                    Stroke = Brushes.Red
+                });
+            }
+        }
+        */
         public double ConvertXFromRealToPant(double xreal, double width, FuncRect screen, FuncRect real)
         {
             return (screen.XMax - width) * ((xreal - real.XMin) / (real.XMax - real.XMin)) + screen.XMin;

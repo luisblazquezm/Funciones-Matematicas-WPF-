@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinMaths.src.utils;
+using WinMaths.src.viewModels;
 
 namespace WinMaths.src.views
 {
@@ -21,17 +24,16 @@ namespace WinMaths.src.views
     /// </summary>
     public partial class ExportUI : Page
     {
-        public ExportUI()
+        private IOUtils IOUtilsVar;
+        private RenderTargetBitmap canvasRenderization;
+        private ViewModel viewModel;
+
+        public ExportUI(ViewModel vM)
         {
             InitializeComponent();
 
-            // Gestión del Botón Exportar Representación
-            ExportImageButton.Click += ExportImageButton_Click;
-
-            // Gestión del ComboBox de Extensiones de Imágen
-            ImageExtensionsComboBox.ItemsSource = InitializeImageExtensionsComboBox();
-            ImageExtensionsComboBox.SelectionChanged += ImageExtensionsComboBox_SelectionChanged;
-
+            this.viewModel = vM;
+            CreatedGraphicsTableGrid.ItemsSource = viewModel.GetCollectionOfGraphicsVM();
             // Gestión del Botón para pasar de la tabla Graficas Creadas a las Graficas a Exportar
             LeftButton.MouseDoubleClick += LeftButton_MouseDoubleClick;
 
@@ -42,21 +44,6 @@ namespace WinMaths.src.views
             ExportGraphicButton.Click += ExportGraphicButton_Click;
         }
 
-
-        private String[] InitializeImageExtensionsComboBox()
-        {
-            return null;
-        }
-
-        private void ExportImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ImageExtensionsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void LeftButton_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -72,5 +59,6 @@ namespace WinMaths.src.views
         {
             throw new NotImplementedException();
         }
+
     }
 }

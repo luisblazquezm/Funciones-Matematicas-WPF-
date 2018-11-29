@@ -26,15 +26,18 @@ namespace WinMaths.src.views
         private GraphicDephinitionUI graphicDephinitionUI;
         private ExportUI exportUI;
 
-        public PreferencesMenuUI() /* Ojooooooo no se si pasar el viewModel por aqui o de otra manera*/
+        public PreferencesMenuUI(ViewModel vM) /* Ojooooooo no se si pasar el viewModel por aqui o de otra manera*/
         {
             InitializeComponent();
+            this.viewModel = vM;
         }
 
+        /*
         public void SetViewModel(ViewModel vM)
         {
             this.viewModel = vM;
         }
+        */
 
         private void Panel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -56,8 +59,8 @@ namespace WinMaths.src.views
         private void GraphicTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (graphicTableUI == null){
-                graphicTableUI = new GraphicTableUI();
-                graphicTableUI.SetViewModel(this.viewModel);
+                graphicTableUI = new GraphicTableUI(this.viewModel);
+                //graphicTableUI.SetViewModel(this.viewModel);
             }
             PreferencesMenu.Content = graphicTableUI.Content;
         }
@@ -73,8 +76,8 @@ namespace WinMaths.src.views
         private void GraphicDephinition_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (graphicDephinitionUI == null){
-                graphicDephinitionUI = new GraphicDephinitionUI();
-                graphicDephinitionUI.SetViewModel(this.viewModel);
+                graphicDephinitionUI = new GraphicDephinitionUI(this.viewModel);
+                //graphicDephinitionUI.SetViewModel(this.viewModel);
             }
             PreferencesMenu.Content = graphicDephinitionUI.Content;
         }
@@ -83,7 +86,7 @@ namespace WinMaths.src.views
         {
             if (exportUI == null)
             {
-                exportUI = new ExportUI();
+                exportUI = new ExportUI(this.viewModel);
             }
             PreferencesMenu.Content = exportUI.Content;
         }

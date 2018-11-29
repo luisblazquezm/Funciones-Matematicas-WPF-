@@ -110,6 +110,7 @@ namespace WinMaths.src.viewModels
             OnDrawGraphic(g);
         }
 
+
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
 
         /*

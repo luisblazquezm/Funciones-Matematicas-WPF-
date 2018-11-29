@@ -12,7 +12,7 @@ namespace WinMaths.src.bean
     public class Graphic : INotifyPropertyChanged
     {
         /* Datos de la clase Graphic */
-        private static int id;
+        private int id;
         private Function function;
         private string name;
         private double paramA;

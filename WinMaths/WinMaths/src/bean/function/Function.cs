@@ -25,11 +25,12 @@ namespace WinMaths.src.bean.function
             this.ParamA = a;
             this.ParamB = b;
             this.ParamC = -1;
+            this.Formula = "a*sen(b*x)";
         }
 
-        public new static string Formula
+        public static string GetFormula()
         {
-            get { return "a*sen(b*x)"; }
+            return "a*sen(b*x)";
         }
 
         public override string ToString()
@@ -50,11 +51,12 @@ namespace WinMaths.src.bean.function
             this.ParamA = a;
             this.ParamB = b;
             this.ParamC = -1;
+            this.Formula = "a*cos(b*x)";
         }
 
-        public new static string Formula
+        public static string GetFormula()
         {
-            get { return "a*cos(b*x)"; }
+            return "a*cos(b*x)";
         }
 
         public override string ToString()
@@ -76,11 +78,12 @@ namespace WinMaths.src.bean.function
             this.ParamA = a;
             this.ParamB = b;
             this.ParamC = -1;
+            this.Formula = "a*x^b";
         }
 
-        public new static string Formula
+        public static string GetFormula()
         {
-            get { return "a*x^b"; }
+            return "a*x^b";
         }
 
         public override string ToString()
@@ -101,11 +104,12 @@ namespace WinMaths.src.bean.function
             this.ParamA = a;
             this.ParamB = b;
             this.ParamC = -1;
+            this.Formula = "a*x+b";
         }
 
-        public new static string Formula
+        public static string GetFormula()
         {
-            get { return "a*x+b"; }
+            return "a*x+b";
         }
 
         public override string ToString()
@@ -126,11 +130,12 @@ namespace WinMaths.src.bean.function
             this.ParamA = a;
             this.ParamB = b;
             this.ParamC = c;
+            this.Formula = "a*x^2+b*x+c";
         }
 
-        public new static string Formula
+        public static string GetFormula()
         {
-            get { return "a*x^2+b*x+c"; }
+            return "a*x^2+b*x+c";
         }
 
         public override string ToString()
@@ -151,11 +156,12 @@ namespace WinMaths.src.bean.function
             this.ParamA = a;
             this.ParamB = b;
             this.ParamC = -1;
+            this.Formula = "a/(b*x)";
         }
 
-        public new static string Formula
+        public static string GetFormula()
         {
-            get { return "a/(b*x)"; }
+             return "a/(b*x)"; 
         }
 
         public override string ToString()

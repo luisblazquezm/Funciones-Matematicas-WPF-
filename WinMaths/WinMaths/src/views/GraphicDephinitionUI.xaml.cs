@@ -29,12 +29,13 @@ namespace WinMaths.src.views
         private ViewModel viewModel;
         private Boolean nameTextBoxFlag , paramATextBoxFlag, paramBTextBoxFlag, paramCTextBoxFlag;
 
-        public GraphicDephinitionUI()
+        public GraphicDephinitionUI(ViewModel vM)
         {
             InitializeComponent();
 
+            this.viewModel = vM;
+
             /* Inicialización Variables Globales*/
-            //this.viewModel = viewModel; /* OJOooooooooooooo esto puede estar mal */
             nameTextBoxFlag = false;
             paramATextBoxFlag = false;
             paramBTextBoxFlag = false;
@@ -62,10 +63,12 @@ namespace WinMaths.src.views
 
         }
 
+        /*
         public void SetViewModel(ViewModel vM)
         {
             this.viewModel = vM;
         }
+        */
 
         private void FunctionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -74,7 +77,7 @@ namespace WinMaths.src.views
             if (lastSelectedIndex != actualSelectedIndex && lastSelectedIndex != -1)
                 DeactivateGraphicDephinitionFields();
 
-            if (SecondGradeFunction.Formula.Equals((String)FunctionComboBox.SelectedItem))
+            if (SecondGradeFunction.GetFormula().Equals((String)FunctionComboBox.SelectedItem))
                 ParamCWrapPanel.Visibility = Visibility.Visible;
             else
                 ParamCWrapPanel.Visibility = Visibility.Hidden;
@@ -106,15 +109,15 @@ namespace WinMaths.src.views
             }
         }
 
-        private String[] InitializeFunctionComboBox()
+        private String[] InitializeFunctionComboBox() // <------------------- Encapsularlo en clase Funcion
         {
             String[] functionList = {
-                CosXFunction.Formula,
-                SenXFunction.Formula,
-                ExponentialFunction.Formula,
-                FirstGradeFunction.Formula,
-                SecondGradeFunction.Formula,
-                FractionalFunction.Formula
+                CosXFunction.GetFormula(),
+                SenXFunction.GetFormula(),
+                ExponentialFunction.GetFormula(),
+                FirstGradeFunction.GetFormula(),
+                SecondGradeFunction.GetFormula(),
+                FractionalFunction.GetFormula()
             };
 
             return functionList;
@@ -129,7 +132,7 @@ namespace WinMaths.src.views
             double paramC = 0;
             if (ParamCTextBox.IsVisible)
                 paramC = double.Parse(ParamCTextBox.Text);
-            Function f = SelectFunction(FunctionName, paramA, paramB, paramC);
+            Function f = SelectFunction(FunctionName, paramA, paramB, paramC); // <--------------------------- Encapsular en la clase funcion com
             Color GraphicColor = (Color)ColorSelectionColorPicker.SelectedColor;
 
             return new Graphic(f, GraphicName, paramA, paramB, paramC, GraphicColor);
@@ -137,17 +140,17 @@ namespace WinMaths.src.views
 
         private Function SelectFunction(string functionName, double a, double b, double c)
         {
-            if (CosXFunction.Formula.Equals(functionName))
+            if (CosXFunction.GetFormula().Equals(functionName))
                 return new CosXFunction(a, b);
-            else if (SenXFunction.Formula.Equals(functionName))
+            else if (SenXFunction.GetFormula().Equals(functionName))
                 return new SenXFunction(a, b);
-            else if (ExponentialFunction.Formula.Equals(functionName))
+            else if (ExponentialFunction.GetFormula().Equals(functionName))
                 return new ExponentialFunction(a, b);
-            else if (FirstGradeFunction.Formula.Equals(functionName))
+            else if (FirstGradeFunction.GetFormula().Equals(functionName))
                 return new FirstGradeFunction(a, b);
-            else if (SecondGradeFunction.Formula.Equals(functionName))
+            else if (SecondGradeFunction.GetFormula().Equals(functionName))
                 return new SecondGradeFunction(a, b, c);
-            else if (FractionalFunction.Formula.Equals(functionName))
+            else if (FractionalFunction.GetFormula().Equals(functionName))
                 return new FractionalFunction(a, b);
 
             return null;
@@ -218,7 +221,7 @@ namespace WinMaths.src.views
 
         private void AddGraphicToTableGrid(object sender, RoutedEventArgs e)
         {
-            Graphic g = CreateNewGraphic();
+            Graphic g = CreateNewGraphic(); // <------------------- Encapsularlo en la clase grafica --> un constructor
             if (g != null) {
                 DeactivateGraphicDephinitionFields();
                 int result = viewModel.AddGraphicVM(g);

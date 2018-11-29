@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using WinMaths.src.bean;
 using WinMaths.src.viewModels;
 using WinMaths.src.utils;
+using System.IO;
+using WinMaths.src.bean.function;
 
 namespace WinMaths
 {
@@ -66,15 +68,17 @@ namespace WinMaths
             // Gestión del Canvas de Representación
             this.SizeChanged += RepresentationCanvas_SizeChanged;
             RepresentationCanvas.MouseWheel += RepresentationCanvas_MouseWheel;
-            RepresentationCanvas.MouseLeftButtonDown += RepresentationCanvas_MouseLeftButtonDown;
+            RepresentationCanvas.MouseMove += RepresentationCanvas_MouseMove;
+
+            // Gestión de exportar el canvas a imagen
+            ExportMenuOption.Click += ExportButton_Click;
 
             // Gestión del Borde que contiene el canvas
             clipBorder.MouseEnter += ClipBorder_MouseEnter;
             clipBorder.MouseLeave += ClipBorder_MouseLeave;
 
             // Gestión de la instancia de la ventana del menú de preferencias
-            PreferencesMenuUIVar = new PreferencesMenuUI();
-            PreferencesMenuUIVar.SetViewModel(viewModel);
+            PreferencesMenuUIVar = new PreferencesMenuUI(viewModel);
             PreferencesMenuUIVar.Closed += Window_Closed;
             PreferencesMenuUIVar.Show();
         }
@@ -82,29 +86,34 @@ namespace WinMaths
         private void ViewModel_GraphicSetToDraw(object sender, ViewModelEventArgs e)
         {
             List<Graphic> listOfGraphicsToRepresent = (List<Graphic>)e.listOfGraphics;
-            Polyline graphicRepresentation = new Polyline(); //<------------------------------ INstanciación innecesaria?????????????
+            PointCollection[] graphicRepresentation = null; //<------------------------------ INstanciación innecesaria?????????????
 
-            if(graphicRepresentationDictionary == null) // Para que no se dibuje nada en el sizeChanged
+            if (graphicRepresentationDictionary == null) // Para que no se dibuje nada en el sizeChanged
                 graphicRepresentationDictionary = new Dictionary<Graphic, Polyline>();
 
             DrawAxisAndLines();
             if (listOfGraphicsToRepresent != null){
                 foreach(Graphic g in listOfGraphicsToRepresent){
 
-                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null)
-                        graphicRepresentation = graphicRepresentationDictionary[g];
-                    else
+                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
+                        Polyline line = graphicRepresentationDictionary[g];
+                        RepresentationCanvas.Children.Add(line);
+                    } else {
                         graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight);
-
-                    AddPolylineToDictionary(graphicRepresentation, g);
-                    RepresentationCanvas.Children.Add(graphicRepresentation);
+                        foreach (PointCollection p in graphicRepresentation)
+                        {
+                            Polyline line = new Polyline()
+                            {
+                                Points = p,
+                                Stroke = new SolidColorBrush(g.GraphicColor)
+                            };
+                            //graphicRepresentationDictionary.Add(g, line);
+                            RepresentationCanvas.Children.Add(line);
+                        }
+                        
+                    }
                 }
             }
-        }
-
-        private void AddPolylineToDictionary(Polyline value, Graphic key)
-        {
-            graphicRepresentationDictionary.Add(key, value);
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -120,6 +129,7 @@ namespace WinMaths
         private void RepresentationCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             RepresentationCanvas.Children.Clear();
+            PointCollection[] graphicRepresentation = null;
             DrawAxisAndLines();
             if (graphicRepresentationDictionary != null) {
                 List<Graphic> listOfGraphicsToRepresent = viewModel.GetListOfGraphicsVM();
@@ -128,7 +138,20 @@ namespace WinMaths
                 {
                     foreach (Graphic g in listOfGraphicsToRepresent)
                     {
-                        RepresentationCanvas.Children.Add( graphicRepresentationDictionary[g] );
+                        graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight);
+                        
+                        foreach (PointCollection p in graphicRepresentation)
+                        {
+                            graphicRepresentationDictionary.Remove(g);
+                            Polyline line = new Polyline()
+                            {
+                                Points = p,
+                                Stroke = new SolidColorBrush(g.GraphicColor)
+                            };
+                            //graphicRepresentationDictionary.Add(g, line);
+                            RepresentationCanvas.Children.Add(line);
+                        }
+                        
                     }
                 }
             }
@@ -181,15 +204,15 @@ namespace WinMaths
             }
         }
 
-        private void RepresentationCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void RepresentationCanvas_MouseMove(object sender, MouseEventArgs e)
         {
             Panel MousePanel = (Panel)sender;
             Point p = e.GetPosition(RepresentationCanvas);
 
             Console.WriteLine("Position Mouse Canvas X:{0} Y:{1}", p.X, p.Y);
 
-            Console.WriteLine(FunctionRepresentationVar.ConvertXFromPantToReal(p.X, RepresentationCanvas.ActualWidth, screen, real));
-            Console.WriteLine(FunctionRepresentationVar.ConvertYFromPantToReal(p.Y, RepresentationCanvas.ActualHeight, screen, real));
+            XCoordLabel.Content = FunctionRepresentationVar.ConvertXFromPantToReal(p.X, RepresentationCanvas.ActualWidth, screen, real);
+            YCoordLabel.Content = FunctionRepresentationVar.ConvertYFromPantToReal(p.Y, RepresentationCanvas.ActualHeight, screen, real);
         }
 
         private void ClipBorder_MouseLeave(object sender, MouseEventArgs e)
@@ -232,5 +255,43 @@ namespace WinMaths
             isDragged = true;
         }
 
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
+            {
+                FileName = "NuevaImagen",
+                Filter = "JPeg Image | *.jpg | Bitmap Image | *.bmp | PNG | *.png | Gif Image | *.gif"
+            };
+
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                SaveToPng(RepresentationCanvas, dlg.FileName);
+            }
+        }
+
+        public void SaveToPng(FrameworkElement visual, string fileName)
+        {
+            var encoder = new PngBitmapEncoder();
+            SaveUsingEncoder(visual, fileName, encoder);
+        }
+
+        private void SaveUsingEncoder(FrameworkElement visual, string fileName, BitmapEncoder encoder)
+        {
+            RenderTargetBitmap bitmap = new RenderTargetBitmap(
+                (int)visual.ActualWidth,
+                (int)visual.ActualHeight,
+                96,
+                96,
+                PixelFormats.Pbgra32);
+            bitmap.Render(visual);
+            BitmapFrame frame = BitmapFrame.Create(bitmap);
+            encoder.Frames.Add(frame);
+
+            using (var stream = File.Create(fileName))
+            {
+                encoder.Save(stream);
+            }
+        }
     }
 }

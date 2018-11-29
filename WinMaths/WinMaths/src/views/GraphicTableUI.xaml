@@ -37,9 +37,9 @@
         </DataGrid>
 
         <StackPanel Height="65" Orientation="Horizontal" Margin="10,0,106,0">
-            <Button Name="DrawGraphicButton" Content="Dibujar" Width="180" Height="Auto"  HorizontalAlignment="Left" Margin="0,10,0,28" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
-            <Button Name="ModifyGraphicButton" Content="Modificar" Width="161" Height="Auto"  HorizontalAlignment="Center" Margin="80,10,0,28" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
-            <Button Name="DeleteGraphicButton" Content="Eliminar" Width="157" Height="Auto" HorizontalAlignment="Right" Margin="90,10,40,28" Background="WhiteSmoke" Foreground="Black" BorderBrush="WhiteSmoke"/>
+            <Button Name="DrawGraphicButton" Content="Dibujar" Width="180" Height="Auto"  HorizontalAlignment="Left" Margin="0,10,0,28" Background="LightGray" Foreground="Black" BorderBrush="WhiteSmoke"/>
+            <Button Name="ModifyGraphicButton" Content="Modificar" Width="161" Height="Auto"  HorizontalAlignment="Center" Margin="80,10,0,28" Background="LightGray" Foreground="Black" BorderBrush="WhiteSmoke"/>
+            <Button Name="DeleteGraphicButton" Content="Eliminar" Width="157" Height="Auto" HorizontalAlignment="Right" Margin="90,10,40,28" Background="LightGray" Foreground="Black" BorderBrush="WhiteSmoke"/>
         </StackPanel>
 
     </StackPanel>

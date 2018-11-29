@@ -13,7 +13,6 @@ namespace WinMaths.src.model
     {
         /* Elementos del Modelo */
         private int ActualGraphicID;
-        private int IndexOfModifiedGraphic;
         private ObservableCollection<Graphic> listOfGraphics;
 
         /// <summary>
@@ -22,7 +21,6 @@ namespace WinMaths.src.model
         public Model()
         {
             this.ActualGraphicID = 0;
-            this.IndexOfModifiedGraphic = 0;
             this.listOfGraphics = new ObservableCollection<Graphic>();
         }
 
@@ -34,13 +32,14 @@ namespace WinMaths.src.model
             int id = GetActualGraphicId();
             newGraphic.ID = id;
             this.listOfGraphics.Add(newGraphic);
-            Console.WriteLine("Grafica añadida {0}", newGraphic.Name);
+            Console.WriteLine("Grafica añadida {0} ID {1}", newGraphic.Name, id);
             return id;
         }
 
         /* Podria crear un Dictionary<int,Graphic> para eliminar sin tener que recorrer la coleccion??? Preguntar a ana*/
         public bool DeleteGraphic(List<Graphic> gToDelete)
         {
+            Console.WriteLine("NumGraficas {0}", gToDelete.Count);
             foreach (Graphic g in gToDelete) {
                 int id = g.ID;
 
@@ -49,28 +48,29 @@ namespace WinMaths.src.model
                 if (gph != null) {
                     Console.WriteLine("Grafica eliminada {0}", gph.Name);
                     listOfGraphics.Remove(gph);
-                    return true;
                 } else {
                     return false;
                 }
             }
 
-            return false;
+            return true;
         }
 
         public bool UpdateGraphic(Graphic gToModify)
         {
             int id = gToModify.ID;
 
-            Graphic g = GetGraphicWithID(id);
+            Console.WriteLine("Grafica Updated {0} Name {1}", gToModify.ID, gToModify.Name);
+            if (gToModify != null) {
 
-            if (g != null) {
-
-                /* Deleting */
-                if (this.IndexOfModifiedGraphic != 0) {
-                    listOfGraphics[this.IndexOfModifiedGraphic] = gToModify;
-                    return true;
+                foreach (Graphic graph in listOfGraphics){
+                    Console.WriteLine("Grafica ID {0}", graph.ID);
+                    if (gToModify.ID == graph.ID) {
+                        listOfGraphics[gToModify.ID] = gToModify; 
+                        return true;
+                    }
                 }
+
             } else {
                 return false;
             }
@@ -86,6 +86,7 @@ namespace WinMaths.src.model
         {
             int actualID = this.ActualGraphicID;
             (this.ActualGraphicID)++;
+            Console.WriteLine("ID nueva grafica {0} y actual {1}", actualID, this.ActualGraphicID);
             return actualID;
         }
 
@@ -103,7 +104,6 @@ namespace WinMaths.src.model
         public void ClearModel()
         {
             this.ActualGraphicID = 0;
-            this.IndexOfModifiedGraphic = 0;
             this.listOfGraphics.Clear();
         }
 
