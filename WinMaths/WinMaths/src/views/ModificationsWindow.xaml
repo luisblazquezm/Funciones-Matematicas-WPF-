@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:custom="clr-namespace:WinMaths"
         xmlns:local="clr-namespace:WinMaths.src.views"
         mc:Ignorable="d"
         Title="ModificationsWindow" Height="300.56" Width="367.709">
@@ -32,18 +33,17 @@
 
         <WrapPanel Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="A:"/>
-            <TextBox Name="ParamAModTextBox" Width="90" BorderThickness="1,1,1,1"/>
+            <custom:NumericTextBoxClass x:Name="ParamAModTextBox" Background="Transparent" Width="90" BorderThickness="1,1,1,1" />
             <Label Content="B:"/>
-            <TextBox Name="ParamBModTextBox" Width="90" BorderThickness="1,1,1,1"/>
+            <custom:NumericTextBoxClass x:Name="ParamBModTextBox" Background="Transparent" Width="90" BorderThickness="1,1,1,1" />
             <Label Name="ParamCLabel" Content="C:"/>
-            <TextBox Name="ParamCModTextBox" Width="90" BorderThickness="1,1,1,1"/>
+            <custom:NumericTextBoxClass x:Name="ParamCModTextBox" Background="Transparent" Width="90" BorderThickness="1,1,1,1" />
         </WrapPanel>
 
         <WrapPanel Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="Color de Gráfica:"/>
             <xctk:ColorPicker Name="ColorModColorPicker" Margin="5" Width="180"/>
         </WrapPanel>
-
 
         <Button Name="ConfirmButton" Grid.Column="0" Grid.Row="4" Content="Confirmar cambios" Height="20" Width="120" FontSize="10" Background="LightGray" Foreground="Black" BorderBrush="Black"/>
         <Button Name="CancelButton"  Grid.Column="1" Grid.Row="4" Content="Cancelar modificar" Height="20" Width="120" FontSize="10" Background="LightGray" Foreground="Black" BorderBrush="Black"/>

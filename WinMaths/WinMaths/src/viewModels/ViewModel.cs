@@ -13,36 +13,44 @@ namespace WinMaths.src.viewModels
     public class ViewModelEventArgs : EventArgs
     {
         /* Elementos que contendran los EventArgs */
-        public List<Graphic> listOfGraphics { get; set; }
+        public List<Graphic> ListOfGraphics { get; set; }
 
         // Constructor vacío
         public ViewModelEventArgs()
         {
-            this.listOfGraphics = null;
+            this.ListOfGraphics = null;
         }
 
         public ViewModelEventArgs(List<Graphic> graphic)
         {
-            this.listOfGraphics = graphic;
+            this.ListOfGraphics = graphic;
         }
 
         // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Esto está mal
         public ViewModelEventArgs(Graphic graphic)
         {
             List<Graphic> listOfG = new List<Graphic>();
-            listOfG.AddRange(this.listOfGraphics);
+            listOfG.AddRange(this.ListOfGraphics);
             listOfG.Add(graphic);
-            this.listOfGraphics = listOfG;
-            Console.WriteLine("Longitud de la lista {0}", this.listOfGraphics.Count);
+            this.ListOfGraphics = listOfG;
+            Console.WriteLine("Longitud de la lista {0}", this.ListOfGraphics.Count);
         }
     }
 
     public delegate void ViewModelEventHandler(object sender, ViewModelEventArgs e);
 
+    public struct FuncRect
+    {
+        public double XMin, XMax, YMin, YMax;
+    }
+
     public class ViewModel
     {
         /* Elementos del Modelo */
         private Model model;
+
+        /* Elementos de Limites */
+        private FuncRect graphicLimits;
 
         /* Eventos de Cambio en la Propiedad */
         //public event ViewModelEventHandler GraphicAdded;
@@ -50,6 +58,7 @@ namespace WinMaths.src.viewModels
         public event ViewModelEventHandler GraphicDeleted;
         public event ViewModelEventHandler GraphicUpdated;
         public event ViewModelEventHandler ModelCleared;
+        public event ViewModelEventHandler GraphicRepresentationUpdated;
 
         /// <summary>
         /// Constructor de la clase ViewModel
@@ -57,6 +66,10 @@ namespace WinMaths.src.viewModels
         public ViewModel()
         {
             model = new Model();
+            graphicLimits.XMin = -10;
+            graphicLimits.XMax = 10;
+            graphicLimits.YMin = -10;
+            graphicLimits.YMax = 10;
         }
 
         /* En vez de pasarle la grafica a todos pasarle solo el ID????????????????*/
@@ -112,12 +125,22 @@ namespace WinMaths.src.viewModels
 
         public void DrawGraphicVM(List<Graphic> g)
         {
-            OnDrawGraphic(g);
+            OnDrawGraphic(g, false);
         }
 
         public bool ImportListVM(List<Graphic> g)
         {
             return model.ImportList(g);
+        }
+
+        public FuncRect FuncRect
+        {
+            get { return this.graphicLimits; }
+            set
+            {
+                this.graphicLimits = value;
+                OnReloadRepresentation();
+            }
         }
 
 
@@ -131,7 +154,7 @@ namespace WinMaths.src.viewModels
         }
         */
 
-        protected virtual void OnDrawGraphic(List<Graphic> g)
+        protected virtual void OnDrawGraphic(List<Graphic> g, bool limit)
         {
             if (GraphicSetToDraw != null)
                 GraphicSetToDraw(this, new ViewModelEventArgs(g));
@@ -153,6 +176,12 @@ namespace WinMaths.src.viewModels
         {
             if (ModelCleared != null)
                 ModelCleared(this, new ViewModelEventArgs());
+        }
+
+        protected virtual void OnReloadRepresentation()
+        {
+            if (GraphicRepresentationUpdated != null)
+                GraphicRepresentationUpdated(this, new ViewModelEventArgs());
         }
 
         protected virtual void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)

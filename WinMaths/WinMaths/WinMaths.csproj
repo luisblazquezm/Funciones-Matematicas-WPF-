@@ -36,6 +36,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>WiNM.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.0.0.14576, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.1\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -96,11 +99,10 @@
     <Compile Include="src\views\PreferencesMenuUI.xaml.cs">
       <DependentUpon>PreferencesMenuUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="src\views\RepresentationLimitsWindow.xaml.cs">
+      <DependentUpon>RepresentationLimitsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="PlaceHolderTextBoxDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\views\ExportUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,10 +111,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\views\GraphicTableUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="src\views\ImportUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,17 +123,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\bean\Graphic.cs" />
-    <Compile Include="src\views\ExportUI.xaml.cs">
-      <DependentUpon>ExportUI.xaml</DependentUpon>
-    </Compile>
     <Compile Include="src\views\GraphicDephinitionUI.xaml.cs">
       <DependentUpon>GraphicDephinitionUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\views\GraphicTableUI.xaml.cs">
       <DependentUpon>GraphicTableUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="src\views\ImportUI.xaml.cs">
-      <DependentUpon>ImportUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -146,6 +138,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\views\PreferencesMenuUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\views\RepresentationLimitsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,6 +175,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="WiNM.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

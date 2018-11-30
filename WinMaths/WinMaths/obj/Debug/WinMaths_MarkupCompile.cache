@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\App.xaml
-81866063146
+7706223620
 
-19-1101928457
+18-1470236657
 23122335006
-PlaceHolderTextBoxDictionary.xaml;src\views\ExportUI.xaml;src\views\GraphicDephinitionUI.xaml;src\views\GraphicTableUI.xaml;src\views\ImportUI.xaml;src\views\MainWindow.xaml;src\views\ModificationsWindow.xaml;src\views\PreferencesMenuUI.xaml;
+PlaceHolderTextBoxDictionary.xaml;src\views\GraphicDephinitionUI.xaml;src\views\GraphicTableUI.xaml;src\views\MainWindow.xaml;src\views\ModificationsWindow.xaml;src\views\PreferencesMenuUI.xaml;src\views\RepresentationLimitsWindow.xaml;
 
 False
 

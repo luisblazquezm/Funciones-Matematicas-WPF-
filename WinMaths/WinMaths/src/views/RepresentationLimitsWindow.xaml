@@ -1,0 +1,45 @@
+﻿<Window x:Class="WinMaths.src.views.RepresentationLimitsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WinMaths.src.views"
+        xmlns:custom="clr-namespace:WinMaths"
+        mc:Ignorable="d"
+        Title="RepresentationLimitsWindow" Height="278.358" Width="422.388">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Minimo X:" />
+            <custom:NumericTextBoxClass x:Name="XMinTextBox" Background="Transparent" Width="100" BorderThickness="0 0 0 1"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Maximo X:" />
+            <custom:NumericTextBoxClass x:Name="XMaxTextBox" Background="Transparent" Width="100" BorderThickness="0 0 0 1"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Minimo Y:" />
+            <custom:NumericTextBoxClass x:Name="YMinTextBox" Background="Transparent" Width="100" BorderThickness="0 0 0 1"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="Maximo Y:" />
+            <custom:NumericTextBoxClass x:Name="YMaxTextBox" Background="Transparent" Width="100" BorderThickness="0 0 0 1"/>
+        </WrapPanel>
+
+        <Button Name="ConfirmButton" Grid.Column="0" Grid.Row="2" Content="Confirmar cambios" Height="20" Width="120" FontSize="10" Background="LightGray" Foreground="Black" BorderBrush="Black"/>
+        <Button Name="CancelButton"  Grid.Column="1" Grid.Row="2" Content="Cancelar modificar" Height="20" Width="120" FontSize="10" Background="LightGray" Foreground="Black" BorderBrush="Black"/>
+
+    </Grid>
+</Window>

@@ -17,15 +17,11 @@ C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.CopyComplete
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\WinMaths.exe
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\WinMaths.pdb
-C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\ExportUI.g.cs
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\GraphicDephinitionUI.g.cs
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\GraphicTableUI.g.cs
-C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\ImportUI.g.cs
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\MainWindow.g.cs
-C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\ExportUI.baml
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\GraphicDephinitionUI.baml
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\GraphicTableUI.baml
-C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\ImportUI.baml
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\MainWindow.baml
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\PlaceHolderTextBoxDictionary.baml
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\PreferencesMenuUI.g.cs
@@ -100,3 +96,5 @@ C:\Users\Luis\Desktop\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.CoreCompileInp
 C:\Users\Luis\Desktop\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.CopyComplete
 C:\Users\Luis\Desktop\WinMaths\WinMaths\obj\Debug\WinMaths.exe
 C:\Users\Luis\Desktop\WinMaths\WinMaths\obj\Debug\WinMaths.pdb
+C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.g.cs
+C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.baml

@@ -73,15 +73,15 @@
                             <TextBlock Text="Tabla de Gráficas" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60" PreviewMouseDoubleClick="Import_MouseDoubleClick">
+                    <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Import" Width="25" Height="25" Margin="10" VerticalAlignment="Center" PreviewMouseDoubleClick="Import_MouseDoubleClick" />
+                            <materialDesign:PackIcon Kind="Import" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
                             <TextBlock Text="Importar" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60" PreviewMouseDoubleClick="Export_MouseDoubleClick">
+                    <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Upload" Width="25" Height="25" Margin="10" VerticalAlignment="Center" PreviewMouseDoubleClick="Export_MouseDoubleClick"/>
+                            <materialDesign:PackIcon Kind="Upload" Width="25" Height="25" Margin="10" VerticalAlignment="Center"/>
                             <TextBlock Text="Exportar" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>

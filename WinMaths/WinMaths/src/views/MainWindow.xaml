@@ -20,7 +20,7 @@
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
             <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                 <StackPanel Width="150">
-                    <Button Content="Ajustes"/>
+                    <Button Name="SettingsButton" Content="Ajustes"/>
                     <Button Content="Ayuda"/>
                     <Separator/>
                     <Button x:Name="ButtonPopUpLogout" Content="Salir" Click="Window_Closed"/>

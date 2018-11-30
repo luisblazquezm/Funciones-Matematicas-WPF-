@@ -30,8 +30,8 @@ namespace WinMaths
         private FunctionRepresentationUtils FunctionRepresentationVar;
         private ViewModel viewModel;
 
-        FunctionRepresentationUtils.FuncRect real;
-        FunctionRepresentationUtils.FuncRect screen;
+        private FuncRect real;
+        private FuncRect screen;
 
         // A partir de una determinada grafica obtengo la representación de su polilinea
         private Dictionary<Graphic, Polyline> graphicRepresentationDictionary;
@@ -40,6 +40,11 @@ namespace WinMaths
 
         private double scaleRate;
         private bool added, isDragged;
+
+        public double Xmin { get; private set; }
+        public double Xmax { get; private set; }
+        public double Ymin { get; private set; }
+        public double Ymax { get; private set; }
 
         public MainWindow()
         {
@@ -59,6 +64,7 @@ namespace WinMaths
             // Gestión de la instancia del ViewModel
             viewModel = new ViewModel();
             viewModel.GraphicSetToDraw += ViewModel_GraphicSetToDraw;
+            viewModel.GraphicRepresentationUpdated += ViewModel_GraphicRepresentationUpdated;
 
             // Gestión del Grid que contiene al canvas
             GridOfCanvas.MouseMove += GridOfCanvas_MouseMove;
@@ -73,6 +79,8 @@ namespace WinMaths
             // Gestión de exportar el canvas a imagen
             ExportMenuOption.Click += ExportButton_Click;
 
+            SettingsButton.Click += SettingsButton_Click;
+
             // Gestión del Borde que contiene el canvas
             clipBorder.MouseEnter += ClipBorder_MouseEnter;
             clipBorder.MouseLeave += ClipBorder_MouseLeave;
@@ -85,33 +93,82 @@ namespace WinMaths
 
         private void ViewModel_GraphicSetToDraw(object sender, ViewModelEventArgs e)
         {
-            List<Graphic> listOfGraphicsToRepresent = (List<Graphic>)e.listOfGraphics;
-            PointCollection[] graphicRepresentation = null; //<------------------------------ INstanciación innecesaria?????????????
+            List<Graphic> listOfGraphicsToRepresent = null;
+            PointCollection[] graphicRepresentation = null;
+            FuncRect funcR = viewModel.FuncRect;
+
+            DrawAxisAndLines();
+
+            listOfGraphicsToRepresent = (List<Graphic>)e.ListOfGraphics;
+
+            funcR.XMin = -10;
+            funcR.XMax = 10;
+            funcR.YMin = -10;
+            funcR.YMax = 10;
 
             if (graphicRepresentationDictionary == null) // Para que no se dibuje nada en el sizeChanged
                 graphicRepresentationDictionary = new Dictionary<Graphic, Polyline>();
 
-            DrawAxisAndLines();
-            if (listOfGraphicsToRepresent != null){
-                foreach(Graphic g in listOfGraphicsToRepresent){
-
-                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
-                        Polyline line = graphicRepresentationDictionary[g];
-                        RepresentationCanvas.Children.Add(line);
-                    } else {
-                        graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight);
-                        foreach (PointCollection p in graphicRepresentation)
-                        {
-                            Polyline line = new Polyline()
-                            {
-                                Points = p,
-                                Stroke = new SolidColorBrush(g.GraphicColor)
-                            };
-                            //graphicRepresentationDictionary.Add(g, line);
-                            RepresentationCanvas.Children.Add(line);
-                        }
+            foreach (Graphic g in listOfGraphicsToRepresent)
+            {
+                if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
+                    Polyline line = graphicRepresentationDictionary[g];
+                    RepresentationCanvas.Children.Add(line);
+                } else {
                         
+
+                    graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
+                    foreach (PointCollection p in graphicRepresentation) {
+                        Polyline line = new Polyline()
+                        {
+                            Points = p,
+                            Stroke = new SolidColorBrush(g.GraphicColor)
+                        };
+
+                        /*
+                        if (g.Function.Formula.Equals(ExponentialFunction.GetFormula()) && g.ParamB < 0 ||
+                            g.Function.Formula.Equals(FractionalFunction.GetFormula()))
+                        {
+                            Console.WriteLine("Oh shit");
+                                
+                        }
+                                */
+                        graphicRepresentationDictionary.Add(g, line);
+                        Console.WriteLine("-o-");
+                        RepresentationCanvas.Children.Add(line);
                     }
+                }
+            }
+        }
+
+        private void ViewModel_GraphicRepresentationUpdated(object sender, ViewModelEventArgs e)
+        {
+            PointCollection[] graphicRepresentation = null;
+            FuncRect funcR = viewModel.FuncRect;
+        
+            RepresentationCanvas.Children.Clear();
+            DrawAxisAndLines();
+            funcR = viewModel.FuncRect;
+
+            foreach (Graphic g in graphicRepresentationDictionary.Keys)
+            {
+                Console.WriteLine("AJA --> ENTRE Xmin {0} Xmax{1} Y {2}{3}", funcR.XMin, funcR.XMax, funcR.YMin, funcR.YMax);
+                graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
+                foreach (PointCollection p in graphicRepresentation)
+                {
+                    Polyline line = new Polyline()
+                    {
+                        Points = p,
+                        Stroke = new SolidColorBrush(g.GraphicColor)
+                    };
+
+                    /*
+                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
+                        graphicRepresentationDictionary.Remove(g);
+                        graphicRepresentationDictionary.Add(g, line);
+                    }
+                    */
+                    RepresentationCanvas.Children.Add(line);
                 }
             }
         }
@@ -130,15 +187,23 @@ namespace WinMaths
         {
             RepresentationCanvas.Children.Clear();
             PointCollection[] graphicRepresentation = null;
+            FuncRect funcR = viewModel.FuncRect;
+
             DrawAxisAndLines();
+
             if (graphicRepresentationDictionary != null) {
                 List<Graphic> listOfGraphicsToRepresent = viewModel.GetListOfGraphicsVM();
+
+                funcR.XMin = -10;
+                funcR.XMax = 10;
+                funcR.YMin = -10;
+                funcR.YMax = 10;
 
                 if (listOfGraphicsToRepresent != null)
                 {
                     foreach (Graphic g in listOfGraphicsToRepresent)
                     {
-                        graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight);
+                        graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
                         
                         foreach (PointCollection p in graphicRepresentation)
                         {
@@ -292,6 +357,30 @@ namespace WinMaths
             {
                 encoder.Save(stream);
             }
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            FuncRect funcRect = viewModel.FuncRect;
+
+            RepresentationLimitsWindow representatitonLimits = new RepresentationLimitsWindow()
+            {
+                Xmin = funcRect.XMin,
+                Xmax = funcRect.XMax,
+                Ymin = funcRect.YMin,
+                Ymax = funcRect.YMax
+            };
+
+            representatitonLimits.ShowDialog();
+            if (false == representatitonLimits.LimitsChanged)
+                return;
+
+            funcRect.XMin = representatitonLimits.Xmin;
+            funcRect.XMax = representatitonLimits.Xmax;
+            funcRect.YMin = representatitonLimits.Ymin;
+            funcRect.YMax = representatitonLimits.Ymax;
+
+            viewModel.FuncRect = funcRect;
         }
     }
 }

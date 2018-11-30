@@ -8,15 +8,12 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using WinMaths.src.bean;
 using WinMaths.src.bean.function;
+using WinMaths.src.viewModels;
 
 namespace WinMaths.src.utils
 {
     public class FunctionRepresentationUtils
     {
-        public struct FuncRect
-        {
-            public double XMin, YMin, XMax, YMax;
-        }
 
         public Line[] DrawAxis(FuncRect real, FuncRect screen)
         {
@@ -94,13 +91,14 @@ namespace WinMaths.src.utils
             return listOflines;
         }
 
-        public PointCollection[] DrawGraphic(Graphic g, double canvasWidth, double canvasHeight)
+        public PointCollection[] DrawGraphic(Graphic g, double canvasWidth, double canvasHeight, FuncRect funcRect)
         {
             PointCollection points = new PointCollection();
             Polyline graphicPolyline = new Polyline();
             double xReal, yReal, xScreen, yScreen;
 
-            FuncRect real = DeclareFuncRect(-10, 10, -10, 10);//<<<<<<<<<<<<<<<<<< SUstituir esto por valores bien
+            FuncRect real = funcRect;
+            //FuncRect real = DeclareFuncRect(-10, 10, -10, 10);//<<<<<<<<<<<<<<<<<< SUstituir esto por valores bien
             FuncRect screen = DeclareFuncRect(0, canvasWidth, 0, canvasHeight);
             int numberOfPoints = (int)screen.XMax;
 
@@ -147,10 +145,10 @@ namespace WinMaths.src.utils
                 {
                     xReal = real.XMin + i * (real.XMax - real.XMin) / numberOfPoints;
                     yReal = g.Function.CalculateF(xReal);
-
+                    
                     xScreen = ConvertXFromRealToPant(xReal, screen.XMin, screen, real);
                     yScreen = ConvertYFromRealToPant(yReal, screen.YMin, screen, real);
-
+                    Console.WriteLine("Real ({0} {1}) - Screen ({2},{3})", xReal, yReal, xScreen, yScreen);
                     points.Add(new Point(xScreen, yScreen));
                 }
 

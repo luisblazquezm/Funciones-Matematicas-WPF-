@@ -20,24 +20,15 @@ namespace WinMaths.src.views
     /// </summary>
     public partial class PreferencesMenuUI : Window
     {
-        private ViewModel viewModel; /* ESTO ESTA MALLLLLL hay que pasarla directamente al GraphicDephinitonUI*/
+        private ViewModel viewModel; 
         private GraphicTableUI graphicTableUI;
-        private ImportUI importUI;
         private GraphicDephinitionUI graphicDephinitionUI;
-        private ExportUI exportUI;
 
-        public PreferencesMenuUI(ViewModel vM) /* Ojooooooo no se si pasar el viewModel por aqui o de otra manera*/
+        public PreferencesMenuUI(ViewModel vM) /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Ojooooooo no se si pasar el viewModel por aqui o de otra manera*/
         {
             InitializeComponent();
             this.viewModel = vM;
         }
-
-        /*
-        public void SetViewModel(ViewModel vM)
-        {
-            this.viewModel = vM;
-        }
-        */
 
         private void Panel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -58,37 +49,18 @@ namespace WinMaths.src.views
 
         private void GraphicTable_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (graphicTableUI == null){
+            if (graphicTableUI == null)
                 graphicTableUI = new GraphicTableUI(this.viewModel);
-                //graphicTableUI.SetViewModel(this.viewModel);
-            }
+            
             PreferencesMenu.Content = graphicTableUI.Content;
-        }
-
-        private void Import_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (importUI == null){
-                importUI = new ImportUI();
-            }
-            PreferencesMenu.Content = importUI.Content;
         }
 
         private void GraphicDephinition_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (graphicDephinitionUI == null){
+            if (graphicDephinitionUI == null)
                 graphicDephinitionUI = new GraphicDephinitionUI(this.viewModel);
-                //graphicDephinitionUI.SetViewModel(this.viewModel);
-            }
+            
             PreferencesMenu.Content = graphicDephinitionUI.Content;
-        }
-
-        private void Export_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (exportUI == null)
-            {
-                exportUI = new ExportUI(this.viewModel);
-            }
-            PreferencesMenu.Content = exportUI.Content;
         }
     }
 }
