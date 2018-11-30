@@ -31,7 +31,7 @@
                 <DataGrid AutoGenerateColumns="False" Name="CreatedGraphicsTableGrid" CanUserAddRows="False" CanUserDeleteRows="True" SelectionMode="Extended" SelectionUnit="FullRow" Margin="10,0,0,4" Grid.Column="0">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn MinWidth="100" 
+                        <DataGridTextColumn MinWidth="150" 
                                             Header="Graficas Creadas"
                                             IsReadOnly="True"
                                             Binding="{Binding Mode=TwoWay, Path=Name}"/>
@@ -50,7 +50,7 @@
                 <DataGrid AutoGenerateColumns="False" Name="GraphicsToExportTableGrid" Margin="0,0,0,4" Grid.Column="2">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn MinWidth="100" 
+                        <DataGridTextColumn MinWidth="150" 
                                             Header="Graficas a Exportar"
                                             Binding="{Binding Path=Name}"/>
 

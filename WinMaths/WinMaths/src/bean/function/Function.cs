@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinMaths.src.bean.function
 {
+    [Serializable]
     public abstract class Function
     {
         public double ParamA { get; set; }
@@ -17,7 +18,7 @@ namespace WinMaths.src.bean.function
     }
 
     // Si no se pone static despues del new no lo coge en otras clases 
-
+    [Serializable]
     public class SenXFunction : Function
     {
         public SenXFunction(double a, double b)
@@ -44,6 +45,7 @@ namespace WinMaths.src.bean.function
         }
     }
 
+    [Serializable]
     public class CosXFunction : Function
     {
         public CosXFunction(double a, double b)
@@ -70,7 +72,7 @@ namespace WinMaths.src.bean.function
         }
     }
 
-
+    [Serializable]
     public class ExponentialFunction : Function
     {
         public ExponentialFunction(double a, double b)
@@ -97,6 +99,7 @@ namespace WinMaths.src.bean.function
         }
     }
 
+    [Serializable]
     public class FirstGradeFunction : Function
     {
         public FirstGradeFunction(double a, double b)
@@ -123,6 +126,7 @@ namespace WinMaths.src.bean.function
         }
     }
 
+    [Serializable]
     public class SecondGradeFunction : Function
     {
         public SecondGradeFunction(double a, double b, double c)
@@ -149,6 +153,7 @@ namespace WinMaths.src.bean.function
         }
     }
 
+    [Serializable]
     public class FractionalFunction : Function
     {
         public FractionalFunction(double a, double b)

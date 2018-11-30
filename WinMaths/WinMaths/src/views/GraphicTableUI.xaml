@@ -34,6 +34,15 @@
                 </DataGridTemplateColumn>
 
             </DataGrid.Columns>
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="ExportSelectedFilesMenuOption" Header="Exportar archivos seleccionados"/>
+                    <MenuItem Name="ExportTableMenuOption" Header="Exportar todos los archivos"/>
+                    <MenuItem Name="ImportTableMenuOption" Header="Importar archivos"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            
         </DataGrid>
 
         <StackPanel Height="65" Orientation="Horizontal" Margin="10,0,106,0">

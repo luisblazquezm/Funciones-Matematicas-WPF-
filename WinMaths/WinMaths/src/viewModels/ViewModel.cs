@@ -26,9 +26,14 @@ namespace WinMaths.src.viewModels
             this.listOfGraphics = graphic;
         }
 
+        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Esto está mal
         public ViewModelEventArgs(Graphic graphic)
         {
-            this.listOfGraphics.Add(graphic);
+            List<Graphic> listOfG = new List<Graphic>();
+            listOfG.AddRange(this.listOfGraphics);
+            listOfG.Add(graphic);
+            this.listOfGraphics = listOfG;
+            Console.WriteLine("Longitud de la lista {0}", this.listOfGraphics.Count);
         }
     }
 
@@ -40,7 +45,7 @@ namespace WinMaths.src.viewModels
         private Model model;
 
         /* Eventos de Cambio en la Propiedad */
-        //public event EventHandler GraphicAdded;
+        //public event ViewModelEventHandler GraphicAdded;
         public event ViewModelEventHandler GraphicSetToDraw;
         public event ViewModelEventHandler GraphicDeleted;
         public event ViewModelEventHandler GraphicUpdated;
@@ -110,6 +115,11 @@ namespace WinMaths.src.viewModels
             OnDrawGraphic(g);
         }
 
+        public bool ImportListVM(List<Graphic> g)
+        {
+            return model.ImportList(g);
+        }
+
 
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
 
@@ -120,6 +130,7 @@ namespace WinMaths.src.viewModels
                 GraphicAdded(this, new ViewModelEventArgs(g));
         }
         */
+
         protected virtual void OnDrawGraphic(List<Graphic> g)
         {
             if (GraphicSetToDraw != null)
@@ -148,7 +159,6 @@ namespace WinMaths.src.viewModels
         {
             OnGraphicUpdated((Graphic)sender);
         }
-
     }
 
 

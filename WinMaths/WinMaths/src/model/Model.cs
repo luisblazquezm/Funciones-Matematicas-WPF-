@@ -116,5 +116,23 @@ namespace WinMaths.src.model
         {
             return this.listOfGraphics.ToList<Graphic>();
         }
+
+        public bool ImportList(List<Graphic> gImported)
+        {
+            if (gImported != null)
+            {
+                foreach (Graphic g in gImported){
+                    if (g == null)
+                        return false;
+                    g.ID = GetActualGraphicId();
+                    Console.WriteLine("Grafica importada {0} ID {1}", g.Name, g.ID);
+                    listOfGraphics.Add(g);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }
