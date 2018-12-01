@@ -20,7 +20,7 @@ namespace WinMaths
         {
             get
             {
-                return Int32.Parse(this.Text);
+                return Int32.Parse(this.Text.Replace('.', ','));
             }
         }
 
@@ -28,15 +28,15 @@ namespace WinMaths
         {
             get
             {
-                return Double.Parse(this.Text);
+                return Double.Parse(this.Text.Replace('.', ','));
             }
         }
 
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex reg = new Regex(@"^-?[0-9]*(\.[0-9]*)?$");
+            Regex reg = new Regex(@"^-?[0-9]*(\,[0-9]*)?$");
 
-            if ((reg.IsMatch(e.Text) && !(e.Text == "." && ((TextBox)sender).Text.Contains(e.Text)) && !(e.Text == "-" && ((TextBox)sender).Text.Contains(e.Text))))
+            if ((reg.IsMatch(e.Text) && !(e.Text == "," && ((TextBox)sender).Text.Contains(e.Text)) && !(e.Text == "-" && ((TextBox)sender).Text.Contains(e.Text))))
                 e.Handled = false;
             else
                 e.Handled = true;

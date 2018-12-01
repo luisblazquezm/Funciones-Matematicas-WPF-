@@ -25,16 +25,6 @@ namespace WinMaths.src.viewModels
         {
             this.ListOfGraphics = graphic;
         }
-
-        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Esto está mal
-        public ViewModelEventArgs(Graphic graphic)
-        {
-            List<Graphic> listOfG = new List<Graphic>();
-            listOfG.AddRange(this.ListOfGraphics);
-            listOfG.Add(graphic);
-            this.ListOfGraphics = listOfG;
-            Console.WriteLine("Longitud de la lista {0}", this.ListOfGraphics.Count);
-        }
     }
 
     public delegate void ViewModelEventHandler(object sender, ViewModelEventArgs e);
@@ -53,7 +43,7 @@ namespace WinMaths.src.viewModels
         private FuncRect graphicLimits;
 
         /* Eventos de Cambio en la Propiedad */
-        //public event ViewModelEventHandler GraphicAdded;
+        public event ViewModelEventHandler GraphicAdded;
         public event ViewModelEventHandler GraphicSetToDraw;
         public event ViewModelEventHandler GraphicDeleted;
         public event ViewModelEventHandler GraphicUpdated;
@@ -76,17 +66,24 @@ namespace WinMaths.src.viewModels
         public int AddGraphicVM(Graphic g)
         {
             int creationResult = model.AddGraphic(g);
-            g.PropertyChanged += PropertyChangedHandler; // Se lanza el evento que avisa de que se ha modificado una propiedad de la clase Grafica
+            //g.PropertyChanged += PropertyChangedHandler; // Se lanza el evento que avisa de que se ha modificado una propiedad de la clase Grafica
             //OnGraphicAdded(g);
             return creationResult;
         }
 
-        public bool UpdateGraphicVM(Graphic g)
+        public bool UpdateGraphicVM(Graphic gModified, Graphic oldGraphic)
         {
-            bool updateResult = model.UpdateGraphic(g);
+            bool updateResult = model.UpdateGraphic(gModified);
+            List<Graphic> listOfG = null;
             if (updateResult) {
-                g.PropertyChanged += PropertyChangedHandler;
-                OnGraphicUpdated(g);
+                Console.WriteLine("AQui");
+                listOfG = new List<Graphic>();
+                listOfG.Add(oldGraphic);
+                //g.PropertyChanged += PropertyChangedHandler;
+                OnGraphicDeleted(listOfG);
+                listOfG.Clear();
+                listOfG.Add(gModified);
+                OnGraphicUpdated(listOfG);
             }
             
             return updateResult;
@@ -125,7 +122,7 @@ namespace WinMaths.src.viewModels
 
         public void DrawGraphicVM(List<Graphic> g)
         {
-            OnDrawGraphic(g, false);
+            OnDrawGraphic(g);
         }
 
         public bool ImportListVM(List<Graphic> g)
@@ -146,15 +143,15 @@ namespace WinMaths.src.viewModels
 
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
 
-        /*
-        protected virtual void OnGraphicAdded(Graphic g)
+        
+        protected virtual void OnGraphicAdded(List<Graphic> g)
         {
             if (GraphicAdded != null)
                 GraphicAdded(this, new ViewModelEventArgs(g));
         }
-        */
+        
 
-        protected virtual void OnDrawGraphic(List<Graphic> g, bool limit)
+        protected virtual void OnDrawGraphic(List<Graphic> g)
         {
             if (GraphicSetToDraw != null)
                 GraphicSetToDraw(this, new ViewModelEventArgs(g));
@@ -166,7 +163,7 @@ namespace WinMaths.src.viewModels
                 GraphicDeleted(this, new ViewModelEventArgs(g));
         }
 
-        protected virtual void OnGraphicUpdated(Graphic g)
+        protected virtual void OnGraphicUpdated(List<Graphic> g)
         {
             if (GraphicUpdated != null)
                 GraphicUpdated(this, new ViewModelEventArgs(g));
@@ -184,10 +181,12 @@ namespace WinMaths.src.viewModels
                 GraphicRepresentationUpdated(this, new ViewModelEventArgs());
         }
 
+        /*
         protected virtual void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             OnGraphicUpdated((Graphic)sender);
         }
+        */
     }
 
 

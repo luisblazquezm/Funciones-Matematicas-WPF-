@@ -23,14 +23,20 @@ namespace WinMaths.src.views
     /// </summary>
     public partial class ModificationsWindow : Window
     {
-        private ViewModel viewModel;
+        public Graphic GraphicToModify {
+            get { return CreateNewGraphic(); }
+            set {
+                this.SetGraphicParameters(value);
+            }
+        }
+
+        public Boolean GraphicChanged { get; set; }
+
         private int idOldGraphic;
 
-        public ModificationsWindow(ViewModel vM)
+        public ModificationsWindow()
         {
             InitializeComponent();
-
-            this.viewModel = vM;
 
             FunctionModComboBox.ItemsSource = InitializeFunctionComboBox();
             FunctionModComboBox.SelectionChanged += FunctionModComboBox_SelectionChanged;
@@ -109,18 +115,22 @@ namespace WinMaths.src.views
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            /*
             Graphic g = CreateNewGraphic(); // <------------------- Encapsularlo en la clase grafica --> un constructor
             if (g != null) {
                 g.ID = idOldGraphic;
                 bool result = viewModel.UpdateGraphicVM(g);
                 Console.WriteLine("UPDATE {0}",result);
             }
+            */
+            this.GraphicChanged = true;
             this.Close();
 
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            this.GraphicChanged = false;
             this.Close();
         }
 

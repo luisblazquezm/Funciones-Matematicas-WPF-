@@ -31,11 +31,10 @@ namespace WinMaths.src.views
             InitializeComponent();
 
             this.viewModel = vM;
+            listOfGraphicsToExport = null;
 
             TableGrid.ItemsSource = viewModel.GetCollectionOfGraphicsVM(); // Puede que se esté recargando cada vez que se instancia el pages todo el rato y esté mal
             TableGrid.SelectedCellsChanged += TableGrid_SelectedCellsChanged;
-
-            listOfGraphicsToExport = null;
 
             // Gestión del Botón Dibujar
             DrawGraphicButton.Click += DrawGraphicButton_Click;
@@ -86,9 +85,23 @@ namespace WinMaths.src.views
 
         private void ModifyGraphicButton_Click(object sender, RoutedEventArgs e)
         {
-            ModificationsWindow modificationsWindow = new ModificationsWindow(this.viewModel);
+            Graphic oldGraph = (Graphic)TableGrid.SelectedItem;
+            int idOldGraphic = oldGraph.ID;
+
+            ModificationsWindow modificationsWindow = new ModificationsWindow(){ GraphicToModify = oldGraph };
+
             modificationsWindow.ShowDialog(); // Modal
-            modificationsWindow.SetGraphicParameters((Graphic)TableGrid.SelectedItem);//<------------------------------------- Si selecciona varias filas que le de una ventana con un mensaje de error
+            if (false == modificationsWindow.GraphicChanged)
+                return;
+
+            Graphic graphModified = modificationsWindow.GraphicToModify;
+
+            if (graphModified != null)
+            {
+                graphModified.ID = idOldGraphic;
+                bool resultUpdate = viewModel.UpdateGraphicVM(graphModified, oldGraph);
+                Console.WriteLine("UPDATE {0}", resultUpdate);
+            }
         }
 
         private void DeleteGraphicButton_Click(object sender, RoutedEventArgs e)

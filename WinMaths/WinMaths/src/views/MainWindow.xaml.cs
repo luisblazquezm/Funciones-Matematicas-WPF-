@@ -34,17 +34,13 @@ namespace WinMaths
         private FuncRect screen;
 
         // A partir de una determinada grafica obtengo la representación de su polilinea
-        private Dictionary<Graphic, Polyline> graphicRepresentationDictionary;
+        private Dictionary<Graphic, List<Polyline>> graphicRepresentationDictionary; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Esto tiene que estar aqui???????????????
         private ScaleTransform scaleTransform;
+        private List<Graphic> listOfGraphicsToRepresent; //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Sirve para almacenar que gráficas están en el graficas representadas aunque no sé si esta del todo bien
         private Point _last;
 
         private double scaleRate;
         private bool added, isDragged;
-
-        public double Xmin { get; private set; }
-        public double Xmax { get; private set; }
-        public double Ymin { get; private set; }
-        public double Ymax { get; private set; }
 
         public MainWindow()
         {
@@ -53,8 +49,9 @@ namespace WinMaths
             /* Variables globales */
             scaleTransform = new ScaleTransform();
             graphicRepresentationDictionary = null;
+            listOfGraphicsToRepresent = null;
             scaleRate = 1.1;
-            
+
             /* Evento de cierre de las ventanas */
             this.Closed += Window_Closed;
 
@@ -64,6 +61,8 @@ namespace WinMaths
             // Gestión de la instancia del ViewModel
             viewModel = new ViewModel();
             viewModel.GraphicSetToDraw += ViewModel_GraphicSetToDraw;
+            viewModel.GraphicDeleted += ViewModel_GraphicDeleted;
+            viewModel.GraphicUpdated += ViewModel_GraphicUpdated;
             viewModel.GraphicRepresentationUpdated += ViewModel_GraphicRepresentationUpdated;
 
             // Gestión del Grid que contiene al canvas
@@ -76,9 +75,10 @@ namespace WinMaths
             RepresentationCanvas.MouseWheel += RepresentationCanvas_MouseWheel;
             RepresentationCanvas.MouseMove += RepresentationCanvas_MouseMove;
 
-            // Gestión de exportar el canvas a imagen
+            // Gestión del botón del Menú contextual para Exportar el canvas a imagen
             ExportMenuOption.Click += ExportButton_Click;
 
+            // Gestión del botón de la ventana de Ajustes de Límites
             SettingsButton.Click += SettingsButton_Click;
 
             // Gestión del Borde que contiene el canvas
@@ -93,29 +93,25 @@ namespace WinMaths
 
         private void ViewModel_GraphicSetToDraw(object sender, ViewModelEventArgs e)
         {
-            List<Graphic> listOfGraphicsToRepresent = null;
             PointCollection[] graphicRepresentation = null;
+            List<Polyline> listOfLines = null;
+            listOfGraphicsToRepresent = (List<Graphic>)e.ListOfGraphics;
             FuncRect funcR = viewModel.FuncRect;
 
+            RepresentationCanvas.Children.Clear();
             DrawAxisAndLines();
 
-            listOfGraphicsToRepresent = (List<Graphic>)e.ListOfGraphics;
-
-            funcR.XMin = -10;
-            funcR.XMax = 10;
-            funcR.YMin = -10;
-            funcR.YMax = 10;
-
             if (graphicRepresentationDictionary == null) // Para que no se dibuje nada en el sizeChanged
-                graphicRepresentationDictionary = new Dictionary<Graphic, Polyline>();
+                graphicRepresentationDictionary = new Dictionary<Graphic, List<Polyline>>();
 
             foreach (Graphic g in listOfGraphicsToRepresent)
             {
                 if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
-                    Polyline line = graphicRepresentationDictionary[g];
-                    RepresentationCanvas.Children.Add(line);
+                    listOfLines = graphicRepresentationDictionary[g];
+                    foreach (Polyline line in listOfLines)
+                        RepresentationCanvas.Children.Add(line);
                 } else {
-                        
+                    listOfLines = new List<Polyline>();
 
                     graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
                     foreach (PointCollection p in graphicRepresentation) {
@@ -124,35 +120,42 @@ namespace WinMaths
                             Points = p,
                             Stroke = new SolidColorBrush(g.GraphicColor)
                         };
-
-                        /*
-                        if (g.Function.Formula.Equals(ExponentialFunction.GetFormula()) && g.ParamB < 0 ||
-                            g.Function.Formula.Equals(FractionalFunction.GetFormula()))
-                        {
-                            Console.WriteLine("Oh shit");
-                                
-                        }
-                                */
-                        graphicRepresentationDictionary.Add(g, line);
-                        Console.WriteLine("-o-");
-                        RepresentationCanvas.Children.Add(line);
+                        listOfLines.Add(line);
                     }
+                    graphicRepresentationDictionary.Add(g, listOfLines);
+
+                    foreach (Polyline line in listOfLines)
+                        RepresentationCanvas.Children.Add(line);
                 }
             }
         }
 
-        private void ViewModel_GraphicRepresentationUpdated(object sender, ViewModelEventArgs e)
+        private void ViewModel_GraphicDeleted(object sender, ViewModelEventArgs e)
         {
+            List<Graphic> listOfGraphicsToRemove = (List<Graphic>)e.ListOfGraphics;
+            List<Polyline> listOfPolylines = new List<Polyline>();
+
+            foreach (Graphic g in listOfGraphicsToRemove) {
+                if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
+                    listOfPolylines = graphicRepresentationDictionary[g];
+                    graphicRepresentationDictionary.Remove(g);
+                    foreach (Polyline p in listOfPolylines)
+                        RepresentationCanvas.Children.Remove(p);
+                }
+            }
+        }
+
+        private void ViewModel_GraphicUpdated(object sender, ViewModelEventArgs e)
+        {
+            List<Graphic> listOfGraphicsToUpdate = (List<Graphic>)e.ListOfGraphics; // Solo va a haber una grafica modificada
+            List<Polyline> listOfPolylines = null;
             PointCollection[] graphicRepresentation = null;
             FuncRect funcR = viewModel.FuncRect;
-        
-            RepresentationCanvas.Children.Clear();
-            DrawAxisAndLines();
-            funcR = viewModel.FuncRect;
 
-            foreach (Graphic g in graphicRepresentationDictionary.Keys)
+            foreach (Graphic g in listOfGraphicsToUpdate)//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Encapsular esto
             {
-                Console.WriteLine("AJA --> ENTRE Xmin {0} Xmax{1} Y {2}{3}", funcR.XMin, funcR.XMax, funcR.YMin, funcR.YMax);
+                listOfPolylines = new List<Polyline>();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Instancicación múltiple?????
+
                 graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
                 foreach (PointCollection p in graphicRepresentation)
                 {
@@ -162,16 +165,57 @@ namespace WinMaths
                         Stroke = new SolidColorBrush(g.GraphicColor)
                     };
 
-                    /*
-                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
-                        graphicRepresentationDictionary.Remove(g);
-                        graphicRepresentationDictionary.Add(g, line);
-                    }
-                    */
-                    RepresentationCanvas.Children.Add(line);
+                    listOfPolylines.Add(line);
                 }
+                if (graphicRepresentationDictionary.ContainsKey(g) && g != null)
+                    graphicRepresentationDictionary.Remove(g);
+
+                graphicRepresentationDictionary.Add(g, listOfPolylines);
+
+                foreach (Polyline line in listOfPolylines)
+                    RepresentationCanvas.Children.Add(line);
             }
         }
+
+        /* 
+         * La diferencia entre esta función y GraphicUpdated es que GraphicUpdated es llamado cuando cambia el objeto Grafica 
+         * y ésta cuando cambian los limites de la representación de una gráfica
+         */
+        private void ViewModel_GraphicRepresentationUpdated(object sender, ViewModelEventArgs e)
+        {
+            PointCollection[] graphicRepresentation = null;
+            List<Polyline> listOfLines = null;
+            FuncRect funcR = viewModel.FuncRect;
+
+            RepresentationCanvas.Children.Clear();
+            DrawAxisAndLines();
+
+            // listOfGraphicsToRepresent esta declarado globalmente para que solo se redibuje la grafica que está dibujada en el canvas
+            foreach (Graphic g in listOfGraphicsToRepresent)
+            {
+                listOfLines = new List<Polyline>();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Instancicación múltiple?????
+
+                graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
+                foreach (PointCollection p in graphicRepresentation)
+                {
+                    Polyline line = new Polyline()
+                    {
+                        Points = p,
+                        Stroke = new SolidColorBrush(g.GraphicColor)
+                    };
+
+                    listOfLines.Add(line);
+                }
+
+                if (graphicRepresentationDictionary.ContainsKey(g))
+                    graphicRepresentationDictionary.Remove(g);
+
+                graphicRepresentationDictionary.Add(g, listOfLines);
+
+                foreach (Polyline line in listOfLines)
+                    RepresentationCanvas.Children.Add(line);
+            }
+        } 
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -185,24 +229,23 @@ namespace WinMaths
 
         private void RepresentationCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            RepresentationCanvas.Children.Clear();
+            List<Graphic> listOfGraphicsToRepresent = null;
             PointCollection[] graphicRepresentation = null;
+            List<Polyline> listOfLines = null;
             FuncRect funcR = viewModel.FuncRect;
 
+            RepresentationCanvas.Children.Clear();
             DrawAxisAndLines();
 
             if (graphicRepresentationDictionary != null) {
-                List<Graphic> listOfGraphicsToRepresent = viewModel.GetListOfGraphicsVM();
-
-                funcR.XMin = -10;
-                funcR.XMax = 10;
-                funcR.YMin = -10;
-                funcR.YMax = 10;
+                listOfGraphicsToRepresent = viewModel.GetListOfGraphicsVM();
 
                 if (listOfGraphicsToRepresent != null)
                 {
                     foreach (Graphic g in listOfGraphicsToRepresent)
                     {
+                        listOfLines = new List<Polyline>();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Instancicación múltiple?????
+
                         graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
                         
                         foreach (PointCollection p in graphicRepresentation)
@@ -213,10 +256,12 @@ namespace WinMaths
                                 Points = p,
                                 Stroke = new SolidColorBrush(g.GraphicColor)
                             };
-                            //graphicRepresentationDictionary.Add(g, line);
-                            RepresentationCanvas.Children.Add(line);
+                            listOfLines.Add(line);
                         }
-                        
+                        graphicRepresentationDictionary.Add(g, listOfLines);
+
+                        foreach (Polyline line in listOfLines)
+                            RepresentationCanvas.Children.Add(line);
                     }
                 }
             }
@@ -225,9 +270,10 @@ namespace WinMaths
 
         private void DrawAxisAndLines()
         {
-            // <<>>>>>><<<<<<<<< aqui iran los limites de X e Y 
-            real = FunctionRepresentationVar.DeclareFuncRect(-10, 10, -10, 10); // Real
-            screen = FunctionRepresentationVar.DeclareFuncRect(0, RepresentationCanvas.ActualWidth, 0, RepresentationCanvas.ActualHeight); // Screen
+            // Valores minimos y máximo reales del Canvas
+            real = FunctionRepresentationVar.DeclareFuncRect(-10, 10, -10, 10);
+            // Valores minimos y máximo de pantalla del Canvas
+            screen = FunctionRepresentationVar.DeclareFuncRect(0, RepresentationCanvas.ActualWidth, 0, RepresentationCanvas.ActualHeight); 
             Boolean ejeHorizontal = true;
             Boolean ejeVertical = false;
             double distancia = 0.333;
@@ -335,11 +381,11 @@ namespace WinMaths
             }
         }
 
-        public void SaveToPng(FrameworkElement visual, string fileName)
+        private void SaveToPng(FrameworkElement visual, string fileName)
         {
             var encoder = new PngBitmapEncoder();
             SaveUsingEncoder(visual, fileName, encoder);
-        }
+        } //<<<<<<<<<<<<<<<<<<<<<<<<< Cambiado a private // Se podrian encpasular pero da error
 
         private void SaveUsingEncoder(FrameworkElement visual, string fileName, BitmapEncoder encoder)
         {
