@@ -28,7 +28,7 @@
                 <DataGridTemplateColumn Width="170" Header="Color">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="Graphic">
-                            <xctk:ColorPicker SelectedColor="{Binding Mode=TwoWay, Path=GraphicColor, UpdateSourceTrigger=PropertyChanged}"/>
+                            <xctk:ColorPicker IsHitTestVisible="False" SelectedColor="{Binding Mode=TwoWay, Path=GraphicColor, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

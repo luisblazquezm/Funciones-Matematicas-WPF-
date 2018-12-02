@@ -179,5 +179,5 @@ namespace WinMaths.src.bean.function
             return this.ParamA / (this.ParamB * x);
         }
     }
-
+  
 }

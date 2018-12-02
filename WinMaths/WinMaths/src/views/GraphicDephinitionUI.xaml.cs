@@ -24,7 +24,6 @@ namespace WinMaths.src.views
     /// </summary>
     public partial class GraphicDephinitionUI : Page
     {
-        //enum EnumFunctions { SinFunction , CosFunction , ExpFunction , FirstDegreeFunction , SecondDegreeFunction , FractionalFunction };
         private static int lastSelectedIndex = -1;
         private ViewModel viewModel;
         private Boolean nameTextBoxFlag , paramATextBoxFlag, paramBTextBoxFlag, paramCTextBoxFlag;
@@ -37,9 +36,9 @@ namespace WinMaths.src.views
 
             /* Inicialización Variables Globales*/
             nameTextBoxFlag = false;
-            paramATextBoxFlag = false;
-            paramBTextBoxFlag = false;
-            paramCTextBoxFlag = false;
+            paramATextBoxFlag = true;
+            paramBTextBoxFlag = true;
+            paramCTextBoxFlag = true;
 
             // Gestión ComboBox de Funciones
             FunctionComboBox.ItemsSource = InitializeFunctionComboBox();
@@ -90,14 +89,14 @@ namespace WinMaths.src.views
 
         private void CheckTextBoxValues_ToEnableAddGraphic(object sender, TextChangedEventArgs e)
         {
-            /* EL color se puede coger el de for defecto*/
+            /* Calculo el Campo que se está modificando para aumentar el valor de la barra de progreso */
             CheckTextBoxProgress(sender);
 
+            /* EL color se puede coger el de for defecto*/
             if (NameTextBox.Text.Length != 0 &&
                 FunctionComboBox.SelectedIndex != -1 &&
                 (
                 (ParamATextBox.IsEnabled && ParamBTextBox.IsEnabled && !ParamCTextBox.IsVisible && ParamATextBox.Text.Length != 0 && ParamBTextBox.Text.Length != 0) ||
-                (ParamATextBox.IsEnabled && ParamCTextBox.IsEnabled && !ParamBTextBox.IsEnabled && ParamATextBox.Text.Length != 0 && ParamCTextBox.Text.Length != 0) ||
                 (ParamATextBox.IsEnabled && ParamBTextBox.IsEnabled && ParamCTextBox.IsEnabled && ParamATextBox.Text.Length != 0 && ParamBTextBox.Text.Length != 0 && ParamCTextBox.Text.Length != 0)
                 ))
             {
@@ -109,7 +108,8 @@ namespace WinMaths.src.views
             }
         }
 
-        private String[] InitializeFunctionComboBox() // <------------------- Encapsularlo en clase Funcion
+        /* No encapsulo este metodo en la clase Function porque romperia con la abstracción de la clase y todas las subclases de esta heredarian este método. */
+        private String[] InitializeFunctionComboBox() 
         {
             String[] functionList = {
                 CosXFunction.GetFormula(),
@@ -132,12 +132,13 @@ namespace WinMaths.src.views
             double paramC = 0;
             if (ParamCTextBox.IsVisible)
                 paramC = double.Parse(ParamCTextBox.Text);
-            Function f = SelectFunction(FunctionName, paramA, paramB, paramC); // <--------------------------- Encapsular en la clase funcion com
+            Function f = SelectFunction(FunctionName, paramA, paramB, paramC); 
             Color GraphicColor = (Color)ColorSelectionColorPicker.SelectedColor;
 
             return new Graphic(f, GraphicName, paramA, paramB, paramC, GraphicColor);
         }
 
+        /* No encapsulo este metodo en la clase Function porque romperia con la abstracción de la clase y todas las subclases de esta heredarian este método. */
         private Function SelectFunction(string functionName, double a, double b, double c)
         {
             if (CosXFunction.GetFormula().Equals(functionName))
@@ -174,10 +175,16 @@ namespace WinMaths.src.views
             {
                 if (ParamATextBox.Text.Length == 0 && !paramATextBoxFlag) {
                     paramATextBoxFlag = true;
-                    CalculateProgressBarValue(-20);
+                    if (ParamCTextBox.IsVisible)
+                        CalculateProgressBarValue(-20);
+                    else
+                        CalculateProgressBarValue(-30);
                 } else if (ParamATextBox.Text.Length != 0 && paramATextBoxFlag) {
                     paramATextBoxFlag = false;
-                    CalculateProgressBarValue(20);
+                    if (ParamCTextBox.IsVisible)
+                        CalculateProgressBarValue(20);
+                    else
+                        CalculateProgressBarValue(30);
                 }
                 else {
                     CalculateProgressBarValue(0);
@@ -187,10 +194,16 @@ namespace WinMaths.src.views
             {
                 if (ParamBTextBox.Text.Length == 0 && !paramBTextBoxFlag) {
                     paramBTextBoxFlag = true;
-                    CalculateProgressBarValue(-20);
+                    if(ParamCTextBox.IsVisible)
+                        CalculateProgressBarValue(-20);
+                    else
+                        CalculateProgressBarValue(-30);
                 } else if (ParamBTextBox.Text.Length != 0 && paramBTextBoxFlag) {
                     paramBTextBoxFlag = false;
-                    CalculateProgressBarValue(20);
+                    if (ParamCTextBox.IsVisible)
+                        CalculateProgressBarValue(20);
+                    else
+                        CalculateProgressBarValue(30);
                 } else {
                     CalculateProgressBarValue(0);
                 }
@@ -217,12 +230,15 @@ namespace WinMaths.src.views
 
             if (progressBar.Value == progressBar.Maximum)
                 GreenCheckIcon.Visibility = Visibility.Visible;
+            else
+                GreenCheckIcon.Visibility = Visibility.Hidden;
         }
 
         private void AddGraphicToTableGrid(object sender, RoutedEventArgs e)
         {
-            Graphic g = CreateNewGraphic(); // <------------------- Encapsularlo en la clase grafica --> un constructor
+            Graphic g = CreateNewGraphic(); 
             if (g != null) {
+                FunctionComboBox.SelectedIndex = -1;
                 DeactivateGraphicDephinitionFields();
                 int result = viewModel.AddGraphicVM(g);
             }
@@ -232,17 +248,16 @@ namespace WinMaths.src.views
         private void DeactivateGraphicDephinitionFields()
         {
             NameTextBox.Clear();
-            FunctionComboBox.SelectedIndex = -1;
             ParamATextBox.Clear();
             ParamBTextBox.Clear();
             ParamCTextBox.Clear();
 
             progressBar.Value = 0;
 
-            nameTextBoxFlag = false;
-            paramATextBoxFlag = false;
-            paramBTextBoxFlag = false;
-            paramCTextBoxFlag = false;
+            nameTextBoxFlag = true;
+            paramATextBoxFlag = true;
+            paramBTextBoxFlag = true;
+            paramCTextBoxFlag = true;
 
             AddGraphicButton.IsEnabled = false;
             GreenCheckIcon.Visibility = Visibility.Hidden;

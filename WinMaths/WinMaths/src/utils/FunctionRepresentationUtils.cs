@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using WinMaths.src.bean;
@@ -91,14 +92,31 @@ namespace WinMaths.src.utils
             return listOflines;
         }
 
+        public TextBlock DrawNumberInLines(Line l, int numBlock, Boolean axisHorizontal)
+        {
+            TextBlock textB = new TextBlock
+            {
+                Text = Convert.ToString(numBlock)
+            };
+
+            if (axisHorizontal) {
+                Canvas.SetLeft(textB, l.X1);
+                Canvas.SetTop(textB, l.Y1);
+            } else {
+                Canvas.SetLeft(textB, l.X2);
+                Canvas.SetTop(textB, l.Y1+45);
+            }
+
+            return textB;
+        }
         public PointCollection[] DrawGraphic(Graphic g, double canvasWidth, double canvasHeight, FuncRect funcRect)
         {
             PointCollection points = new PointCollection();
             Polyline graphicPolyline = new Polyline();
             double xReal, yReal, xScreen, yScreen;
 
-            FuncRect real = funcRect;
-            //FuncRect real = DeclareFuncRect(-10, 10, -10, 10);//<<<<<<<<<<<<<<<<<< SUstituir esto por valores bien
+            /* Sustituyo el FuncRect real por los limites que ha introducido el usuario (en caso de que los modifique) */
+            FuncRect real = funcRect; 
             FuncRect screen = DeclareFuncRect(0, canvasWidth, 0, canvasHeight);
             int numberOfPoints = (int)screen.XMax;
 
@@ -141,7 +159,7 @@ namespace WinMaths.src.utils
 
                 PointCollection[] listOfPoints = new PointCollection[1];
 
-                for (i = 0; i <= numberOfPoints; i++) // OJOOOOOOOOOOOOOO Aqui he cambiado el < por <= para que llegue de -10 a 10 y no de -10 a 9.66 por ejemplo
+                for (i = 0; i <= numberOfPoints; i++)
                 {
                     xReal = real.XMin + i * (real.XMax - real.XMin) / numberOfPoints;
                     yReal = g.Function.CalculateF(xReal);
@@ -159,66 +177,6 @@ namespace WinMaths.src.utils
 
         }
 
-        /*
-        private PointCollection[] DrawSplitedGraphic(Graphic g, double canvasWidth, double canvasHeight)
-        {
-            List<PointCollection> PointCollectionList = new List<PointCollection>();
-            PointCollection puntos = new PointCollection();
-            Polyline polilinea = new Polyline();
-            double xreal, yreal, xpant, ypant, oldXReal;
-            int numpuntos;
-
-            numpuntos = (int)screen.XMax;
-
-            polilinea.Stroke = Brushes.Red;
-            // Xreal  = de -10  a 0 y de 0 a 10
-
-            int i = 0;
-            int j = 0;
-            int limit = 0;
-            while (j < 2)
-            {
-
-                do
-                {
-                    i++;
-                    xreal = real.XMin + i * (real.XMax - real.XMin) / numpuntos;
-                    Console.WriteLine("Xreal {0}", xreal);
-                    yreal = SwitchFunctionFromButton(xreal);
-
-                    xpant = ConvertXFromRealToPant(xreal, pant.XMin);
-                    ypant = ConvertYFromRealToPant(yreal, pant.YMin);
-
-                    Point punto = new Point(xpant, ypant);
-                    puntos.Add(punto);
-                } while (Convert.ToInt32(xreal) < limit);
-
-                PointCollectionList.Add(puntos);
-                puntos = new PointCollection();
-
-                j++;
-
-                Console.WriteLine("Antes {0}", xreal);
-                oldXReal = xreal;
-                xreal += 1;
-                limit = (int)real.XMax;
-                Console.WriteLine("Despues {0}", xreal);
-                i = (int)(-(real.XMin) * numpuntos / (real.XMax - real.XMin));
-                Console.WriteLine("i {0}", i);
-
-            }
-            
-
-            foreach (PointCollection p in PointCollectionList)
-            {
-                lienzo.Children.Add(new Polyline()
-                {
-                    Points = p,
-                    Stroke = Brushes.Red
-                });
-            }
-        }
-        */
         public double ConvertXFromRealToPant(double xreal, double width, FuncRect screen, FuncRect real)
         {
             return (screen.XMax - width) * ((xreal - real.XMin) / (real.XMax - real.XMin)) + screen.XMin;

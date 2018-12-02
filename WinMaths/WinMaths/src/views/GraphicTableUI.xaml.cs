@@ -85,10 +85,15 @@ namespace WinMaths.src.views
 
         private void ModifyGraphicButton_Click(object sender, RoutedEventArgs e)
         {
-            Graphic oldGraph = (Graphic)TableGrid.SelectedItem;
+            if (TableGrid.SelectedItems.Count > 1) {
+                MessageBox.Show("Por favor, seleccione solo UNA fila para modificar a la vez", "Error: Múltiples filas seleccionadas para modificar", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            } 
+
+            Graphic oldGraph = (Graphic)TableGrid.SelectedItem;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Deberia ser el modelo el que guardase la grafica antigua o aqui esta bien????????????????
             int idOldGraphic = oldGraph.ID;
 
-            ModificationsWindow modificationsWindow = new ModificationsWindow(){ GraphicToModify = oldGraph };
+            ModificationsWindow modificationsWindow = new ModificationsWindow() { GraphicToModify = oldGraph };
 
             modificationsWindow.ShowDialog(); // Modal
             if (false == modificationsWindow.GraphicChanged)
@@ -102,6 +107,7 @@ namespace WinMaths.src.views
                 bool resultUpdate = viewModel.UpdateGraphicVM(graphModified, oldGraph);
                 Console.WriteLine("UPDATE {0}", resultUpdate);
             }
+ 
         }
 
         private void DeleteGraphicButton_Click(object sender, RoutedEventArgs e)

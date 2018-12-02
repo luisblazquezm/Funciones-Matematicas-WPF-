@@ -30,9 +30,9 @@ namespace WinMaths.src.views
             }
         }
 
-        public Boolean GraphicChanged { get; set; }
+        public Boolean GraphicChanged { get; set; } //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Cambiarlo a lo del showDialog() set...
 
-        private int idOldGraphic;
+        //private int idOldGraphic;
 
         public ModificationsWindow()
         {
@@ -61,7 +61,7 @@ namespace WinMaths.src.views
 
         public void SetGraphicParameters(Graphic g)
         {
-            idOldGraphic = g.ID;
+            //idOldGraphic = g.ID;
             NameModTextBox.Text = g.Name;
             FunctionModComboBox.SelectedItem = g.Function.Formula;
             ParamAModTextBox.Text = Convert.ToString(g.ParamA);
@@ -69,15 +69,17 @@ namespace WinMaths.src.views
             if (SecondGradeFunction.GetFormula().Equals(g.Function.Formula)) {
                 ParamCModTextBox.Visibility = Visibility.Visible;
                 ParamCLabel.Visibility = Visibility.Visible;
+                ParamCModTextBox.Text = Convert.ToString(g.ParamC);
             } else {
                 ParamCModTextBox.Visibility = Visibility.Hidden;
                 ParamCLabel.Visibility = Visibility.Hidden;
-                ParamCModTextBox.Text = Convert.ToString(0);
+                ParamCModTextBox.Clear();
             }
             ColorModColorPicker.SelectedColor = g.GraphicColor;
         }
 
-        private String[] InitializeFunctionComboBox() // <------------------- Encapsularlo en la clase function
+        /* No encapsulo este metodo en la clase Function porque romperia con la abstracción de la clase y todas las subclases de esta heredarian este método. */
+        private String[] InitializeFunctionComboBox() 
         {
             String[] functionList = {
                 CosXFunction.GetFormula(),
@@ -93,7 +95,6 @@ namespace WinMaths.src.views
 
         private void FunctionModComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Console.WriteLine("Cambiada fila en comboBox");
             DeactivateParameters();
         }
 
@@ -107,25 +108,18 @@ namespace WinMaths.src.views
             if (SecondGradeFunction.GetFormula().Equals((String)FunctionModComboBox.SelectedItem)){
                 ParamCModTextBox.Visibility = Visibility.Visible;
                 ParamCLabel.Visibility = Visibility.Visible;
+                ParamCModTextBox.Clear();
             } else {
                 ParamCModTextBox.Visibility = Visibility.Hidden;
                 ParamCLabel.Visibility = Visibility.Hidden;
+                ParamCModTextBox.Clear();
             }
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            Graphic g = CreateNewGraphic(); // <------------------- Encapsularlo en la clase grafica --> un constructor
-            if (g != null) {
-                g.ID = idOldGraphic;
-                bool result = viewModel.UpdateGraphicVM(g);
-                Console.WriteLine("UPDATE {0}",result);
-            }
-            */
             this.GraphicChanged = true;
             this.Close();
-
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -136,15 +130,16 @@ namespace WinMaths.src.views
 
         private void ParametersTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ConfirmButton.IsEnabled == false && 
-                NameModTextBox.Text.Length != 0 &&
+            if (NameModTextBox.Text.Length != 0 &&
                 ParamAModTextBox.Text.Length != 0 &&
                 ParamBModTextBox.Text.Length != 0 &&
                 ( (!ParamCModTextBox.IsVisible && ParamCModTextBox.Text.Length == 0) || (ParamCModTextBox.IsVisible && ParamCModTextBox.Text.Length != 0) ) &&
                 FunctionModComboBox.SelectedIndex != -1)
             {
                 ConfirmButton.IsEnabled = true;
-            } else {
+            }
+            else
+            {
                 ConfirmButton.IsEnabled = false;
             }
                 
@@ -165,6 +160,7 @@ namespace WinMaths.src.views
             return new Graphic(f, GraphicName, paramA, paramB, paramC, GraphicColor);
         }
 
+        /* No encapsulo este metodo en la clase Function porque romperia con la abstracción de la clase y todas las subclases de esta heredarian este método. */
         private Function SelectFunction(string functionName, double a, double b, double c)
         {
             if (CosXFunction.GetFormula().Equals(functionName))

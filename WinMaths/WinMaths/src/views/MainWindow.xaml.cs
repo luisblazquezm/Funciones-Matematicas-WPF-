@@ -135,14 +135,20 @@ namespace WinMaths
             List<Graphic> listOfGraphicsToRemove = (List<Graphic>)e.ListOfGraphics;
             List<Polyline> listOfPolylines = new List<Polyline>();
 
-            foreach (Graphic g in listOfGraphicsToRemove) {
-                if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
-                    listOfPolylines = graphicRepresentationDictionary[g];
-                    graphicRepresentationDictionary.Remove(g);
-                    foreach (Polyline p in listOfPolylines)
-                        RepresentationCanvas.Children.Remove(p);
+            if (graphicRepresentationDictionary != null)
+            {
+                foreach (Graphic g in listOfGraphicsToRemove)
+                {
+                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null)
+                    {
+                        listOfPolylines = graphicRepresentationDictionary[g];
+                        graphicRepresentationDictionary.Remove(g);
+                        foreach (Polyline p in listOfPolylines)
+                            RepresentationCanvas.Children.Remove(p);
+                    }
                 }
             }
+            
         }
 
         private void ViewModel_GraphicUpdated(object sender, ViewModelEventArgs e)
@@ -152,28 +158,31 @@ namespace WinMaths
             PointCollection[] graphicRepresentation = null;
             FuncRect funcR = viewModel.FuncRect;
 
-            foreach (Graphic g in listOfGraphicsToUpdate)//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Encapsular esto
+            if (graphicRepresentationDictionary != null)
             {
-                listOfPolylines = new List<Polyline>();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Instancicación múltiple?????
-
-                graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
-                foreach (PointCollection p in graphicRepresentation)
+                foreach (Graphic g in listOfGraphicsToUpdate)//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Encapsular esto
                 {
-                    Polyline line = new Polyline()
+                    listOfPolylines = new List<Polyline>();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Instancicación múltiple?????
+
+                    graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
+                    foreach (PointCollection p in graphicRepresentation)
                     {
-                        Points = p,
-                        Stroke = new SolidColorBrush(g.GraphicColor)
-                    };
+                        Polyline line = new Polyline()
+                        {
+                            Points = p,
+                            Stroke = new SolidColorBrush(g.GraphicColor)
+                        };
 
-                    listOfPolylines.Add(line);
+                        listOfPolylines.Add(line);
+                    }
+                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null)
+                        graphicRepresentationDictionary.Remove(g);
+
+                    graphicRepresentationDictionary.Add(g, listOfPolylines);
+
+                    foreach (Polyline line in listOfPolylines)
+                        RepresentationCanvas.Children.Add(line);
                 }
-                if (graphicRepresentationDictionary.ContainsKey(g) && g != null)
-                    graphicRepresentationDictionary.Remove(g);
-
-                graphicRepresentationDictionary.Add(g, listOfPolylines);
-
-                foreach (Polyline line in listOfPolylines)
-                    RepresentationCanvas.Children.Add(line);
             }
         }
 
@@ -190,30 +199,33 @@ namespace WinMaths
             RepresentationCanvas.Children.Clear();
             DrawAxisAndLines();
 
-            // listOfGraphicsToRepresent esta declarado globalmente para que solo se redibuje la grafica que está dibujada en el canvas
-            foreach (Graphic g in listOfGraphicsToRepresent)
+            if (graphicRepresentationDictionary != null)
             {
-                listOfLines = new List<Polyline>();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Instancicación múltiple?????
-
-                graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
-                foreach (PointCollection p in graphicRepresentation)
+                // listOfGraphicsToRepresent esta declarado globalmente para que solo se redibuje la grafica que está dibujada en el canvas
+                foreach (Graphic g in listOfGraphicsToRepresent)
                 {
-                    Polyline line = new Polyline()
+                    listOfLines = new List<Polyline>();//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Instancicación múltiple?????
+
+                    graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
+                    foreach (PointCollection p in graphicRepresentation)
                     {
-                        Points = p,
-                        Stroke = new SolidColorBrush(g.GraphicColor)
-                    };
+                        Polyline line = new Polyline()
+                        {
+                            Points = p,
+                            Stroke = new SolidColorBrush(g.GraphicColor)
+                        };
 
-                    listOfLines.Add(line);
+                        listOfLines.Add(line);
+                    }
+
+                    if (graphicRepresentationDictionary.ContainsKey(g))
+                        graphicRepresentationDictionary.Remove(g);
+
+                    graphicRepresentationDictionary.Add(g, listOfLines);
+
+                    foreach (Polyline line in listOfLines)
+                        RepresentationCanvas.Children.Add(line);
                 }
-
-                if (graphicRepresentationDictionary.ContainsKey(g))
-                    graphicRepresentationDictionary.Remove(g);
-
-                graphicRepresentationDictionary.Add(g, listOfLines);
-
-                foreach (Polyline line in listOfLines)
-                    RepresentationCanvas.Children.Add(line);
             }
         } 
 
@@ -276,9 +288,12 @@ namespace WinMaths
             screen = FunctionRepresentationVar.DeclareFuncRect(0, RepresentationCanvas.ActualWidth, 0, RepresentationCanvas.ActualHeight); 
             Boolean ejeHorizontal = true;
             Boolean ejeVertical = false;
-            double distancia = 0.333;
+            double distancia = 0.333; //0.333
+            int numBlock = -6;
+            int count = 5;
             double limitX = RepresentationCanvas.ActualWidth;
             double limitY = RepresentationCanvas.ActualHeight;
+            
 
             Console.WriteLine(limitX);
 
@@ -287,12 +302,34 @@ namespace WinMaths
                 RepresentationCanvas.Children.Add(l);
 
             // Lineas Eje X
-            foreach (Line l in FunctionRepresentationVar.DrawAxisLines(screen, real, real.XMin, real.YMax, distancia, ejeHorizontal))
+            foreach (Line l in FunctionRepresentationVar.DrawAxisLines(screen, real, real.XMin, real.YMax, distancia, ejeHorizontal)) {
                 RepresentationCanvas.Children.Add(l);
+                ++count;
+                if (count == 6) ++numBlock;
+                count = DrawNumberLines(l, numBlock, ejeHorizontal, count);
+            }
+
+            numBlock = -6;
 
             // Lineas Eje Y
-            foreach (Line l in FunctionRepresentationVar.DrawAxisLines(screen, real, real.XMin, real.YMax, distancia, ejeVertical))
+            foreach (Line l in FunctionRepresentationVar.DrawAxisLines(screen, real, real.XMin, real.YMax, distancia, ejeVertical)) {
                 RepresentationCanvas.Children.Add(l);
+                ++count;
+                if (count == 6) ++numBlock;
+                count = DrawNumberLines(l, numBlock, ejeVertical, count);
+            }
+        }
+
+        private int DrawNumberLines(Line l, int numBlock, Boolean eje, int count)
+        {
+            if (count == 6)
+            {
+                TextBlock tb = FunctionRepresentationVar.DrawNumberInLines(l, numBlock, eje);
+                RepresentationCanvas.Children.Add(tb);
+                count = 0;
+            }
+
+            return count;
         }
 
         private void RepresentationCanvas_MouseWheel(object sender, MouseWheelEventArgs e)
