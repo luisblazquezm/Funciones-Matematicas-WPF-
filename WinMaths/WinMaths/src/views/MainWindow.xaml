@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="825" WindowStyle="None" >
-    
+        Title="WinMaths" Height="768" Width="825" WindowStyle="ToolWindow" Closed="Window_Closed" Background="#FF1D2A64" Icon="/WinMaths;component/WiNM.ico">
+
     <Grid  x:Name="GridOfCanvas" 
            Margin="0,0,2,2">
 
         <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" Height="40" Width="372">
-            <Label Content="X:" Width="27" Height="35" Margin="10 5 0 5" FontSize="15"/>
-            <Label Name="XCoordLabel" Width="100" Height="45" Margin="0 10 0 10"/>
-            <Label Content="Y:" Width="27" Height="35" Margin="40 5 0 5" FontSize="15"/>
-            <Label Name="YCoordLabel" Width="100" Height="45" Margin="0 10 0 10"/>
+            <Label Content="X:" Width="27" Height="35" Margin="10 5 0 5" FontSize="15" Foreground="WhiteSmoke"/>
+            <Label Name="XCoordLabel" Width="100" Height="45" Margin="0 10 0 10" Background="WhiteSmoke"/>
+            <Label Content="Y:" Width="27" Height="35" Margin="40 5 0 5" FontSize="15" Foreground="WhiteSmoke"/>
+            <Label Name="YCoordLabel" Width="100" Height="45" Margin="0 10 0 10" Background="WhiteSmoke"/>
         </WrapPanel>
-        
+
         <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
-            <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+            <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Foreground="WhiteSmoke">
                 <StackPanel Width="150">
                     <Button Name="SettingsButton" Content="Ajustes"/>
                     <Button Content="Ayuda"/>
@@ -27,9 +27,9 @@
                 </StackPanel>
             </materialDesign:PopupBox>
         </StackPanel>
-        
-        <Border x:Name="clipBorder" BorderThickness="2" BorderBrush="Black" ClipToBounds="True" Margin="10 50 10 10">
-            <Canvas x:Name="RepresentationCanvas" Background="Transparent" Margin="8" RenderTransformOrigin="0.5,0.5">
+
+        <Border x:Name="clipBorder" BorderThickness="2" BorderBrush="Black" ClipToBounds="True" Margin="0,50,0,0" Background="White">
+            <Canvas x:Name="RepresentationCanvas" Background="Transparent" Margin="-2" RenderTransformOrigin="0.5,0.5" ClipToBounds="True">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <MatrixTransform x:Name="mt"/>
@@ -42,6 +42,6 @@
                 </Canvas.ContextMenu>
             </Canvas>
         </Border>
-        
+
     </Grid>
 </Window>

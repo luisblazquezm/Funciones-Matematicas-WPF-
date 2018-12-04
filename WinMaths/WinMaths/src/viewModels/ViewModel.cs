@@ -43,7 +43,6 @@ namespace WinMaths.src.viewModels
         private FuncRect graphicLimits;
 
         /* Eventos de Cambio en la Propiedad */
-        public event ViewModelEventHandler GraphicAdded;
         public event ViewModelEventHandler GraphicSetToDraw;
         public event ViewModelEventHandler GraphicDeleted;
         public event ViewModelEventHandler GraphicUpdated;
@@ -62,12 +61,9 @@ namespace WinMaths.src.viewModels
             graphicLimits.YMax = 10;
         }
 
-        /* En vez de pasarle la grafica a todos pasarle solo el ID????????????????*/
         public int AddGraphicVM(Graphic g)
         {
             int creationResult = model.AddGraphic(g);
-            //g.PropertyChanged += PropertyChangedHandler; // Se lanza el evento que avisa de que se ha modificado una propiedad de la clase Grafica
-            //OnGraphicAdded(g);
             return creationResult;
         }
 
@@ -76,12 +72,13 @@ namespace WinMaths.src.viewModels
             bool updateResult = model.UpdateGraphic(gModified);
             List<Graphic> listOfG = null;
             if (updateResult) {
-                Console.WriteLine("AQui");
                 listOfG = new List<Graphic>();
+
                 listOfG.Add(oldGraphic);
-                //g.PropertyChanged += PropertyChangedHandler;
                 OnGraphicDeleted(listOfG);
+
                 listOfG.Clear();
+
                 listOfG.Add(gModified);
                 OnGraphicUpdated(listOfG);
             }
@@ -140,16 +137,7 @@ namespace WinMaths.src.viewModels
             }
         }
 
-
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
-
-        
-        protected virtual void OnGraphicAdded(List<Graphic> g)
-        {
-            if (GraphicAdded != null)
-                GraphicAdded(this, new ViewModelEventArgs(g));
-        }
-        
 
         protected virtual void OnDrawGraphic(List<Graphic> g)
         {
@@ -180,13 +168,6 @@ namespace WinMaths.src.viewModels
             if (GraphicRepresentationUpdated != null)
                 GraphicRepresentationUpdated(this, new ViewModelEventArgs());
         }
-
-        /*
-        protected virtual void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
-        {
-            OnGraphicUpdated((Graphic)sender);
-        }
-        */
     }
 
 

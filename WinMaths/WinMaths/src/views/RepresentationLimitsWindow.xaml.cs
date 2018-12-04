@@ -23,7 +23,6 @@ namespace WinMaths.src.views
         public double Xmax { get => double.Parse(XMaxTextBox.Text); set => XMaxTextBox.Text = value + ""; }
         public double Ymin { get => double.Parse(YMinTextBox.Text); set => YMinTextBox.Text = value + ""; }
         public double Ymax { get => double.Parse(YMaxTextBox.Text); set => YMaxTextBox.Text = value + ""; }
-        public Boolean LimitsChanged { get; set; }
 
         public RepresentationLimitsWindow()
         {
@@ -34,18 +33,17 @@ namespace WinMaths.src.views
 
             // Gestión Botón de Cancelar Modificar
             CancelButton.Click += CancelButton_Click;
-
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            LimitsChanged = true;
+            this.DialogResult = true;
             this.Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            LimitsChanged = false;
+            this.DialogResult = false;
             this.Close();
         }
 

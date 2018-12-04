@@ -24,7 +24,7 @@ namespace WinMaths.src.views
         private GraphicTableUI graphicTableUI;
         private GraphicDephinitionUI graphicDephinitionUI;
 
-        public PreferencesMenuUI(ViewModel vM) /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Ojooooooo no se si pasar el viewModel por aqui o de otra manera*/
+        public PreferencesMenuUI(ViewModel vM)
         {
             InitializeComponent();
             this.viewModel = vM;
@@ -32,6 +32,7 @@ namespace WinMaths.src.views
 
         private void Panel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // Permite mover el panel sin necesidad de un estilo de ventana
             this.DragMove();
         }
 

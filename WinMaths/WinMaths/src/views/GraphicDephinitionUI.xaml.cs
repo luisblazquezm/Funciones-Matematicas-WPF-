@@ -62,13 +62,6 @@ namespace WinMaths.src.views
 
         }
 
-        /*
-        public void SetViewModel(ViewModel vM)
-        {
-            this.viewModel = vM;
-        }
-        */
-
         private void FunctionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int actualSelectedIndex = FunctionComboBox.SelectedIndex;
@@ -224,7 +217,6 @@ namespace WinMaths.src.views
 
         private void CalculateProgressBarValue(double value)
         {
-            Console.WriteLine("Valor actual {0} - {1}", progressBar.Value, value);
             if ((value > 0 && progressBar.Value >= 0) || (value < 0 && (progressBar.Value - value) >= 0))
                 progressBar.Value += value;
 

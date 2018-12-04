@@ -37,14 +37,6 @@
         <!-- Top Barr Grid-->
         <Grid Height="60" VerticalAlignment="Top" Background="#FF2045A8">
             <TextBlock Text="Preferencias" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" />
-            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
-                <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                    <StackPanel Width="150">
-                        <Button Content="Ajustes"/>
-                        <Button Content="Ayuda"/>
-                    </StackPanel>
-                </materialDesign:PopupBox>
-            </StackPanel>
         </Grid>
 
         <Frame x:Name="PreferencesMenu" Margin="65,60,0,0" />
@@ -71,18 +63,6 @@
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="TableLarge" Width="25" Height="25" Margin="10" VerticalAlignment="Center" PreviewMouseDoubleClick="GraphicTable_MouseDoubleClick" />
                             <TextBlock Text="Tabla de Gráficas" VerticalAlignment="Center" Margin="20 10" />
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Import" Width="25" Height="25" Margin="10" VerticalAlignment="Center" />
-                            <TextBlock Text="Importar" VerticalAlignment="Center" Margin="20 10" />
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem Height="60">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Upload" Width="25" Height="25" Margin="10" VerticalAlignment="Center"/>
-                            <TextBlock Text="Exportar" VerticalAlignment="Center" Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView>

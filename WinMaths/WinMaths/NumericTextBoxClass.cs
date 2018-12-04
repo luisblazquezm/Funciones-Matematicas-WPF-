@@ -13,7 +13,6 @@ namespace WinMaths
         public NumericTextBoxClass()
         {
             this.PreviewTextInput += new TextCompositionEventHandler(NumericTextBox_PreviewTextInput);
-
         }
 
         public int IntValue

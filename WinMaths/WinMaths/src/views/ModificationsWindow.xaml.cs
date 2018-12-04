@@ -30,14 +30,11 @@ namespace WinMaths.src.views
             }
         }
 
-        public Boolean GraphicChanged { get; set; } //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Cambiarlo a lo del showDialog() set...
-
-        //private int idOldGraphic;
-
         public ModificationsWindow()
         {
             InitializeComponent();
 
+            // Gestión del ComboBox de FUnciones
             FunctionModComboBox.ItemsSource = InitializeFunctionComboBox();
             FunctionModComboBox.SelectionChanged += FunctionModComboBox_SelectionChanged;
 
@@ -61,7 +58,6 @@ namespace WinMaths.src.views
 
         public void SetGraphicParameters(Graphic g)
         {
-            //idOldGraphic = g.ID;
             NameModTextBox.Text = g.Name;
             FunctionModComboBox.SelectedItem = g.Function.Formula;
             ParamAModTextBox.Text = Convert.ToString(g.ParamA);
@@ -118,13 +114,13 @@ namespace WinMaths.src.views
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            this.GraphicChanged = true;
+            this.DialogResult = true;
             this.Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.GraphicChanged = false;
+            this.DialogResult = false;
             this.Close();
         }
 
@@ -154,7 +150,7 @@ namespace WinMaths.src.views
             double paramC = 0;
             if (ParamCModTextBox.IsVisible)
                 paramC = double.Parse(ParamCModTextBox.Text);
-            Function f = SelectFunction(FunctionName, paramA, paramB, paramC); // <--------------------------- Encapsular en la clase funcion como constructor o como metodo
+            Function f = SelectFunction(FunctionName, paramA, paramB, paramC); 
             Color GraphicColor = (Color)ColorModColorPicker.SelectedColor;
 
             return new Graphic(f, GraphicName, paramA, paramB, paramC, GraphicColor);

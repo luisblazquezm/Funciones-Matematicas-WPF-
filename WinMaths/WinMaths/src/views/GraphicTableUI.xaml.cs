@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WinMaths.src.bean;
+using WinMaths.src.utils;
 using WinMaths.src.viewModels;
 
 namespace WinMaths.src.views
@@ -25,15 +26,17 @@ namespace WinMaths.src.views
     {
         private ViewModel viewModel;
         private List<Graphic> listOfGraphicsToExport;
+        private IOUtils ioUtils;
 
         public GraphicTableUI(ViewModel vM)
         {
             InitializeComponent();
 
             this.viewModel = vM;
+            this.ioUtils = new IOUtils();
             listOfGraphicsToExport = null;
-
-            TableGrid.ItemsSource = viewModel.GetCollectionOfGraphicsVM(); // Puede que se esté recargando cada vez que se instancia el pages todo el rato y esté mal
+            
+            TableGrid.ItemsSource = viewModel.GetCollectionOfGraphicsVM();
             TableGrid.SelectedCellsChanged += TableGrid_SelectedCellsChanged;
 
             // Gestión del Botón Dibujar
@@ -67,15 +70,6 @@ namespace WinMaths.src.views
             }
         }
 
-        /*
-        public void SetViewModel(ViewModel vM)
-        {
-            this.viewModel = vM;
-            TableGrid.ItemsSource = viewModel.GetCollectionOfGraphicsVM(); // Puede que se esté recargando cada vez que se instancia el pages todo el rato y esté mal
-            viewModel.GraphicUpdated += ViewModel_GraphicUpdated;
-        }
-        */
-
         private void DrawGraphicButton_Click(object sender, RoutedEventArgs e)
         {
             List<Graphic> selectedGraphicList = TableGrid.SelectedItems.Cast<Graphic>().ToList();
@@ -90,13 +84,13 @@ namespace WinMaths.src.views
                 return;
             } 
 
-            Graphic oldGraph = (Graphic)TableGrid.SelectedItem;//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Deberia ser el modelo el que guardase la grafica antigua o aqui esta bien????????????????
+            Graphic oldGraph = (Graphic)TableGrid.SelectedItem;
             int idOldGraphic = oldGraph.ID;
 
             ModificationsWindow modificationsWindow = new ModificationsWindow() { GraphicToModify = oldGraph };
 
-            modificationsWindow.ShowDialog(); // Modal
-            if (false == modificationsWindow.GraphicChanged)
+            modificationsWindow.ShowDialog();
+            if (false == modificationsWindow.DialogResult)
                 return;
 
             Graphic graphModified = modificationsWindow.GraphicToModify;
@@ -105,7 +99,6 @@ namespace WinMaths.src.views
             {
                 graphModified.ID = idOldGraphic;
                 bool resultUpdate = viewModel.UpdateGraphicVM(graphModified, oldGraph);
-                Console.WriteLine("UPDATE {0}", resultUpdate);
             }
  
         }
@@ -127,31 +120,13 @@ namespace WinMaths.src.views
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
             {
                 FileName = "NuevoArchivo",
-                Filter = "XML | *.xml | Binary | *.bin | Excel | *.xlm"
+                Filter = "XML | *.xml | Binary | *.bin | HTML | *.html"
             };
 
             bool? result = dlg.ShowDialog();
             if (result == true)
             {
-                WriteToBinaryFile<Graphic>(dlg.FileName, listOfGraphicsToExport);
-            }
-        }
-
-        /// <summary>
-        /// Writes the given object instance to a binary file.
-        /// <para>Object type (and all child types) must be decorated with the [Serializable] attribute.</para>
-        /// <para>To prevent a variable from being serialized, decorate it with the [NonSerialized] attribute; cannot be applied to properties.</para>
-        /// </summary>
-        /// <typeparam name="T">The type of object being written to the binary file.</typeparam>
-        /// <param name="filePath">The file path to write the object instance to.</param>
-        /// <param name="objectToWrite">The object instance to write to the binary file.</param>
-        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
-        public static void WriteToBinaryFile<T>(string filePath, List<T> objectToWrite, bool append = false)
-        {
-            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
-            {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                binaryFormatter.Serialize(stream, objectToWrite);
+                ioUtils.WriteToFile<Graphic>(dlg.FileName, listOfGraphicsToExport, false);
             }
         }
 
@@ -169,25 +144,11 @@ namespace WinMaths.src.views
             bool? result = dlg.ShowDialog();
             if (result == true)
             {
-                List<Graphic> g = ReadFromBinaryFile<Graphic>(dlg.FileName);
+                List<Graphic> g = ioUtils.ReadFromFile<Graphic>(dlg.FileName);
                 bool ja = viewModel.ImportListVM(g);
-                Console.WriteLine("Importada {0}", ja);
             }
         }
 
-        /// <summary>
-        /// Reads an object instance from a binary file.
-        /// </summary>
-        /// <typeparam name="T">The type of object to read from the binary file.</typeparam>
-        /// <param name="filePath">The file path to read the object instance from.</param>
-        /// <returns>Returns a new instance of the object read from the binary file.</returns>
-        public static List<T> ReadFromBinaryFile<T>(string filePath)
-        {
-            using (Stream stream = File.Open(filePath, FileMode.Open))
-            {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                return (List<T>)binaryFormatter.Deserialize(stream);
-            }
-        }
+        
     }
 }

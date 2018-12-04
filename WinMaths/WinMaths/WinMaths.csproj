@@ -91,7 +91,6 @@
     <Compile Include="src\model\Model.cs" />
     <Compile Include="src\utils\FunctionRepresentationUtils.cs" />
     <Compile Include="src\utils\IOUtils.cs" />
-    <Compile Include="src\utils\Utils.cs" />
     <Compile Include="src\viewModels\ViewModel.cs" />
     <Compile Include="src\views\ModificationsWindow.xaml.cs">
       <DependentUpon>ModificationsWindow.xaml</DependentUpon>

@@ -15,7 +15,6 @@ namespace WinMaths.src.utils
 {
     public class FunctionRepresentationUtils
     {
-
         public Line[] DrawAxis(FuncRect real, FuncRect screen)
         {
             Line[] arrayOfAxis = new Line[2];
@@ -109,6 +108,7 @@ namespace WinMaths.src.utils
 
             return textB;
         }
+
         public PointCollection[] DrawGraphic(Graphic g, double canvasWidth, double canvasHeight, FuncRect funcRect)
         {
             PointCollection points = new PointCollection();
@@ -166,7 +166,6 @@ namespace WinMaths.src.utils
                     
                     xScreen = ConvertXFromRealToPant(xReal, screen.XMin, screen, real);
                     yScreen = ConvertYFromRealToPant(yReal, screen.YMin, screen, real);
-                    Console.WriteLine("Real ({0} {1}) - Screen ({2},{3})", xReal, yReal, xScreen, yScreen);
                     points.Add(new Point(xScreen, yScreen));
                 }
 
