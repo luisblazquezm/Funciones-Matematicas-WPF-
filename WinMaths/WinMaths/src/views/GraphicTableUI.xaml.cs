@@ -52,6 +52,7 @@ namespace WinMaths.src.views
             DeleteGraphicButton.IsEnabled = false;
 
             // Gestión del contextMenu
+            ExportTableExcelMenuOption.Click += ExportTableExcelMenuOption_Click;
             ExportSelectedFilesMenuOption.Click += ExportFilesMenuOption_Click;
             ExportTableMenuOption.Click += ExportFilesMenuOption_Click;
             ImportTableMenuOption.Click += ImportTableMenuOption_Click;
@@ -110,17 +111,43 @@ namespace WinMaths.src.views
                 viewModel.DeleteGraphicVM(selectedGraphicList);
         }
 
+        private void ExportTableExcelMenuOption_Click(object sender, RoutedEventArgs e)
+        {
+            if (TableGrid.Items.Count == 0)
+            {
+                MessageBox.Show("Por favor, añada alguna gráfica a la tabla antes de exportar", "Error: Tabla vacía", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            ioUtils.WriteToExcel<Graphic>(TableGrid.SelectedItems.Cast<Graphic>().ToList());
+        }
+
         private void ExportFilesMenuOption_Click(object sender, RoutedEventArgs e)
         {
+            if (TableGrid.Items.Count == 0)
+            {
+                MessageBox.Show("Por favor, añada alguna gráfica a la tabla antes de exportar", "Error: Tabla vacía", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (sender == ExportSelectedFilesMenuOption)
+            {
+                if (TableGrid.SelectedItems.Count == 0){
+                    MessageBox.Show("Por favor, seleccione la fila que desea exportar.", "Error: Filas no seleccionadas", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 listOfGraphicsToExport = TableGrid.SelectedItems.Cast<Graphic>().ToList();
+            }
             else if (sender == ExportTableMenuOption)
+            {
                 listOfGraphicsToExport = TableGrid.Items.Cast<Graphic>().ToList();
+            }
+                
 
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog
             {
                 FileName = "NuevoArchivo",
-                Filter = "XML | *.xml | Binary | *.bin | HTML | *.html"
+                Filter = "XML | *.xml | Binary | *.bin | HTML | *.html "
             };
 
             bool? result = dlg.ShowDialog();
@@ -137,7 +164,7 @@ namespace WinMaths.src.views
                 Title = "Abrir fichero",
                 FileName = "NuevoArchivo",
                 DefaultExt = ".xml",
-                Filter = "XML | *.xml | Binary | *.bin | Excel | *.xlm",
+                Filter = "XML | *.xml | Binary | *.bin | HTML | *.html",
                 Multiselect = false
             };
 
