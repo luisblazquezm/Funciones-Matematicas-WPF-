@@ -59,7 +59,7 @@ namespace WinMaths.src.model
 
                 foreach (Graphic graph in listOfGraphics){
                     if (gToModify.ID == graph.ID) {
-                        listOfGraphics[gToModify.ID] = gToModify; 
+                        listOfGraphics[listOfGraphics.IndexOf(graph)] = gToModify; 
                         return true;
                     }
                 }
@@ -133,14 +133,17 @@ namespace WinMaths.src.model
 
         public bool IsGraphicNameRepeated(string name)
         {
+            int count = 0;
             foreach (Graphic g in listOfGraphics)
             {
-                Console.WriteLine("{0} - {1}",name,g.Name);
                 if (name.Equals(g.Name))
-                    return true;
+                    ++count;
             }
 
-            return false;
+            if (count >= 2)
+                return true;
+            else
+                return false;
         }
     }
 }

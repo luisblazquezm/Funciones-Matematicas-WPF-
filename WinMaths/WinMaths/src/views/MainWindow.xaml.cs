@@ -104,17 +104,23 @@ namespace WinMaths
             if (graphicRepresentationDictionary == null) // Para que no se dibuje nada en el sizeChanged
                 graphicRepresentationDictionary = new Dictionary<Graphic, List<Polyline>>();
 
+            graphicRepresentationDictionary.Clear();
+
             foreach (Graphic g in listOfGraphicsToRepresent)
             {
-                if (graphicRepresentationDictionary.ContainsKey(g) && g != null) {
+                if (graphicRepresentationDictionary.ContainsKey(g) && g != null)
+                {
                     listOfLines = graphicRepresentationDictionary[g];
                     foreach (Polyline line in listOfLines)
                         RepresentationCanvas.Children.Add(line);
-                } else {
+                }
+                else
+                {
                     listOfLines = new List<Polyline>();
 
                     graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
-                    foreach (PointCollection p in graphicRepresentation) {
+                    foreach (PointCollection p in graphicRepresentation)
+                    {
                         Polyline line = new Polyline()
                         {
                             Points = p,
@@ -122,12 +128,15 @@ namespace WinMaths
                         };
                         listOfLines.Add(line);
                     }
+                    Console.WriteLine("Añadida grafica {0}", g.Name);
                     graphicRepresentationDictionary.Add(g, listOfLines);
 
                     foreach (Polyline line in listOfLines)
                         RepresentationCanvas.Children.Add(line);
+
                 }
             }
+
         }
 
         private void ViewModel_GraphicDeleted(object sender, ViewModelEventArgs e)
@@ -154,80 +163,74 @@ namespace WinMaths
         private void ViewModel_GraphicUpdated(object sender, ViewModelEventArgs e)
         {
             List<Graphic> listOfGraphicsToUpdate = (List<Graphic>)e.ListOfGraphics; // Solo va a haber una grafica modificada
-            List<Polyline> listOfPolylines = null;
-            PointCollection[] graphicRepresentation = null;
-            FuncRect funcR = viewModel.FuncRect;
 
             if (graphicRepresentationDictionary != null)
             {
-                foreach (Graphic g in listOfGraphicsToUpdate)
-                {
-                    listOfPolylines = new List<Polyline>();
-
-                    graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
-                    foreach (PointCollection p in graphicRepresentation)
-                    {
-                        Polyline line = new Polyline()
-                        {
-                            Points = p,
-                            Stroke = new SolidColorBrush(g.GraphicColor)
-                        };
-
-                        listOfPolylines.Add(line);
-                    }
-                    if (graphicRepresentationDictionary.ContainsKey(g) && g != null)
-                        graphicRepresentationDictionary.Remove(g);
-
-                    graphicRepresentationDictionary.Add(g, listOfPolylines);
-
-                    foreach (Polyline line in listOfPolylines)
-                        RepresentationCanvas.Children.Add(line);
-                }
+                DrawGraphicsInList(listOfGraphicsToUpdate);
             }
         }
 
         private void ViewModel_GraphicRepresentationUpdated(object sender, ViewModelEventArgs e)
         {
-            /* 
-             * La diferencia entre esta función y GraphicUpdated es que GraphicUpdated es llamado cuando cambia el objeto Grafica 
-             * y ésta cuando cambian los limites de la representación de una gráfica
-             */
-            PointCollection[] graphicRepresentation = null;
-            List<Polyline> listOfLines = null;
-            FuncRect funcR = viewModel.FuncRect;
             List<Graphic> listOfGraphics = graphicRepresentationDictionary.Keys.ToList<Graphic>();
+
+            graphicRepresentationDictionary.Clear();
+            RepresentationCanvas.Children.Clear();
+            DrawAxisAndLines();
+
+            if (graphicRepresentationDictionary != null)
+            {
+                DrawGraphicsInList(listOfGraphics);
+            }
+        }
+
+        private void RepresentationCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            List<Graphic> listOfGraphicsToRepresent = null;
 
             RepresentationCanvas.Children.Clear();
             DrawAxisAndLines();
 
             if (graphicRepresentationDictionary != null)
             {
-                foreach (Graphic g in listOfGraphics)
+                listOfGraphicsToRepresent = graphicRepresentationDictionary.Keys.ToList<Graphic>();
+
+                graphicRepresentationDictionary.Clear();
+
+                if (listOfGraphicsToRepresent != null)
                 {
-                    listOfLines = new List<Polyline>();
-
-                    graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
-                    foreach (PointCollection p in graphicRepresentation)
-                    {
-                        Polyline line = new Polyline()
-                        {
-                            Points = p,
-                            Stroke = new SolidColorBrush(g.GraphicColor)
-                        };
-
-                        listOfLines.Add(line);
-                    }
-
-                    if (graphicRepresentationDictionary.ContainsKey(g))
-                        graphicRepresentationDictionary.Remove(g);
-
-                    graphicRepresentationDictionary.Add(g, listOfLines);
-
-                    foreach (Polyline line in listOfLines)
-                        RepresentationCanvas.Children.Add(line);
+                    DrawGraphicsInList(listOfGraphicsToRepresent);
                 }
             }
-        } 
+
+        }
+
+        private void DrawGraphicsInList(List<Graphic> graphicList)
+        {
+            PointCollection[] graphicRepresentation = null;
+            List<Polyline> listOfLines = null;
+            FuncRect funcR = viewModel.FuncRect;
+
+            foreach (Graphic g in graphicList)
+            {
+                listOfLines = new List<Polyline>();
+
+                graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
+                foreach (PointCollection p in graphicRepresentation)
+                {
+                    Polyline line = new Polyline()
+                    {
+                        Points = p,
+                        Stroke = new SolidColorBrush(g.GraphicColor)
+                    };
+                    listOfLines.Add(line);
+                }
+                graphicRepresentationDictionary.Add(g, listOfLines);
+
+                foreach (Polyline line in listOfLines)
+                    RepresentationCanvas.Children.Add(line);
+            }
+        }
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -237,47 +240,6 @@ namespace WinMaths
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
-        }
-
-        private void RepresentationCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            List<Graphic> listOfGraphicsToRepresent = null;
-            PointCollection[] graphicRepresentation = null;
-            List<Polyline> listOfLines = null;
-            FuncRect funcR = viewModel.FuncRect;
-
-            RepresentationCanvas.Children.Clear();
-            DrawAxisAndLines();
-
-            if (graphicRepresentationDictionary != null) {
-                listOfGraphicsToRepresent = viewModel.GetListOfGraphicsVM();
-
-                if (listOfGraphicsToRepresent != null)
-                {
-                    foreach (Graphic g in listOfGraphicsToRepresent)
-                    {
-                        listOfLines = new List<Polyline>();
-
-                        graphicRepresentation = FunctionRepresentationVar.DrawGraphic(g, RepresentationCanvas.ActualWidth, RepresentationCanvas.ActualHeight, funcR);
-                        
-                        foreach (PointCollection p in graphicRepresentation)
-                        {
-                            graphicRepresentationDictionary.Remove(g);
-                            Polyline line = new Polyline()
-                            {
-                                Points = p,
-                                Stroke = new SolidColorBrush(g.GraphicColor)
-                            };
-                            listOfLines.Add(line);
-                        }
-                        graphicRepresentationDictionary.Add(g, listOfLines);
-
-                        foreach (Polyline line in listOfLines)
-                            RepresentationCanvas.Children.Add(line);
-                    }
-                }
-            }
-
         }
 
         private void DrawAxisAndLines()
