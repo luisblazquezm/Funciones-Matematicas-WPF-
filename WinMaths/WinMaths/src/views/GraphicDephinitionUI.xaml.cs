@@ -120,6 +120,12 @@ namespace WinMaths.src.views
         {
             String GraphicName = NameTextBox.Text;
             String FunctionName = (String)FunctionComboBox.SelectedItem;
+            if (true == viewModel.IsGraphicNameRepeated(GraphicName))
+            {
+                MessageBox.Show("Por favor, introduzca otro nombre para la gráfica", "Error: Nombre de gráfica repetido", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+                
             double paramA = double.Parse(ParamATextBox.Text);
             double paramB = double.Parse(ParamBTextBox.Text);
             double paramC = 0;
@@ -234,7 +240,6 @@ namespace WinMaths.src.views
                 DeactivateGraphicDephinitionFields();
                 int result = viewModel.AddGraphicVM(g);
             }
-                
         }
 
         private void DeactivateGraphicDephinitionFields()

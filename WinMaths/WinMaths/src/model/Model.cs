@@ -109,16 +109,35 @@ namespace WinMaths.src.model
 
         public bool ImportList(List<Graphic> gImported)
         {
+            Boolean imported = true;
             if (gImported != null)
             {
                 foreach (Graphic g in gImported){
-                    if (g == null)
+
+                    if (g == null) {
                         return false;
+                    } else if (listOfGraphics.Contains(g) || true == IsGraphicNameRepeated(g.Name)) {
+                        imported = false;
+                        continue;
+                    }
+                        
                     g.ID = GetActualGraphicId();
                     listOfGraphics.Add(g);
                 }
 
-                return true;
+                return imported;
+            }
+
+            return false;
+        }
+
+        public bool IsGraphicNameRepeated(string name)
+        {
+            foreach (Graphic g in listOfGraphics)
+            {
+                Console.WriteLine("{0} - {1}",name,g.Name);
+                if (name.Equals(g.Name))
+                    return true;
             }
 
             return false;

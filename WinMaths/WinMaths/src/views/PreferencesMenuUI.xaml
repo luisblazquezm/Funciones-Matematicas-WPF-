@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="PreferencesMenuUI" Height="500" Width="780" ResizeMode="NoResize" Foreground="White" WindowStyle="None" MouseLeftButtonDown="Panel_MouseLeftButtonDown">
     
+    <!-- Animaciones de la barra lateral izquierda desplegable -->
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -34,14 +35,14 @@
 
     <Grid Background="LightGray">
 
-        <!-- Top Barr Grid-->
+        <!-- Barra Superior Grid-->
         <Grid Height="60" VerticalAlignment="Top" Background="#FF2045A8">
             <TextBlock Text="Preferencias" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" />
         </Grid>
 
         <Frame x:Name="PreferencesMenu" Margin="65,60,0,0" />
 
-        <!-- Left Barr Grid -->
+        <!-- Barra Lateral Izquierda Grid -->
         <Grid x:Name="GridMenu"  Width="60" HorizontalAlignment="Left" Background="#FF1D2A64">
             <StackPanel>
                 <Grid Height="150" Background="White">

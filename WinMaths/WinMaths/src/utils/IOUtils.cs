@@ -51,10 +51,17 @@ namespace WinMaths.src.utils
 
         public List<T> ReadFromFile<T>(string filePath)
         {
-            using (Stream stream = File.Open(filePath, FileMode.Open))
+            try
             {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                return (List<T>)binaryFormatter.Deserialize(stream);
+                using (Stream stream = File.Open(filePath, FileMode.Open))
+                {
+                    var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                    return (List<T>)binaryFormatter.Deserialize(stream);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 

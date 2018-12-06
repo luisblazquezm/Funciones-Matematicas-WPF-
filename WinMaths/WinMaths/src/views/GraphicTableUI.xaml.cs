@@ -96,12 +96,17 @@ namespace WinMaths.src.views
 
             Graphic graphModified = modificationsWindow.GraphicToModify;
 
-            if (graphModified != null)
-            {
-                graphModified.ID = idOldGraphic;
-                bool resultUpdate = viewModel.UpdateGraphicVM(graphModified, oldGraph);
+            if (true == viewModel.IsGraphicNameRepeated(graphModified.Name)) {
+                MessageBox.Show("Por favor, vuelva a intentarlo e introduzca otro nombre para la gráfica", "Error: Nombre de gráfica repetido", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            } else {
+                if (graphModified != null)
+                {
+                    graphModified.ID = idOldGraphic;
+                    bool resultUpdate = viewModel.UpdateGraphicVM(graphModified, oldGraph);
+                }
             }
- 
+
         }
 
         private void DeleteGraphicButton_Click(object sender, RoutedEventArgs e)
@@ -172,7 +177,17 @@ namespace WinMaths.src.views
             if (result == true)
             {
                 List<Graphic> g = ioUtils.ReadFromFile<Graphic>(dlg.FileName);
-                bool ja = viewModel.ImportListVM(g);
+                if (g == null) {
+                    MessageBox.Show("Por favor, compruebe la validez de los ficheros importados", "Error: Excepción ocurrida en la importación de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                bool imported = viewModel.ImportListVM(g);
+                if (imported == false)
+                {
+                    MessageBox.Show("Se han detectado una o varias graficas importadas ya repetidas en la tabla y se han desechado. Por favor, importe graficas no incluidas en la tabla", "Error: Repetición de graficas importadas", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
         }
 

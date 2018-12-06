@@ -137,6 +137,11 @@ namespace WinMaths.src.viewModels
             }
         }
 
+        public bool IsGraphicNameRepeated(string name)
+        {
+            return model.IsGraphicNameRepeated(name);
+        }
+
         /* ========================= PROPERTY EVENT NOTIFICATION METHODS ========================= */
 
         protected virtual void OnDrawGraphic(List<Graphic> g)
