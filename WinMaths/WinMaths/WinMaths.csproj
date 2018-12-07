@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>WinMaths.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>WiNM.ico</ApplicationIcon>
