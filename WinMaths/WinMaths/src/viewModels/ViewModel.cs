@@ -27,7 +27,25 @@ namespace WinMaths.src.viewModels
         }
     }
 
+    public class GraphicEventArgs : EventArgs
+    {
+        /* Elementos que contendran los EventArgs */
+        public Graphic graph { get; set; }
+
+        // Constructor vacío
+        public GraphicEventArgs()
+        {
+            this.graph = null;
+        }
+
+        public GraphicEventArgs(Graphic graphic)
+        {
+            this.graph = graphic;
+        }
+    }
+
     public delegate void ViewModelEventHandler(object sender, ViewModelEventArgs e);
+    public delegate void GraphicEventHandler(object sender, GraphicEventArgs e);
 
     public struct FuncRect
     {
@@ -45,7 +63,7 @@ namespace WinMaths.src.viewModels
         /* Eventos de Cambio en la Propiedad */
         public event ViewModelEventHandler GraphicSetToDraw;
         public event ViewModelEventHandler GraphicDeleted;
-        public event ViewModelEventHandler GraphicUpdated;
+        public event GraphicEventHandler GraphicUpdated;
         public event ViewModelEventHandler ModelCleared;
         public event ViewModelEventHandler GraphicRepresentationUpdated;
 
@@ -64,23 +82,22 @@ namespace WinMaths.src.viewModels
         public int AddGraphicVM(Graphic g)
         {
             int creationResult = model.AddGraphic(g);
+            g.PropertyChanged += PropertyChanged;
             return creationResult;
         }
 
         public bool UpdateGraphicVM(Graphic gModified, Graphic oldGraphic)
         {
             bool updateResult = model.UpdateGraphic(gModified);
-            List<Graphic> listOfG = null;
             if (updateResult) {
-                listOfG = new List<Graphic>();
+                List<Graphic> g = new List<Graphic>
+                {
+                    oldGraphic
+                };
+                OnGraphicDeleted(g);
 
-                listOfG.Add(oldGraphic);
-                OnGraphicDeleted(listOfG);
-
-                listOfG.Clear();
-
-                listOfG.Add(gModified);
-                OnGraphicUpdated(listOfG);
+                gModified.PropertyChanged += PropertyChanged;
+                OnGraphicUpdated(gModified);
             }
             
             return updateResult;
@@ -156,10 +173,10 @@ namespace WinMaths.src.viewModels
                 GraphicDeleted(this, new ViewModelEventArgs(g));
         }
 
-        protected virtual void OnGraphicUpdated(List<Graphic> g)
+        protected virtual void OnGraphicUpdated(Graphic g)
         {
             if (GraphicUpdated != null)
-                GraphicUpdated(this, new ViewModelEventArgs(g));
+                GraphicUpdated(this, new GraphicEventArgs(g));
         }
 
         protected virtual void ForceModelUpdated()
@@ -172,6 +189,11 @@ namespace WinMaths.src.viewModels
         {
             if (GraphicRepresentationUpdated != null)
                 GraphicRepresentationUpdated(this, new ViewModelEventArgs());
+        }
+
+        protected virtual void PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnGraphicUpdated((Graphic)sender);
         }
     }
 

@@ -96,7 +96,7 @@ namespace WinMaths.src.views
 
             Graphic graphModified = modificationsWindow.GraphicToModify;
 
-            if (true == viewModel.IsGraphicNameRepeated(graphModified.Name)) {
+            if (true == viewModel.IsGraphicNameRepeated(graphModified.Name) && !graphModified.Name.Equals(oldGraph.Name)) {
                 MessageBox.Show("Por favor, vuelva a intentarlo e introduzca otro nombre para la gráfica", "Error: Nombre de gráfica repetido", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             } else {
