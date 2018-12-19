@@ -98,3 +98,101 @@ C:\Users\Luis\Desktop\WinMaths\WinMaths\obj\Debug\WinMaths.exe
 C:\Users\Luis\Desktop\WinMaths\WinMaths\obj\Debug\WinMaths.pdb
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.g.cs
 C:\Users\Luis\Documents\GitHub\Funciones-Matematicas-WPF-\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\WinMaths.exe.config
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\WinMaths.exe
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\WinMaths.pdb
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\MaterialDesignColors.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.csprojResolveAssemblyReference.cache
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\MainWindow.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\GraphicDephinitionUI.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\GraphicTableUI.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\MainWindow.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\ModificationsWindow.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\PreferencesMenuUI.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\App.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths_MarkupCompile.cache
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths_MarkupCompile.lref
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\App.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\PlaceHolderTextBoxDictionary.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\GraphicDephinitionUI.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\GraphicTableUI.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\ModificationsWindow.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\PreferencesMenuUI.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.baml
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.g.resources
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.Properties.Resources.resources
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.GenerateResource.cache
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.CoreCompileInputs.cache
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.CopyComplete
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.exe
+C:\Users\Luis\Desktop\Copia WINMATHS\Pepe\WinMaths\WinMaths\obj\Debug\WinMaths.pdb
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\WinMaths.exe.config
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\WinMaths.exe
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\WinMaths.pdb
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\MaterialDesignColors.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.DataGrid.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\Xceed.Wpf.Toolkit.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.csprojResolveAssemblyReference.cache
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\MainWindow.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\GraphicDephinitionUI.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\GraphicTableUI.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\MainWindow.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\ModificationsWindow.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\PreferencesMenuUI.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\App.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths_MarkupCompile.cache
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths_MarkupCompile.lref
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\App.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\PlaceHolderTextBoxDictionary.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\GraphicDephinitionUI.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\GraphicTableUI.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\ModificationsWindow.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\PreferencesMenuUI.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\src\views\RepresentationLimitsWindow.baml
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.g.resources
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.Properties.Resources.resources
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.GenerateResource.cache
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.CoreCompileInputs.cache
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.csproj.CopyComplete
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.exe
+C:\Users\Luis\Desktop\TrabajoWinMaths\WinMaths\WinMaths\obj\Debug\WinMaths.pdb

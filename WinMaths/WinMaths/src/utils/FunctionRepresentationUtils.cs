@@ -46,7 +46,7 @@ namespace WinMaths.src.utils
 
         public List<Line> DrawAxisLines(FuncRect screen, FuncRect real, double actualPos, double maxLimit, double distancia, Boolean axisHorizontal)
         {
-            int counter = 6;
+            int counter = 3;
             List<Line> listOflines = new List<Line>();
             Line line = new Line { Stroke = Brushes.Black };
             double length1, length2;
@@ -54,7 +54,7 @@ namespace WinMaths.src.utils
             while (actualPos < maxLimit)
             {
                 // Altura de la raya de -0.5 a 0.5
-                if (counter == 6)
+                if (counter == 3)
                 {
                     length1 = -0.5;
                     length2 = 0.5;
@@ -93,6 +93,8 @@ namespace WinMaths.src.utils
 
         public TextBlock DrawNumberInLines(Line l, int numBlock, Boolean axisHorizontal)
         {
+            int lineSeparation = 10;
+
             TextBlock textB = new TextBlock
             {
                 Text = Convert.ToString(numBlock)
@@ -102,8 +104,8 @@ namespace WinMaths.src.utils
                 Canvas.SetLeft(textB, l.X1);
                 Canvas.SetTop(textB, l.Y1);
             } else {
-                Canvas.SetLeft(textB, l.X2);
-                Canvas.SetTop(textB, l.Y1+45);
+                Canvas.SetLeft(textB, l.X2 + lineSeparation);
+                Canvas.SetTop(textB, l.Y1 + lineSeparation);
             }
 
             return textB;

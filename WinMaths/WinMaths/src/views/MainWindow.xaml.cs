@@ -1,23 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using WinMaths.src.views;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WinMaths.src.bean;
 using WinMaths.src.viewModels;
 using WinMaths.src.utils;
-using System.IO;
-using WinMaths.src.bean.function;
 
 namespace WinMaths
 {
@@ -128,7 +120,6 @@ namespace WinMaths
                         };
                         listOfLines.Add(line);
                     }
-                    Console.WriteLine("Añadida grafica {0}", g.Name);
                     graphicRepresentationDictionary.Add(g, listOfLines);
 
                     foreach (Polyline line in listOfLines)
@@ -249,8 +240,8 @@ namespace WinMaths
             Boolean ejeHorizontal = true;
             Boolean ejeVertical = false;
             double distancia = 0.333; //0.333
-            int numBlock = -6;
-            int count = 5;
+            int numBlock = -11;
+            int count = 2;
             double limitX = RepresentationCanvas.ActualWidth;
             double limitY = RepresentationCanvas.ActualHeight;
 
@@ -262,25 +253,25 @@ namespace WinMaths
             foreach (Line l in FunctionRepresentationVar.DrawAxisLines(screen, real, real.XMin, real.YMax, distancia, ejeHorizontal)) {
                 RepresentationCanvas.Children.Add(l);
                 ++count;
-                if (count == 6) ++numBlock;
+                if (count == 3) ++numBlock;
                 count = DrawNumberLines(l, numBlock, ejeHorizontal, count);
             }
 
             // Numero por el que empieza desde el límite del canvas
-            numBlock = -6;
+            numBlock = -11;
 
             // Lineas Eje Y
             foreach (Line l in FunctionRepresentationVar.DrawAxisLines(screen, real, real.XMin, real.YMax, distancia, ejeVertical)) {
                 RepresentationCanvas.Children.Add(l);
                 ++count;
-                if (count == 6) ++numBlock;
+                if (count == 3) ++numBlock;
                 count = DrawNumberLines(l, numBlock, ejeVertical, count);
             }
         }
 
         private int DrawNumberLines(Line l, int numBlock, Boolean eje, int count)
         {
-            if (count == 6)
+            if (count == 3)
             {
                 TextBlock tb = FunctionRepresentationVar.DrawNumberInLines(l, numBlock, eje);
                 RepresentationCanvas.Children.Add(tb);
