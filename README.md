@@ -1,11 +1,7 @@
 # funciones-matematicas-WPF
 
 ![Language](https://img.shields.io/badge/language-spanish-red)
-![Keyword1](https://img.shields.io/badge/-security-brightgreen)
-![Keyword2](https://img.shields.io/badge/-pentesting-important)
-![Keyword3](https://img.shields.io/badge/-ddos-blue)
-![Keyword4](https://img.shields.io/badge/-vulnerabilities-blueviolet)
-![Keyword5](https://img.shields.io/badge/-auditory-orange)
+![Main Code](https://img.shields.io/badge/code-c#-blue)
 
 ## Description
 List of security and auditory practices developed through the subject "Seguridad en Sistemas Informáticos" in the Computer Engineering Degree.
