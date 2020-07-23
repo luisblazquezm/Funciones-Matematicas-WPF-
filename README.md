@@ -1,4 +1,4 @@
-# funciones-matematicas-wpf
+# math-functions-wpf
 
 ![Language](https://img.shields.io/badge/language-spanish-red)
 ![Main Code](https://img.shields.io/badge/code-c%23-blue)
